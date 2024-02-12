@@ -4,6 +4,9 @@ import { deltaDays } from '@/utils/math'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { GoLink } from 'react-icons/go'
+import CourseLeaderboard from './CourseLeaderboard'
+import CourseTeachers from './CourseTeachers'
+import CourseFiles from './CourseFiles'
 
 interface CoursePanelProps {
   path: string
@@ -107,7 +110,6 @@ export default function CoursePanel ({ path }: CoursePanelProps) {
                     transition-all
                     duration-200
                   `}
-                  // onClick={onClick}
                 >
                   <GoLink />
                 </span>
@@ -126,6 +128,32 @@ export default function CoursePanel ({ path }: CoursePanelProps) {
               >
                 Creado hace {deltaDays(new Date(course.createdAt))} días
               </span>
+            </div>
+            <div
+              className={`
+                flex
+                flex-row
+                w-full
+              `}
+            >
+              <div
+                className={`
+                  grid
+                  mx-4
+                  h-fit
+                `}
+              >
+                <CourseLeaderboard
+                  subjectId={course.subjectId}
+                />
+                <CourseTeachers
+                  id={course.id}
+                />
+              </div>
+              <CourseFiles
+                course={course.course}
+                subjectId={course.subjectId}
+              />
             </div>
           </div>
         )

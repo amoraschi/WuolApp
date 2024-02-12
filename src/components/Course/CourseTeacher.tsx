@@ -1,16 +1,15 @@
 import Image from 'next/image'
 import { open } from '@tauri-apps/api/shell'
-import { Item } from '@/types/Leaderboard'
-import { roundMoney, roundToThousandsString } from '@/utils/math'
+import { Item } from '@/types/Teachers'
+import { roundToThousandsString } from '@/utils/math'
 
-interface LeaderboardUserProps {
-  user: Item
-  currency: string
+interface CourseTeacherProps {
+  teacher: Item
 }
 
-export default function LeaderboardUser ({ user, currency }: LeaderboardUserProps) {
+export default function CourseTeacher ({ teacher }: CourseTeacherProps) {
   const onClick = () => {
-    open(`https://wuolah.com/profile/${user.user?.nickname ?? ''}`)
+    open(`https://wuolah.com/profile/${teacher.profile.nickname ?? ''}`)
   }
 
   return (
@@ -20,6 +19,7 @@ export default function LeaderboardUser ({ user, currency }: LeaderboardUserProp
         items-center
         cursor-pointer
         rounded-md
+        w-fit
         p-2
         hover:bg-gray-100
         hover:shadow-md
@@ -29,7 +29,7 @@ export default function LeaderboardUser ({ user, currency }: LeaderboardUserProp
       onClick={onClick}
     >
       <Image
-        src={user.user?.avatarUrl ?? '/wuolapp_square.png'}
+        src={teacher.profile.avatarUrl ?? '/wuolapp_square.png'}
         alt='User avatar'
         width={8}
         height={8}
@@ -38,10 +38,9 @@ export default function LeaderboardUser ({ user, currency }: LeaderboardUserProp
           h-8
           rounded-full
           object-cover
+          border-2
+          border-transparent
         `}
-        style={{
-          border: user.rank === 1 ? '2px solid #FFD700' : user.rank === 2 ? '2px solid #C0C0C0' : user.rank === 3 ? '2px solid #CD7F32' : '2px solid transparent' 
-        }}
       />
       <div
         className={`
@@ -57,7 +56,7 @@ export default function LeaderboardUser ({ user, currency }: LeaderboardUserProp
             font-semibold
           `}
         >
-          {user.user?.nickname}
+          {teacher.profile.nickname}
         </span>
         <span
           className={`
@@ -66,7 +65,7 @@ export default function LeaderboardUser ({ user, currency }: LeaderboardUserProp
             text-gray-500
           `}
         >
-          {roundToThousandsString(user.value)}{user.user?.displayMoney ? ` - ${roundMoney(user.user?.totalMoney ?? 0)}${currency}` : ''}
+          {roundToThousandsString(teacher.profile.popularity)}
         </span>
       </div>
     </div>

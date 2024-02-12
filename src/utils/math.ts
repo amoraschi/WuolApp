@@ -10,7 +10,19 @@ export function moneyString (selfData: WuolahUser, value: number) {
 }
 
 export function roundToThousands (value: number) {
+  if (value < 1000) {
+    return value
+  }
+
   return Math.round(value / 1000 * 10) / 10
+}
+
+export function roundToThousandsString (value: number) {
+  if (value < 1000) {
+    return value
+  }
+
+  return `${roundToThousands(value)}K`
 }
 
 export function deltaDays (date: Date) {

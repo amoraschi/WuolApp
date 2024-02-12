@@ -98,6 +98,7 @@ export default function NewPost ({ post }: NewPostProps) {
             font-semibold
             line-clamp-1
           `}
+          title={post.description}
         >
           {post.description}
         </span>

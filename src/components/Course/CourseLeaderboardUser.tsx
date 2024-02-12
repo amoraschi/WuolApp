@@ -1,14 +1,14 @@
 import Image from 'next/image'
 import { open } from '@tauri-apps/api/shell'
 import { Item } from '@/types/Leaderboard'
-import { roundMoney, roundToThousandsString } from '@/utils/math'
+import { roundToThousandsString } from '@/utils/math'
+import { GoCheckCircleFill } from 'react-icons/go'
 
-interface LeaderboardUserProps {
+interface CourseLeaderboardUserProps {
   user: Item
-  currency: string
 }
 
-export default function LeaderboardUser ({ user, currency }: LeaderboardUserProps) {
+export default function CourseLeaderboardUser ({ user }: CourseLeaderboardUserProps) {
   const onClick = () => {
     open(`https://wuolah.com/profile/${user.user?.nickname ?? ''}`)
   }
@@ -40,7 +40,7 @@ export default function LeaderboardUser ({ user, currency }: LeaderboardUserProp
           object-cover
         `}
         style={{
-          border: user.rank === 1 ? '2px solid #FFD700' : user.rank === 2 ? '2px solid #C0C0C0' : user.rank === 3 ? '2px solid #CD7F32' : '2px solid transparent' 
+          border: user.rank === 1 ? '2px solid #FFD700' : user.rank === 2 ? '2px solid #C0C0C0' : user.rank === 3 ? '2px solid #CD7F32' : '2px solid transparent'
         }}
       />
       <div
@@ -49,16 +49,34 @@ export default function LeaderboardUser ({ user, currency }: LeaderboardUserProp
           flex-col
         `}
       >
-        <span
+        <div
           className={`
-            ml-2
-            text-sm
-            text-black
-            font-semibold
+            flex
+            items-center
           `}
         >
-          {user.user?.nickname}
-        </span>
+          <span
+            className={`
+              ml-2
+              text-sm
+              text-black
+              font-semibold
+            `}
+          >
+            {user.user?.nickname}
+          </span>
+          {
+            user.user.partnerType > 5 && (
+              <GoCheckCircleFill
+                className={`
+                  text-green-500
+                  ml-1
+                `}
+                title='Asociado'
+              />
+            )
+          }
+        </div>
         <span
           className={`
             ml-2
@@ -66,7 +84,7 @@ export default function LeaderboardUser ({ user, currency }: LeaderboardUserProp
             text-gray-500
           `}
         >
-          {roundToThousandsString(user.value)}{user.user?.displayMoney ? ` - ${roundMoney(user.user?.totalMoney ?? 0)}${currency}` : ''}
+          {roundToThousandsString(user.value)}
         </span>
       </div>
     </div>

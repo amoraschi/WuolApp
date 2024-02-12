@@ -4,11 +4,11 @@ import { open } from '@tauri-apps/api/shell'
 import Link from 'next/link'
 import { GoFileDirectory } from 'react-icons/go'
 
-interface CourseTabProps {
+interface CoursesTabProps {
   course: CourseData
 }
 
-export default function CourseTab ({ course }: CourseTabProps) {
+export default function CoursesTab ({ course }: CoursesTabProps) {
   return (
     <Link
       className={`

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Courses } from '@/types/Courses'
 import { fetchCourses } from '@/utils/data'
-import CourseTab from './CourseTab'
+import CoursesTab from './CoursesTab'
 
 const tildeRegex = /[\u0300-\u036f]/g
 
@@ -31,7 +31,7 @@ export default function CoursesPanel () {
         return
       }
 
-      const res = await fetchCourses('9999', abortController.signal)
+      const res = await fetchCourses('250', abortController.signal)
       if (res == null) {
         return
       }
@@ -82,14 +82,14 @@ export default function CoursesPanel () {
         ) : (
           searchResults == null ? (
             courses.data.map((course) => (
-              <CourseTab
+              <CoursesTab
                 key={course.id}
                 course={course}
               />
             ))
           ) : (
             searchResults.data.map((course) => (
-              <CourseTab
+              <CoursesTab
                 key={course.id}
                 course={course}
               />

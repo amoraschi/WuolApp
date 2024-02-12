@@ -58,11 +58,12 @@ export async function fetchSelfData (signal: AbortSignal): Promise<WuolahUser | 
 
 export async function fetchLeaderboard (pageSize: string, signal: AbortSignal): Promise<Leaderboard | null> {
   const tokens = await getTokens()
-  if (tokens == null) {
+  const selfData = await getSelfData()
+  if (tokens == null || selfData == null) {
     return null
   }
 
-  const res = await fetch(`https://api.wuolah.com/v2/rankings/users?populate[0]=user&pagination[page]=0&pagination[pageSize]=${pageSize}&filter[communityId]=13639&filter[criteria]=community`, {
+  const res = await fetch(`https://api.wuolah.com/v2/rankings/users?populate[0]=user&pagination[page]=0&pagination[pageSize]=${pageSize}&filter[communityId]=${selfData.defaultCommunityId}&filter[criteria]=community`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
@@ -170,6 +171,72 @@ export async function fetchCourses (pageSize: string, signal: AbortSignal): Prom
   })
 
   console.log(res)
+  if (res.status !== 200) {
+    return null
+  }
+
+  return res.json()
+}
+
+export async function fetchCourseLeaderboard (subjectId: string, pageSize: string, signal: AbortSignal) {
+  const tokens = await getTokens()
+  const selfData = await getSelfData()
+  if (tokens == null || selfData == null) {
+    return null
+  }
+
+  const res = await fetch(`https://api.wuolah.com/v2/rankings/users?populate[0]=user&pagination[page]=0&pagination[pageSize]=${pageSize}&filter[communityId]=${selfData.defaultCommunityId}&filter[subjectId]=${subjectId}&filter[criteria]=subject`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${tokens.accessToken}`
+    },
+    signal
+  })
+
+  if (res.status !== 200) {
+    return null
+  }
+
+  return res.json()
+}
+
+export async function fetchCourseTeachers (id: string, pageSize: string, signal: AbortSignal) {
+  const tokens = await getTokens()
+  if (tokens == null) {
+    return null
+  }
+
+  const res = await fetch(`https://api.wuolah.com/v2/live-classrooms/teachers?status=active&pagination[offset]=0&pagination[size]=${pageSize}&communitySubjectId=${id}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${tokens.accessToken}`
+    },
+    signal
+  })
+
+  if (res.status !== 200) {
+    return null
+  }
+
+  return res.json()
+}
+
+export async function fetchCourseFiles (id: string, subjectId: string, pageSize: string, signal: AbortSignal) {
+  const tokens = await getTokens()
+  const selfData = await getSelfData()
+  if (tokens == null || selfData == null) {
+    return null
+  }
+
+  console.log(id, subjectId, selfData.defaultCommunityId, pageSize)
+  const res = await fetch(`https://api.wuolah.com/v2/search/subjects/${subjectId}/artifacts?communityId=${selfData.defaultCommunityId}&course=${id}&sort=recently&populate[0]=profile&pagination[size]=${pageSize}&pagination[offset]=0`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${tokens.accessToken}`
+    },
+    signal
+  })
+
   if (res.status !== 200) {
     return null
   }

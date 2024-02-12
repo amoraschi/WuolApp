@@ -25,7 +25,7 @@ export default function SidebarTab ({ name, href, icon }: SidebarTabProps) {
         duration-300
       `}
       style={{
-        borderRight: pathname === href ? '4px solid #1d4ed8' : 'none'
+        borderRight: pathname.includes(href) ? '4px solid #1d4ed8' : 'none'
       }}
       href={href}
     >
@@ -34,7 +34,7 @@ export default function SidebarTab ({ name, href, icon }: SidebarTabProps) {
           text-2xl
         `}
         style={{
-          color: pathname === href ? '#1d4ed8' : '#aaaaaa'
+          color: pathname.includes(href) ? '#1d4ed8' : '#aaaaaa'
         }}
       >
         {icon}
@@ -45,7 +45,7 @@ export default function SidebarTab ({ name, href, icon }: SidebarTabProps) {
           w-fit
         `}
         style={{
-          color: pathname === href ? '#1d4ed8' : '#aaaaaa'
+          color: pathname.includes(href) ? '#1d4ed8' : '#aaaaaa'
         }}
       >
         {name}
