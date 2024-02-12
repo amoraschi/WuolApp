@@ -1,5 +1,5 @@
 import { fetchSelfData } from '@/utils/data'
-import CoursePanel from '../Courses/CoursePanel'
+import CoursePanel from '../Course/CoursePanel'
 import Sidebar from '../Sidebar/Sidebar'
 import { useEffect, useState } from 'react'
 import { WuolahUser } from '@/types/WuolahUser'
