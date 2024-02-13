@@ -16,46 +16,63 @@ export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
   const [courseFiles, setCourseFiles] = useState<Files | null>(null)
   const [searchResults, setSearchResults] = useState<Files | null>(null)
 
+  let searchTimeout: NodeJS.Timeout | null = null
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (courseFiles == null) {
-      return
-    }
-
     const input = e.target.value.toLowerCase().normalize('NFD').replace(tildeRegex, '')
-    const results = courseFiles.items.filter((file) => file.title.normalize('NFD').replace(tildeRegex, '').toLowerCase().includes(input))
-    setSearchResults({
-      ...courseFiles,
-      items: results
-    })
-  }
 
-
-  useEffect(() => {
-    const abortController = new AbortController()
-    const getCourseFiles = async () => {
-      const storedCourseFiles = localStorage.getItem(`files-${subjectId}`)
-      if (storedCourseFiles != null) {
-        console.log(JSON.parse(storedCourseFiles))
-        setCourseFiles(JSON.parse(storedCourseFiles))
-        return
-      }
-
-      const res = await fetchCourseFiles(`${course}`, `${subjectId}`, '20', abortController.signal)
+    const searchInput = async () => {
+      console.log('Searching...')
+      const abortController = new AbortController()
+      const res = await fetchCourseFiles(`${course}`, `${subjectId}`, input, '20', abortController.signal)
+      console.log('Searched!')
       if (res == null) {
         return
       }
 
       console.log(res)
-      localStorage.setItem(`files-${subjectId}`, JSON.stringify(res))
-      setCourseFiles(res)
+      // const results = courseFiles.items.filter((file) => file.title.normalize('NFD').replace(tildeRegex, '').toLowerCase().includes(input))
+      setSearchResults(res)
     }
 
-    getCourseFiles()
-
-    return () => {
-      abortController.abort()
+    if (searchTimeout != null) {
+      clearTimeout(searchTimeout)
     }
-  }, [])
+    
+    if (input === '') {
+      setSearchResults(null)
+      return
+    }
+
+    searchTimeout = setTimeout(searchInput, 1000)
+  }
+
+
+  // useEffect(() => {
+  //   const abortController = new AbortController()
+  //   const getCourseFiles = async () => {
+  //     const storedCourseFiles = localStorage.getItem(`files-${subjectId}`)
+  //     if (storedCourseFiles != null) {
+  //       console.log(JSON.parse(storedCourseFiles))
+  //       setCourseFiles(JSON.parse(storedCourseFiles))
+  //       return
+  //     }
+
+  //     const res = await fetchCourseFiles(`${course}`, `${subjectId}`, null, '20', abortController.signal)
+  //     if (res == null) {
+  //       return
+  //     }
+
+  //     console.log(res)
+  //     localStorage.setItem(`files-${subjectId}`, JSON.stringify(res))
+  //     setCourseFiles(res)
+  //   }
+
+  //   getCourseFiles()
+
+  //   return () => {
+  //     abortController.abort()
+  //   }
+  // }, [])
 
   return (
     <div
@@ -92,7 +109,7 @@ export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
         `}
         onChange={onChange}
       />
-      {
+      {/* {
         courseFiles == null ? (
           <div
             className={`
@@ -122,6 +139,57 @@ export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
                     file={file}
                   />
                 ))
+              ) : (
+                searchResults.items.map((file, index) => (
+                  <CourseFile
+                    key={index}
+                    file={file}
+                  />
+                ))
+              )
+            }
+          </div>
+        )
+      } */}
+      {
+        searchResults == null ? (
+          <div
+            className={`
+              m-2
+            `}
+          >
+            {/* <AiOutlineLoading
+              className={`
+                animate-spin
+                text-4xl
+                text-blue-700
+              `}
+            /> */}
+            <span
+              className={`
+                text-gray-500
+              `}
+            >
+              Escribe algo para buscar
+            </span>
+          </div>
+        ) : (
+          <div
+            className={`
+              grid
+              gap-2
+            `}
+          >
+            {
+              searchResults.items.length === 0 ? (
+                <span
+                  className={`
+                    text-gray-500
+                    m-2
+                  `}
+                >
+                  No se encontraron resultados
+                </span>
               ) : (
                 searchResults.items.map((file, index) => (
                   <CourseFile

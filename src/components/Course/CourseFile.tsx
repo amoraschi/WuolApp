@@ -110,16 +110,24 @@ export default function CourseFile ({ file }: CourseFilesProps) {
             text-gray-500
           `}
         >
-          <GoDownload />
+          <GoDownload
+            title='Número de descargas'
+          />
           {file.stats.numDownloads ?? 0}
           &nbsp;
-          <GoCreditCard />
+          <GoCreditCard
+            title='Número de descargas financiadas'
+          />
           {file.stats.numPaidDownloads ?? 0}
           &nbsp;
-          <GoEye />
+          <GoEye
+            title='Número de visualizaciones'
+          />
           {file.stats.numViews ?? 0}
           &nbsp;
-          <GoBookmark />
+          <GoBookmark
+            title='Número de guardados'
+          />
           {file.stats.numBookmarks ?? 0}
         </div>
       </div>

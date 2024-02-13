@@ -221,7 +221,7 @@ export async function fetchCourseTeachers (id: string, pageSize: string, signal:
   return res.json()
 }
 
-export async function fetchCourseFiles (id: string, subjectId: string, pageSize: string, signal: AbortSignal) {
+export async function fetchCourseFiles (id: string, subjectId: string, searchText: string | null, pageSize: string, signal: AbortSignal) {
   const tokens = await getTokens()
   const selfData = await getSelfData()
   if (tokens == null || selfData == null) {
@@ -229,7 +229,7 @@ export async function fetchCourseFiles (id: string, subjectId: string, pageSize:
   }
 
   console.log(id, subjectId, selfData.defaultCommunityId, pageSize)
-  const res = await fetch(`https://api.wuolah.com/v2/search/subjects/${subjectId}/artifacts?communityId=${selfData.defaultCommunityId}&course=${id}&sort=recently&populate[0]=profile&pagination[size]=${pageSize}&pagination[offset]=0`, {
+  const res = await fetch(`https://api.wuolah.com/v2/search/subjects/${subjectId}/artifacts?communityId=${selfData.defaultCommunityId}&course=${id}&sort=recently&populate[0]=profile&pagination[size]=${pageSize}&pagination[offset]=0${searchText != null ? `&searchText=${searchText}` : ''}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
