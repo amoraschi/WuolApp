@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react'
 import { WuolahUser } from '@/types/WuolahUser'
 
 interface CourseProps {
-  path: string
+  id: string
 }
 
-export default function Course ({ path }: CourseProps) {
+export default function Course ({ id }: CourseProps) {
   const [selfData, setSelfData] = useState<WuolahUser | null>(null)
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function Course ({ path }: CourseProps) {
       `}
     >
       <CoursePanel
-        path={path}
+        id={id}
       />
       <Sidebar
         user={selfData}

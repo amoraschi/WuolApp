@@ -9,10 +9,10 @@ import CourseTeachers from './CourseTeachers'
 import CourseFiles from './CourseFiles'
 
 interface CoursePanelProps {
-  path: string
+  id: string
 }
 
-export default function CoursePanel ({ path }: CoursePanelProps) {
+export default function CoursePanel ({ id }: CoursePanelProps) {
   const [course, setCourse] = useState<CourseData | null>(null)
 
   useEffect(() => {
@@ -23,8 +23,8 @@ export default function CoursePanel ({ path }: CoursePanelProps) {
         const courses = JSON.parse(storedCourses)
         console.log(courses.data.length)
         const course = courses.data.find((course: CourseData) => {
-          console.log(`/courses/${course.id}`, path)
-          return `/courses/${course.id}` === path
+          console.log(course.id, id)
+          return course.id === parseInt(id)
         })
         setCourse(course)
         return
@@ -36,7 +36,7 @@ export default function CoursePanel ({ path }: CoursePanelProps) {
       }
 
       localStorage.setItem('courses', JSON.stringify(res))
-      const course = res.data.find((course: CourseData) => `/courses/${course.id}` === path)
+      const course = res.data.find((course: CourseData) => course.id === parseInt(id))
       setCourse(course != null ? course : null)
     }
 

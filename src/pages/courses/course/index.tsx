@@ -2,12 +2,11 @@ import Course from '@/components/Page/Course'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import { WuolahUser } from '@/types/WuolahUser'
 import { fetchSelfData } from '@/utils/data'
-import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 export default function CoursePage () {
   const [selfData, setSelfData] = useState<WuolahUser | null>(null)
-  const pathname = usePathname()
+  const [id, setId] = useState<string | null>(null)
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -29,6 +28,13 @@ export default function CoursePage () {
 
     getSelfData()
 
+    const storedId = localStorage.getItem('selected')
+    console.log('Loading', storedId)
+    if (storedId != null) {
+      setId(storedId)
+      console.log(storedId)
+    }
+
     return () => {
       abortController.abort()
     }
@@ -42,9 +48,15 @@ export default function CoursePage () {
         bg-white
       `}
     >
-      <Course
-        path={pathname}
-      />
+      {
+        id == null ? (
+          <></>
+        ) : (
+          <Course
+            id={id}
+          />
+        )
+      }
       <Sidebar
         user={selfData}
       />

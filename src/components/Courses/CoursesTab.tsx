@@ -2,6 +2,7 @@ import { CourseData } from '@/types/Courses'
 import { deltaDays } from '@/utils/math'
 import { open } from '@tauri-apps/api/shell'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { GoFileDirectory } from 'react-icons/go'
 
 interface CoursesTabProps {
@@ -9,8 +10,16 @@ interface CoursesTabProps {
 }
 
 export default function CoursesTab ({ course }: CoursesTabProps) {
+  const router = useRouter()
+
+  const onClick = () => {
+    localStorage.setItem('selected', `${course.id}`)
+    console.log('selected', localStorage.getItem('selected'))
+    router.replace(`/courses/course`)
+  }
+
   return (
-    <Link
+    <div
       className={`
         flex
         items-center
@@ -24,7 +33,7 @@ export default function CoursesTab ({ course }: CoursesTabProps) {
         transition-all
         duration-200
       `}
-      href={`/courses/${course.id}`}
+      onClick={onClick}
     >
       <span
         className={`
@@ -92,6 +101,6 @@ export default function CoursesTab ({ course }: CoursesTabProps) {
           </span>
         </div>
       </div>
-    </Link>
+    </div>
   )
 }

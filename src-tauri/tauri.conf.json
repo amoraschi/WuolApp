@@ -57,7 +57,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.amoraschi.wuolapp",
+      "identifier": "com.wuol.wuolapp",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
