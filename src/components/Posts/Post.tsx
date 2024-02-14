@@ -6,7 +6,6 @@ import { useState } from 'react'
 import { GoComment, GoCommentDiscussion, GoDownload, GoFileSymlinkFile } from 'react-icons/go'
 import { File } from '@/types/Files'
 import { downloadBinaryFile, fetchFile, fetchFileData } from '@/utils/data'
-import { AiOutlineLoading } from 'react-icons/ai'
 import { dateString } from '@/utils/math'
 import SmallTextBox from '../Text/SmallTextBox'
 import UserImage from '../User/UserImage'
@@ -68,7 +67,7 @@ export default function Post ({ post }: PostProps) {
       return
     }
 
-    message('Archivo descargado con éxito.', { title: 'WuolApp', type: 'info' })
+    message(`${fileData.name} ha sido descargado con éxito.`, { title: 'WuolApp', type: 'info' })
     setDownloadingNow(false)
   }
 

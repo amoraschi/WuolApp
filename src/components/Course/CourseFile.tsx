@@ -61,31 +61,21 @@ export default function CourseFile ({ file }: CourseFilesProps) {
         />
         {
           file.teacher != null && file.teacher !== '' && (
-            <div
-              className={`
-                flex
-                items-center
-                text-sm
-                text-gray-500
-                gap-1
-              `}
-            >
-              <GoTag />
-              {file.teacher}
-            </div>
+            <>
+              <SmallTextBox
+                content={<GoTag />}
+                noBackground
+              />
+              <SmallTextBox
+                content={file.teacher}
+                noBackground
+              />
+            </>
           )
         }
-        <span
-          className={`
-            text-sm
-            text-gray-500
-            bg-gray-200
-            rounded-sm
-            px-1
-          `}
-        >
-          {dateString(new Date(file.createdAt))}
-        </span>
+        <SmallTextBox
+          content={dateString(new Date(file.createdAt))}
+        />
         <div
           className={`
             flex

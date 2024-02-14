@@ -1,5 +1,5 @@
 interface MediumTextProps {
-  content: string
+  content: string | number | JSX.Element
   black?: boolean
   clamp?: number
 }

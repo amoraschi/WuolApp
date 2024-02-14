@@ -1,11 +1,14 @@
-import { fetchCourses } from '@/utils/data'
-import { deltaDays } from '@/utils/math'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { GoLink } from 'react-icons/go'
+import { open } from '@tauri-apps/api/shell'
+import { Course } from '@/types/Courses'
+import { fetchCourses } from '@/utils/data'
+import { deltaDays } from '@/utils/math'
 import CourseFiles from '../Course/CourseFiles'
 import UserList from '../User/UserList'
-import { Course } from '@/types/Courses'
+import SmallTextBox from '../Text/SmallTextBox'
+import LargeText from '../Text/LargeText'
+import LinkIcon from '../Icons/LinkIcon'
 
 interface CourseProps {
   id: string
@@ -14,11 +17,16 @@ interface CourseProps {
 export default function Course ({ id }: CourseProps) {
   const [course, setCourse] = useState<Course | null>(null)
 
+  const onClick = () => {
+    open(`https://wuolah.com/apuntes/${course?.subject?.slug ?? ''}`)
+  }
+
   useEffect(() => {
     const storedCourses = localStorage.getItem('courses')
     if (storedCourses != null) {
       const courses = JSON.parse(storedCourses)
       const course = courses.data.find((course: Course) => course.id === parseInt(id))
+      console.log(course)
       setCourse(course)
       return
     }
@@ -60,10 +68,10 @@ export default function Course ({ id }: CourseProps) {
         href='/courses'
         className={`
           text-blue-500
-          m-4
+          mx-8
+          my-4
           w-fit
           hover:underline
-
         `}
       >
         Volver
@@ -84,60 +92,44 @@ export default function Course ({ id }: CourseProps) {
                   flex
                   justify-between
                   items-center
-                  px-4
+                  px-8
                 `}
               >
-                <span
-                  className={`
-                    text-2xl
-                    text-black
-                    font-semibold
-                  `}
-                >
-                  {course.subject.name}
-                </span>
-                <span
-                  className={`
-                    text-sm
-                    text-gray-500
-                    cursor-pointer
-                    hover:text-black
-                    hover:scale-110
-                    transition-all
-                    duration-200
-                  `}
-                >
-                  <GoLink />
-                </span>
+                <LargeText
+                  content={course.subject.name}
+                />
+                <LinkIcon
+                  onClick={onClick}
+                />
               </div>
-              <span
+              <div
                 className={`
-                  text-sm
-                  text-gray-500
-                  bg-gray-200
-                  rounded-sm
                   w-fit
-                  px-1
-                  mx-4
+                  mx-8
                   my-1
                 `}
               >
-                Creado hace {deltaDays(new Date(course.createdAt))} días
-              </span>
+                <SmallTextBox
+                  content={`Creado hace ${deltaDays(new Date(course.createdAt))} días`}
+                />
+              </div>
             </div>
             <div
               className={`
                 flex
                 flex-row
                 w-full
+                gap-4
+                px-8
+                py-2
               `}
             >
               <div
                 className={`
-                  grid
-                  m-4
-                  gap-4
+                  hidden
+                  lg:grid
                   h-fit
+                  gap-4
                 `}
               >
                 <UserList

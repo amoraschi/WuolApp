@@ -4,6 +4,7 @@ import { fetchCourseFiles } from '@/utils/data'
 import CourseFile from './CourseFile'
 import { AiOutlineLoading } from 'react-icons/ai'
 import MediumText from '../Text/MediumText'
+import LoadingIcon from '../Icons/LoadingIcon'
 
 interface CourseFilesProps {
   course: number
@@ -124,8 +125,6 @@ export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
         flex
         flex-grow
         flex-col
-        my-4
-        mx-2
       `}
     >
       <MediumText
@@ -191,13 +190,7 @@ export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
       } */}
       {
         searching ? (
-          <AiOutlineLoading
-            className={`
-              animate-spin
-              text-4xl
-              text-blue-700
-            `}
-          />
+          <LoadingIcon />
         ) : (
           searchResults == null ? (
             <div

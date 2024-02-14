@@ -1,5 +1,5 @@
 interface SmallTextBoxProps {
-  content: string
+  content: string | number | JSX.Element
   noBackground?: boolean
 }
 
@@ -7,6 +7,8 @@ export default function SmallTextBox ({ content, noBackground }: SmallTextBoxPro
   return (
     <span
       className={`
+        hidden
+        md:block
         text-sm
         text-gray-500
         rounded-sm

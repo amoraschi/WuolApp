@@ -5,6 +5,7 @@ import { User } from '@/types/User'
 import PostList from '../Posts/PostList'
 import UserList from '../User/UserList'
 import UserProfile from '../UserProfile/UserProfile'
+import LinkIcon from '../Icons/LinkIcon'
 
 interface DashboardProps {
   user: User
@@ -54,9 +55,8 @@ export default function Dashboard ({ user }: DashboardProps) {
               className={`
                 flex
                 justify-between
-                items-center
-                pt-4
-                px-8
+                mt-4
+                mx-8
               `}
             >
               <span
@@ -64,33 +64,19 @@ export default function Dashboard ({ user }: DashboardProps) {
                   text-2xl
                   text-black
                   font-bold
-                  line-clamp-1
                 `}
               >
                 {user.defaultCommunity?.community?.segmentations?.study?.item?.name ?? 'No hay grado seleccionada'}
               </span>
-              <span
-                className={`
-                  text-sm
-                  text-gray-500
-                  cursor-pointer
-                  hover:text-black
-                  hover:scale-110
-                  transition-all
-                  duration-200
-                `}
+              <LinkIcon
                 onClick={onClick}
-              >
-                <GoLink />
-              </span>
+              />
             </div>
             <span
               className={`
                 text-sm
                 text-gray-500
-                px-8
-                pb-4
-                line-clamp-1
+                mx-8
               `}
             >
               {user.defaultCommunity?.community?.segmentations?.university?.item?.name ?? 'No hay universidad seleccionada'} - {user.defaultCommunity?.community?.segmentations?.center?.item?.name ?? 'No hay centro seleccionado'}
@@ -98,7 +84,8 @@ export default function Dashboard ({ user }: DashboardProps) {
             <div
               className={`
                 grid
-                grid-cols-3
+                grid-cols-1
+                xl:grid-cols-3
                 mx-8
                 my-4
                 gap-4
