@@ -1,5 +1,5 @@
 import { GoHome, GoMortarBoard } from 'react-icons/go'
-import { WuolahUser } from '@/types/WuolahUser'
+import { WuolahUser } from '@/types/User'
 import { useEffect, useState } from 'react'
 import ProfileBox from './ProfileBox'
 import SidebarTab from './SidebarTab'

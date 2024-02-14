@@ -1,16 +1,18 @@
-import Image from 'next/image'
+import { Profile } from '@/types/Teachers'
+import { WuolahUser } from '@/types/User'
+import { localeMoney, roundToThousandsString } from '@/utils/math'
 import { open } from '@tauri-apps/api/shell'
-import { Item } from '@/types/Leaderboard'
-import { roundToThousandsString } from '@/utils/math'
+import Image from 'next/image'
 import { GoCheckCircleFill } from 'react-icons/go'
 
-interface CourseLeaderboardUserProps {
-  user: Item
+interface UserProps {
+  user: WuolahUser | Profile
+  xp: number
 }
 
-export default function CourseLeaderboardUser ({ user }: CourseLeaderboardUserProps) {
+export default function User ({ user, xp }: UserProps) {
   const onClick = () => {
-    open(`https://wuolah.com/profile/${user.user?.nickname ?? ''}`)
+    open(`https://wuolah.com/profile/${user.nickname}`)
   }
 
   return (
@@ -21,6 +23,7 @@ export default function CourseLeaderboardUser ({ user }: CourseLeaderboardUserPr
         cursor-pointer
         rounded-md
         p-2
+        gap-2
         hover:bg-gray-100
         hover:shadow-md
         transition-all
@@ -29,19 +32,16 @@ export default function CourseLeaderboardUser ({ user }: CourseLeaderboardUserPr
       onClick={onClick}
     >
       <Image
-        src={user.user?.avatarUrl ?? '/wuolapp_square.png'}
-        alt='User avatar'
-        width={8}
-        height={8}
+        src={user.avatarUrl}
+        alt='Avatar'
+        width={100}
+        height={100}
         className={`
           w-8
           h-8
           rounded-full
           object-cover
         `}
-        style={{
-          border: user.rank === 1 ? '2px solid #FFD700' : user.rank === 2 ? '2px solid #C0C0C0' : user.rank === 3 ? '2px solid #CD7F32' : '2px solid transparent'
-        }}
       />
       <div
         className={`
@@ -49,24 +49,19 @@ export default function CourseLeaderboardUser ({ user }: CourseLeaderboardUserPr
           flex-col
         `}
       >
-        <div
+        <span
           className={`
             flex
             items-center
+            gap-2
+            text-sm
+            text-black
+            font-semibold
           `}
         >
-          <span
-            className={`
-              ml-2
-              text-sm
-              text-black
-              font-semibold
-            `}
-          >
-            {user.user?.nickname}
-          </span>
+          {user.nickname}
           {
-            user.user.partnerType > 5 && (
+            user.partnerType > 5 && (
               <GoCheckCircleFill
                 className={`
                   text-green-500
@@ -76,15 +71,14 @@ export default function CourseLeaderboardUser ({ user }: CourseLeaderboardUserPr
               />
             )
           }
-        </div>
+        </span>
         <span
           className={`
-            ml-2
             text-xs
             text-gray-500
           `}
         >
-          {roundToThousandsString(user.value)}
+          {roundToThousandsString(xp)} - {localeMoney(user.totalMoney ?? 0)}
         </span>
       </div>
     </div>

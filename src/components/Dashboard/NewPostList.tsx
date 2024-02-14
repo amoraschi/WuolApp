@@ -1,10 +1,10 @@
-import { NewPosts } from '@/types/NewPosts'
+import { Files } from '@/types/Files'
 import { fetchNewPosts } from '@/utils/data'
 import { useEffect, useState } from 'react'
 import NewPost from './NewPost'
 
 export default function NewPostList () {
-  const [newPosts, setNewPosts] = useState<NewPosts | null>(null)
+  const [newPosts, setNewPosts] = useState<Files | null>(null)
 
   useEffect(() => {
     const abortController = new AbortController()

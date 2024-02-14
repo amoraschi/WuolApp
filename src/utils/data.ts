@@ -1,11 +1,11 @@
-import { FileData, UserLogin, UserStats } from '@/utils/constants'
-import { WuolahUser } from '@/types/WuolahUser'
-import { Leaderboard } from '@/types/Leaderboard'
-import { NewPosts } from '@/types/NewPosts'
+import { FileData, UserLogin } from '@/utils/constants'
+import { User, UserStats } from '@/types/User'
+import { Rankings } from '@/types/Rankings'
+import { Files } from '@/types/Files'
 import { Courses } from '@/types/Courses'
 
 let cachedTokens: UserLogin | null
-let cachedSelfData: WuolahUser | null
+let cachedSelfData: User | null
 
 export async function getTokens (): Promise<UserLogin | null> {
   if (cachedTokens != null) {
@@ -21,7 +21,7 @@ export async function getTokens (): Promise<UserLogin | null> {
   return cachedTokens
 }
 
-export async function getSelfData (): Promise<WuolahUser | null> {
+export async function getSelfData (): Promise<User | null> {
   if (cachedSelfData != null) {
     return cachedSelfData
   }
@@ -35,7 +35,7 @@ export async function getSelfData (): Promise<WuolahUser | null> {
   return cachedSelfData
 }
 
-export async function fetchSelfData (signal: AbortSignal): Promise<WuolahUser | null> {
+export async function fetchSelfData (signal: AbortSignal): Promise<User | null> {
   const tokens = await getTokens()
   if (tokens == null) {
     return null
@@ -56,7 +56,7 @@ export async function fetchSelfData (signal: AbortSignal): Promise<WuolahUser | 
   return res.json()
 }
 
-export async function fetchLeaderboard (pageSize: string, signal: AbortSignal): Promise<Leaderboard | null> {
+export async function fetchLeaderboard (pageSize: string, signal: AbortSignal): Promise<Rankings | null> {
   const tokens = await getTokens()
   const selfData = await getSelfData()
   if (tokens == null || selfData == null) {
@@ -78,7 +78,7 @@ export async function fetchLeaderboard (pageSize: string, signal: AbortSignal): 
   return res.json()
 }
 
-export async function fetchNewPosts (pageSize: string, signal: AbortSignal): Promise<NewPosts | null> {
+export async function fetchNewPosts (pageSize: string, signal: AbortSignal): Promise<Files | null> {
   const tokens = await getTokens()
   const selfData = await getSelfData()
   if (tokens == null || selfData == null) {
@@ -230,6 +230,27 @@ export async function fetchCourseFiles (id: string, subjectId: string, searchTex
 
   console.log(id, subjectId, selfData.defaultCommunityId, pageSize)
   const res = await fetch(`https://api.wuolah.com/v2/search/subjects/${subjectId}/artifacts?communityId=${selfData.defaultCommunityId}&course=${id}&sort=recently&populate[0]=profile&pagination[size]=${pageSize}&pagination[offset]=0${searchText != null ? `&searchText=${searchText}` : ''}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${tokens.accessToken}`
+    },
+    signal
+  })
+
+  if (res.status !== 200) {
+    return null
+  }
+
+  return res.json()
+}
+
+export async function fetchWithAuth (url: string, signal: AbortSignal) {
+  const tokens = await getTokens()
+  if (tokens == null) {
+    return null
+  }
+
+  const res = await fetch(url, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`

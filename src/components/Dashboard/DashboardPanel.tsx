@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import { GoLink } from 'react-icons/go'
 import { open } from '@tauri-apps/api/shell'
-import { WuolahUser } from '@/types/WuolahUser'
+import { WuolahUser } from '@/types/User'
 import Leaderboard from './Leaderboard'
 import NewPostList from './NewPostList'
-import Profile from './Profile'
+import UserList from '../User/UserList'
+import UserProfile from '../UserProfile/UserProfile'
 
 interface DashboardPanelProps {
   user: WuolahUser | null
@@ -100,12 +101,19 @@ export default function DashboardPanel ({ user }: DashboardPanelProps) {
                 grid
                 grid-cols-3
                 mx-8
+                my-4
                 gap-4
               `}
             >
-              <Leaderboard />
+              <UserList
+                name='RANKING'
+                type='RANKINGS'
+                communityId={user.defaultCommunityId}
+              />
               <NewPostList />
-              <Profile />
+              <UserProfile
+                user={user}
+              />
             </div>
           </>
         )

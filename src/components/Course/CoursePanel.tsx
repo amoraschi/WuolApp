@@ -7,6 +7,8 @@ import { GoLink } from 'react-icons/go'
 import CourseLeaderboard from './CourseLeaderboard'
 import CourseTeachers from './CourseTeachers'
 import CourseFiles from './CourseFiles'
+import { WuolahUser } from '@/types/User'
+import UserList from '../User/UserList'
 
 interface CoursePanelProps {
   id: string
@@ -16,20 +18,16 @@ export default function CoursePanel ({ id }: CoursePanelProps) {
   const [course, setCourse] = useState<CourseData | null>(null)
 
   useEffect(() => {
+    const storedCourses = localStorage.getItem('courses')
+    if (storedCourses != null) {
+      const courses = JSON.parse(storedCourses)
+      const course = courses.data.find((course: CourseData) => course.id === parseInt(id))
+      setCourse(course)
+      return
+    }
+
     const abortController = new AbortController()
     const getSelfData = async () => {
-      const storedCourses = localStorage.getItem('courses')
-      if (storedCourses != null) {
-        const courses = JSON.parse(storedCourses)
-        console.log(courses.data.length)
-        const course = courses.data.find((course: CourseData) => {
-          console.log(course.id, id)
-          return course.id === parseInt(id)
-        })
-        setCourse(course)
-        return
-      }
-
       const res = await fetchCourses('9999', abortController.signal)
       if (res == null) {
         return
@@ -139,14 +137,20 @@ export default function CoursePanel ({ id }: CoursePanelProps) {
               <div
                 className={`
                   grid
-                  mx-4
+                  m-4
+                  gap-4
                   h-fit
                 `}
               >
-                <CourseLeaderboard
+                <UserList
+                  name='RANKING'
+                  type='RANKINGS'
                   subjectId={course.subjectId}
+                  communityId={course.communityId}
                 />
-                <CourseTeachers
+                <UserList
+                  name='PROFESORES'
+                  type='TEACHERS'
                   id={course.id}
                 />
               </div>

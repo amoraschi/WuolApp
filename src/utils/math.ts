@@ -1,4 +1,4 @@
-import { WuolahUser } from '@/types/WuolahUser'
+import { WuolahUser } from '@/types/User'
 import { currencies } from './constants'
 
 export function roundMoney (value: number) {
@@ -31,4 +31,8 @@ export function deltaDays (date: Date) {
 
 export function dateString (date: Date) {
   return new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })
+}
+
+export function localeMoney (value: number) {
+  return value.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })
 }

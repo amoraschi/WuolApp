@@ -1,9 +1,12 @@
+import { Pagination } from './Common'
+import { Subject } from './Community'
+
 export interface Courses {
-  data: CourseData[]
-  meta: Meta
+  data: Course[]
+  meta: CourseMetadata
 }
 
-export interface CourseData {
+export interface Course {
   id: number
   communityId: number
   centerId: number
@@ -19,20 +22,6 @@ export interface CourseData {
   subject: Subject
 }
 
-export interface Subject {
-  id: number
-  name: string
-  link: string
-  slug: string
-  verified: boolean
-}
-
-export interface Meta {
+export interface CourseMetadata {
   pagination: Pagination
-}
-
-export interface Pagination {
-  page: number
-  pageSize: number
-  pageCount: number
 }

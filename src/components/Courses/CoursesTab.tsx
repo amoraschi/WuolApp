@@ -15,7 +15,7 @@ export default function CoursesTab ({ course }: CoursesTabProps) {
   const onClick = () => {
     localStorage.setItem('selected', `${course.id}`)
     console.log('selected', localStorage.getItem('selected'))
-    router.replace(`/courses/course`)
+    router.replace('/courses/course')
   }
 
   return (

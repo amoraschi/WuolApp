@@ -1,9 +1,13 @@
+import { Pagination } from './Common'
+import { CommunitySubject } from './Community'
+import { User } from './User'
+
 export interface Teachers {
-  items: Item[]
+  items: Teacher[]
   pagination: Pagination
 }
 
-export interface Item {
+export interface Teacher {
   id: string
   email: string
   userId: number
@@ -16,33 +20,7 @@ export interface Item {
   prices: Price[]
   textAvailability: string
   communitySubjects: CommunitySubject[]
-  profile: Profile
-}
-
-export interface CommunitySubject {
-  id: number
-  communityId: number
-  centerId: number
-  studyId: number
-  folderId: number
-  course: number
-  numFiles: number
-  deleted: boolean
-  verified: boolean
-  enabled: boolean
-  createdAt: Date
-  updatedAt: Date
-  deletedAt: Date
-  createdBy: null
-  subject: Subject
-}
-
-export interface Subject {
-  id: number
-  name: string
-  link: string
-  slug: string
-  verified: boolean
+  profile: User
 }
 
 export interface Price {
@@ -56,29 +34,4 @@ export interface PricePerClass {
   amount: number
   currency: string
   scale: number
-}
-
-export interface Profile {
-  id: number
-  nickname: string
-  popularity: number
-  countryId: number
-  partnerType: number
-  defaultCommunityId: number
-  createdAt: Date
-  updatedAt: Date
-  deleted: boolean
-  avatarUrl: string
-  fallbackAvatarUrl: string
-  money: number
-  accumulated: number
-  totalMoney: number
-  displayMoney: boolean
-  isTeacher: boolean
-}
-
-export interface Pagination {
-  type: string
-  size: number
-  offset: number
 }

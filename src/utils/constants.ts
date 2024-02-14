@@ -36,6 +36,11 @@ export const currencies = [
   }
 ]
 
+export const endpoints: Record<string, string> = {
+  RANKINGS: 'https://api.wuolah.com/v2/rankings/users',
+  TEACHERS: 'https://api.wuolah.com/v2/live-classrooms/teachers'
+}
+
 export interface WuolahLogin {
   accessToken: string
   refreshToken: string
@@ -54,12 +59,4 @@ export interface FileData {
   extension: string
   url: string
   viewId: string
-}
-
-export interface UserStats {
-  numDownloads: number
-  numFiles: number
-  numFolloweds: number
-  numFollowers: number
-  numPaidDownloads: number
 }

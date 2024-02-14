@@ -4,14 +4,14 @@ import { writeBinaryFile } from '@tauri-apps/api/fs'
 import Image from 'next/image'
 import { useState } from 'react'
 import { GoComment, GoCommentDiscussion, GoDownload, GoFileSymlinkFile } from 'react-icons/go'
-import { Item } from '@/types/NewPosts'
+import { File } from '@/types/Files'
 import { downloadBinaryFile, fetchFileData } from '@/utils/data'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { dateString } from '@/utils/math'
 
 const fileIdRegex = /-(\d+)\?/
 interface NewPostProps {
-  post: Item
+  post: File
 }
 
 export default function NewPost ({ post }: NewPostProps) {
@@ -40,7 +40,7 @@ export default function NewPost ({ post }: NewPostProps) {
     console.log('Downloading', fileId)
     const res = await fetchFileData(parseInt(fileId))
     if (res == null) {
-      message('Error al descargar el archivo.\n\nIntente entrar a https://wuolah.com y resolver el captcha.', { title: 'WuolApp', type: 'error' })
+      message(`Error al descargar el archivo.\n\nIntente entrar a ${post.contentUrl} y resolver el captcha.`, { title: 'WuolApp', type: 'error' })
       setDownloadingNow(false)
       return
     }
@@ -111,7 +111,7 @@ export default function NewPost ({ post }: NewPostProps) {
         >
           <Image
             src={post.profile.avatarUrl ?? '/wuolapp-small.png'}
-            alt={post.description}
+            alt={post.description ?? 'Avatar'}
             width={5}
             height={5}
             className={`

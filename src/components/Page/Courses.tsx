@@ -1,7 +1,7 @@
 import { fetchSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { WuolahUser } from '@/types/WuolahUser'
+import { WuolahUser } from '@/types/User'
 import CoursesPanel from '@/components/Courses/CoursesPanel'
 
 export default function Courses () {

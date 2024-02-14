@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import CourseTeacher from './CourseTeacher'
 import { Files } from '@/types/Files'
 import { fetchCourseFiles } from '@/utils/data'
 import CourseFile from './CourseFile'
@@ -15,37 +14,81 @@ const tildeRegex = /[\u0300-\u036f]/g
 export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
   const [courseFiles, setCourseFiles] = useState<Files | null>(null)
   const [searchResults, setSearchResults] = useState<Files | null>(null)
+  const [searching, setSearching] = useState(false)
 
   let searchTimeout: NodeJS.Timeout | null = null
+  let abortController: AbortController | null = null
+  // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSearching(true)
+  //   const input = e.target.value.toLowerCase().normalize('NFD').replace(tildeRegex, '')
+
+  //   const abortController = new AbortController()
+  //   const searchInput = async () => {
+  //     console.log('Searching...')
+  //     const res = await fetchCourseFiles(`${course}`, `${subjectId}`, input, '20', abortController.signal)
+  //     console.log('Searched!')
+  //     if (res == null) {
+  //       setSearching(false)
+  //       return
+  //     }
+
+  //     console.log(res)
+  //     // const results = courseFiles.items.filter((file) => file.title.normalize('NFD').replace(tildeRegex, '').toLowerCase().includes(input))
+  //     setSearching(false)
+  //     setSearchResults(res)
+  //   }
+
+  //   if (searchTimeout != null) {
+  //     clearTimeout(searchTimeout)
+  //   }
+    
+  //   if (input === '') {
+  //     setSearching(false)
+  //     setSearchResults(null)
+  //     return
+  //   }
+
+  //   if (!searching) {
+  //     abortController.abort('Abort previous search')
+  //     searchTimeout = setTimeout(searchInput, 1000)
+  //   }
+  // }
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearching(true)
     const input = e.target.value.toLowerCase().normalize('NFD').replace(tildeRegex, '')
 
-    const searchInput = async () => {
-      console.log('Searching...')
-      const abortController = new AbortController()
-      const res = await fetchCourseFiles(`${course}`, `${subjectId}`, input, '20', abortController.signal)
-      console.log('Searched!')
-      if (res == null) {
-        return
-      }
-
-      console.log(res)
-      // const results = courseFiles.items.filter((file) => file.title.normalize('NFD').replace(tildeRegex, '').toLowerCase().includes(input))
-      setSearchResults(res)
+    if (input === '') {
+      setSearching(false)
+      setSearchResults(null)
+      return
     }
 
     if (searchTimeout != null) {
       clearTimeout(searchTimeout)
     }
-    
-    if (input === '') {
-      setSearchResults(null)
-      return
+
+    if (abortController != null) {
+      abortController.abort('Abort previous search')
     }
 
-    searchTimeout = setTimeout(searchInput, 1000)
-  }
+    searchTimeout = setTimeout(() => {
+      const searchInput = async () => {
+        abortController = new AbortController()
+        const res = await fetchCourseFiles(`${course}`, `${subjectId}`, input, '20', abortController.signal)
+        abortController = null
+        if (res == null) {
+          setSearching(false)
+          return
+        }
 
+        setSearching(false)
+        setSearchResults(res)
+      }
+
+      searchInput()
+    }, 1000)
+  }
 
   // useEffect(() => {
   //   const abortController = new AbortController()
@@ -152,54 +195,57 @@ export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
         )
       } */}
       {
-        searchResults == null ? (
-          <div
+        searching ? (
+          <AiOutlineLoading
             className={`
-              m-2
+              animate-spin
+              text-4xl
+              text-blue-700
             `}
-          >
-            {/* <AiOutlineLoading
+          />
+        ) : (
+          searchResults == null ? (
+            <div
               className={`
-                animate-spin
-                text-4xl
-                text-blue-700
-              `}
-            /> */}
-            <span
+                  m-2
+                `}
+            >
+              <span
+                className={`
+                    text-gray-500
+                  `}
+              >
+                Escribe algo para buscar
+              </span>
+            </div>
+          ) : (
+            <div
               className={`
-                text-gray-500
+                grid
+                gap-2
               `}
             >
-              Escribe algo para buscar
-            </span>
-          </div>
-        ) : (
-          <div
-            className={`
-              grid
-              gap-2
-            `}
-          >
-            {
-              searchResults.items.length === 0 ? (
-                <span
-                  className={`
-                    text-gray-500
-                    m-2
-                  `}
-                >
-                  No se encontraron resultados
-                </span>
-              ) : (
-                searchResults.items.map((file, index) => (
-                  <CourseFile
-                    key={index}
-                    file={file}
-                  />
-                ))
-              )
-            }
-          </div>
+              {
+                searchResults.items.length === 0 ? (
+                  <span
+                    className={`
+                      text-gray-500
+                      m-2
+                    `}
+                  >
+                    No se encontraron resultados
+                  </span>
+                ) : (
+                  searchResults.items.map((file, index) => (
+                    <CourseFile
+                      key={index}
+                      file={file}
+                    />
+                  ))
+                )
+              }
+            </div>
+          )
         )
       }
     </div>

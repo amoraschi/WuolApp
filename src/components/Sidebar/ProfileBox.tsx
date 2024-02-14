@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { GoSignOut } from 'react-icons/go'
-import { WuolahUser } from '@/types/WuolahUser'
+import { WuolahUser } from '@/types/User'
 
 interface ProfileBoxProps {
   user: WuolahUser

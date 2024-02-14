@@ -1,6 +1,6 @@
 import Course from '@/components/Page/Course'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { WuolahUser } from '@/types/WuolahUser'
+import { WuolahUser } from '@/types/User'
 import { fetchSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 
