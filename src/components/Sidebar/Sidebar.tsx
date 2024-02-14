@@ -1,11 +1,11 @@
 import { GoHome, GoMortarBoard } from 'react-icons/go'
-import { WuolahUser } from '@/types/User'
 import { useEffect, useState } from 'react'
-import ProfileBox from './ProfileBox'
+import SidebarProfileBox from './SidebarProfileBox'
 import SidebarTab from './SidebarTab'
+import { User } from '@/types/User'
 
 export interface SidebarProps {
-  user: WuolahUser | null
+  user: User | null
 }
 
 const tabs = [
@@ -69,7 +69,7 @@ export default function Sidebar ({ user }: SidebarProps) {
           user == null ? (
             <></>
           ) : (
-            <ProfileBox
+            <SidebarProfileBox
               user={user}
             />
           )

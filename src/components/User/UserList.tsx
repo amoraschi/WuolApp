@@ -20,6 +20,7 @@ export default function UserList ({ name, type, communityId, subjectId, id }: Us
   useEffect(() => {
     const storedUserList = localStorage.getItem(type === 'RANKINGS' ? `rankings-${communityId}-${subjectId}` : `teachers-${id}`)
     if (storedUserList != null) {
+      console.log('storedUserList', JSON.parse(storedUserList))
       setUserList(JSON.parse(storedUserList))
       return
     }
@@ -77,6 +78,7 @@ export default function UserList ({ name, type, communityId, subjectId, id }: Us
                     key={index}
                     user={type === 'RANKINGS' ? (user as Ranking).user : (user as Teacher).profile}
                     xp={type === 'RANKINGS' ? (user as Ranking).value : (user as Teacher).profile.popularity}
+                    rank={type === 'RANKINGS' ? (user as Ranking).rank : undefined}
                   />
                 ))
               }

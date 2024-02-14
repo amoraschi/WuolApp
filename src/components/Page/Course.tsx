@@ -3,16 +3,15 @@ import { deltaDays } from '@/utils/math'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { GoLink } from 'react-icons/go'
-import CourseFiles from './CourseFiles'
-import { User } from '@/types/User'
+import CourseFiles from '../Course/CourseFiles'
 import UserList from '../User/UserList'
 import { Course } from '@/types/Courses'
 
-interface CoursePanelProps {
+interface CourseProps {
   id: string
 }
 
-export default function CoursePanel ({ id }: CoursePanelProps) {
+export default function Course ({ id }: CourseProps) {
   const [course, setCourse] = useState<Course | null>(null)
 
   useEffect(() => {

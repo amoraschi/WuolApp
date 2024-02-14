@@ -7,13 +7,13 @@ import { getConfig, setConfig } from '@/utils/files'
 import { isTokenValid, getTokens } from '@/utils/auth'
 
 export default function Login () {
-  const [showError, setShowError] = useState(false)
-  const [loggingIn, setLoggingIn] = useState(false)
-  const router = useRouter()
-
   const onClick = () => {
     open('https://github.com/amoraschi/WuolApp')
   }
+
+  const [showError, setShowError] = useState(false)
+  const [loggingIn, setLoggingIn] = useState(false)
+  const router = useRouter()
 
   const onSubmit = async (ev: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>) => {
     ev.preventDefault()
@@ -68,37 +68,8 @@ export default function Login () {
     router.replace('/dashboard')
   }
 
-  useEffect(() => {
-    const fillForm = async () => {
-      const config = await getConfig()
-      if (config == null || config?.user == null) {
-        return
-      }
-
-      const username = document.querySelector('input[placeholder="Correo"]') as HTMLInputElement
-      const password = document.querySelector('input[placeholder="Contraseña"]') as HTMLInputElement
-
-      if (username == null || password == null) {
-        return
-      }
-
-      username.value = config.user.username
-      password.value = config.user.password
-    }
-
-    fillForm()
-  }, [])
-
   return (
-    <div
-      className={`
-        absolute
-        inset-0
-        grid
-        place-items-center
-        bg-white
-      `}
-    >
+    <>
       <form
         className={`
           grid
@@ -253,6 +224,6 @@ export default function Login () {
           <FaGithub />
         </span>
       </div>
-    </div>
+    </>
   )
 }

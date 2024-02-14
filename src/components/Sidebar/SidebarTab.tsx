@@ -41,7 +41,6 @@ export default function SidebarTab ({ name, href, icon }: SidebarTabProps) {
       </span>
       <span
         className={`
-          text-black
           w-fit
         `}
         style={{

@@ -3,6 +3,7 @@ import { Files } from '@/types/Files'
 import { fetchCourseFiles } from '@/utils/data'
 import CourseFile from './CourseFile'
 import { AiOutlineLoading } from 'react-icons/ai'
+import MediumText from '../Text/MediumText'
 
 interface CourseFilesProps {
   course: number
@@ -127,15 +128,9 @@ export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
         mx-2
       `}
     >
-      <span
-        className={`
-          text-md
-          font-semibold
-          text-gray-700
-        `}
-      >
-        ARCHIVOS
-      </span>
+      <MediumText
+        value='ARCHIVOS'
+      />
       <input
         type='text'
         placeholder='Buscar'

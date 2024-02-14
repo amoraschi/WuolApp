@@ -2,15 +2,15 @@ import Image from 'next/image'
 import { GoLink } from 'react-icons/go'
 import { open } from '@tauri-apps/api/shell'
 import { User } from '@/types/User'
-import NewPostList from './NewPostList'
+import PostList from '../Posts/PostList'
 import UserList from '../User/UserList'
 import UserProfile from '../UserProfile/UserProfile'
 
-interface DashboardPanelProps {
-  user: User | null
+interface DashboardProps {
+  user: User
 }
 
-export default function DashboardPanel ({ user }: DashboardPanelProps) {
+export default function Dashboard ({ user }: DashboardProps) {
   const onClick = () => {
     open(`https://wuolah.com/${user?.defaultCommunity?.community?.slug ?? ''}`)
   }
@@ -104,14 +104,14 @@ export default function DashboardPanel ({ user }: DashboardPanelProps) {
                 gap-4
               `}
             >
+              <UserProfile
+                user={user}
+              />
+              <PostList />
               <UserList
                 name='RANKING'
                 type='RANKINGS'
                 communityId={user.defaultCommunityId}
-              />
-              <NewPostList />
-              <UserProfile
-                user={user}
               />
             </div>
           </>

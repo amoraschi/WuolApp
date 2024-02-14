@@ -1,12 +1,13 @@
-import { WuolahUser } from '@/types/User'
+import { User } from '@/types/User'
 import { currencies } from './constants'
 
 export function roundMoney (value: number) {
   return value.toFixed(2)
 }
 
-export function moneyString (selfData: WuolahUser, value: number) {
-  return `${roundMoney(value)} ${currencies.find(currency => currency.country === selfData?.defaultCommunity?.community?.segmentations?.countryCode?.id)?.symbol ?? '€'}`
+export function moneyString (selfData: User, value: number) {
+  // return `${roundMoney(value)} ${currencies.find(currency => currency.country === selfData?.defaultCommunity?.community?.segmentations?.countryCode?.id)?.symbol ?? '€'}`
+  return `${roundMoney(value)} €`
 }
 
 export function roundToThousands (value: number) {

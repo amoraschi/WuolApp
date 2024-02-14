@@ -54,9 +54,3 @@ export interface UserLogin {
   refreshToken: string
   expires: string
 }
-
-export interface FileData {
-  extension: string
-  url: string
-  viewId: string
-}

@@ -2,9 +2,9 @@ import { fetchSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import { User } from '@/types/User'
-import CoursesPanel from '@/components/Courses/CoursesPanel'
+import Courses from '@/components/Page/Courses'
 
-export default function Courses () {
+export default function CoursesPage () {
   const [selfData, setSelfData] = useState<User | null>(null)
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function Courses () {
         bg-white
       `}
     >
-      <CoursesPanel />
+      <Courses />
       <Sidebar
         user={selfData}
       />

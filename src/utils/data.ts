@@ -1,7 +1,7 @@
-import { FileData, UserLogin } from '@/utils/constants'
+import { UserLogin } from '@/utils/constants'
 import { User, UserStats } from '@/types/User'
 import { Rankings } from '@/types/Rankings'
-import { Files } from '@/types/Files'
+import { Files, FileData, FileDownloadData } from '@/types/Files'
 import { Courses } from '@/types/Courses'
 
 let cachedTokens: UserLogin | null
@@ -100,7 +100,7 @@ export async function fetchNewPosts (pageSize: string, signal: AbortSignal): Pro
   return res.json()
 }
 
-export async function fetchFileData (fileId: number): Promise<FileData | null> {
+export async function fetchFile (fileId: number): Promise<FileDownloadData | null> {
   const tokens = await getTokens()
   if (tokens == null) {
     return null
@@ -123,14 +123,22 @@ export async function fetchFileData (fileId: number): Promise<FileData | null> {
   return res.json()
 }
 
-export async function downloadBinaryFile (dataURL: string): Promise<Uint8Array> {
+export async function downloadBinaryFile (dataURL: string, filePath: string): Promise<boolean | null> {
   const res = await fetch(dataURL)
+  if (res.status !== 200) {
+    return null
+  }
+
   const blob = await res.blob()
 
-  const arrayBuffer = await blob.arrayBuffer()
-  const binary = new Uint8Array(arrayBuffer)
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
 
-  return binary
+  a.href = url
+  a.download = filePath
+  a.click()
+
+  return true
 }
 
 export async function fetchUserStats (signal: AbortSignal): Promise<UserStats | null> {
@@ -235,6 +243,26 @@ export async function fetchCourseFiles (id: string, subjectId: string, searchTex
       Authorization: `Bearer ${tokens.accessToken}`
     },
     signal
+  })
+
+  if (res.status !== 200) {
+    return null
+  }
+
+  return res.json()
+}
+
+export async function fetchFileData (fileId: string): Promise<FileData | null> {
+  const tokens = await getTokens()
+  if (tokens == null) {
+    return null
+  }
+
+  const res = await fetch(`https://api.wuolah.com/v2/documents/${fileId}?populate[0]=user&populate[1]=community&populate[2]=community.center&populate[3]=community.university&populate[4]=study&populate[5]=subject`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${tokens.accessToken}`
+    }
   })
 
   if (res.status !== 200) {

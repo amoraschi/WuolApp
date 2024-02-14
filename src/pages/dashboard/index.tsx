@@ -2,7 +2,7 @@ import { fetchSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import { User } from '@/types/User'
-import DashboardPanel from '@/components/Dashboard/DashboardPanel'
+import Dashboard from '@/components/Page/Dashboard'
 
 export default function DashboardPage () {
   const [selfData, setSelfData] = useState<User | null>(null)
@@ -40,9 +40,15 @@ export default function DashboardPage () {
         bg-white
       `}
     >
-      <DashboardPanel
-        user={selfData}
-      />
+      {
+        selfData == null ? (
+          <></>
+        ) : (
+          <Dashboard
+            user={selfData}
+          />
+        )
+      }
       <Sidebar
         user={selfData}
       />

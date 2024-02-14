@@ -1,5 +1,5 @@
 import { Pagination, Segmentation } from './Common'
-import { Subject } from './Community'
+import { Community, Subject } from './Community'
 import { User } from './User'
 
 export interface Files {
@@ -21,7 +21,7 @@ export interface File {
   teacher: null | string
   isMonetizable?: boolean
   generatedMoney: null
-  createdAt: Date
+  createdAt: string
   thumbnailUrl?: string
   extension?: string
   stats: Stats
@@ -62,4 +62,55 @@ export interface Stats {
   numComments?: number
   numLikes?: number
   numDislikes?: number
+}
+
+export interface FileData {
+  id: number
+  createdAt: string
+  updatedAt: string
+  deleted: boolean
+  category: string
+  name: string
+  slug: string
+  extension: string
+  fileType: string
+  teacher: string
+  size: number
+  isAnonymous: boolean
+  isMonetizable: boolean
+  numPages: number
+  numPreviews: number
+  numViews: number
+  numDownloads: number
+  numPaidDownloads: number
+  numPremiumDownloads: number
+  numBookmarks: number
+  numLikes: number
+  course: number
+  uploadId: number
+  userId: number
+  communityId: number
+  subjectId: number
+  centerId: number
+  studyId: number
+  moneyBooster: number
+  user: User
+  study: FileStudy
+  subject: FileStudy
+  community: Community
+}
+
+export interface FileStudy {
+  id: number
+  slug: string
+  name: string
+  shortName: null | string
+  studyBranchId?: number
+  verified?: boolean
+}
+
+export interface FileDownloadData {
+  extension: string
+  url: string
+  viewId: string
 }

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Courses } from '@/types/Courses'
 import { fetchCourses } from '@/utils/data'
-import CoursesTab from './CoursesTab'
+import CoursesTab from '../Courses/CoursesTab'
 
 const tildeRegex = /[\u0300-\u036f]/g
 
-export default function CoursesPanel () {
+export default function Courses () {
   const [courses, setCourses] = useState<Courses | null>(null)
   const [searchResults, setSearchResults] = useState<Courses | null>(null)
 

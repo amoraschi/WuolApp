@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import { GoSignOut } from 'react-icons/go'
-import { WuolahUser } from '@/types/User'
+import { User } from '@/types/User'
+import UserImage from '../User/UserImage'
 
-interface ProfileBoxProps {
-  user: WuolahUser
+interface SidebarProfileBoxProps {
+  user: User
 }
 
-export default function ProfileBox ({ user }: ProfileBoxProps) {
+export default function SidebarProfileBox ({ user }: SidebarProfileBoxProps) {
   return (
     <div
       className={`
@@ -17,25 +18,17 @@ export default function ProfileBox ({ user }: ProfileBoxProps) {
         gap-2
       `}
     >
-      <Image
-        src={user.avatarUrl ?? user.fallbackAvatarUrl}
-        alt='User avatar'
-        width={32}
-        height={32}
-        className={`
-          rounded-full
-          border-2
-          border-blue-700
-          w-10
-          h-10
-          object-cover
-        `}
+      <UserImage
+        src={user.avatarUrl}
+        fallbackSrc={user.fallbackAvatarUrl}
+        alt={`Avatar de ${user.nickname}`}
+        width={10}
+        height={10}
       />
       <div
         className={`
           flex
           flex-col
-          gap-1
           w-full
         `}
       >

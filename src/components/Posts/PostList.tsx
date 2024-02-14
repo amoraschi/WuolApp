@@ -1,17 +1,19 @@
 import { Files } from '@/types/Files'
 import { fetchNewPosts } from '@/utils/data'
 import { useEffect, useState } from 'react'
-import NewPost from './NewPost'
+import MediumText from '../Text/MediumText'
+import Post from './Post'
 
 export default function NewPostList () {
-  const [newPosts, setNewPosts] = useState<Files | null>(null)
+  const [posts, setPosts] = useState<Files | null>(null)
 
   useEffect(() => {
     const abortController = new AbortController()
     const getNewPosts = async () => {
-      const storedNewPosts = localStorage.getItem('newPosts')
-      if (storedNewPosts != null) {
-        setNewPosts(JSON.parse(storedNewPosts))
+      const storedPosts = localStorage.getItem('newPosts')
+      if (storedPosts != null) {
+        console.log(JSON.parse(storedPosts))
+        setPosts(JSON.parse(storedPosts))
         return
       }
 
@@ -21,7 +23,7 @@ export default function NewPostList () {
       }
 
       localStorage.setItem('newPosts', JSON.stringify(res))
-      setNewPosts(res)
+      setPosts(res)
     }
 
     getNewPosts()
@@ -32,9 +34,9 @@ export default function NewPostList () {
   }, [])
 
   return (
-    <div>
+    <>
       {
-        newPosts == null ? (
+        posts == null ? (
           <></>
         ) : (
           <div
@@ -42,25 +44,19 @@ export default function NewPostList () {
               w-fit
             `}
           >
-            <span
-              className={`
-                text-md
-                font-semibold
-                text-gray-700
-              `}
-            >
-              PUBLICACIONES
-            </span>
+            <MediumText
+              value='PUBLICACIONES'
+            />
             <div
               className={`
-                flex
-                flex-col
+                grid
                 pt-2
+                w-fit
               `}
             >
               {
-                newPosts.items.map((user, index) => (
-                  <NewPost
+                posts.items.map((user, index) => (
+                  <Post
                     key={index}
                     post={user}
                   />
@@ -70,6 +66,6 @@ export default function NewPostList () {
           </div>
         )
       }
-    </div>
+    </>
   )
 }

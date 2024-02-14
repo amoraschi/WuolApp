@@ -20,6 +20,7 @@ export default function UserProfile ({ user }: UserProfileProps) {
         className={`
           grid
           place-items-center
+          pt-2
         `}
       >
         <UserImage

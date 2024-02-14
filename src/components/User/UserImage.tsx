@@ -7,11 +7,12 @@ interface UserImageProps {
   alt: string
   width: number
   height: number
+  color?: string
 }
 
-export default function UserImage ({ src, fallbackSrc, alt, width, height }: UserImageProps) {
+export default function UserImage ({ src, fallbackSrc, alt, width, height, color }: UserImageProps) {
   const [imgError, setImgError] = useState(false)
-  
+
   return (
     <Image
       src={imgError ? fallbackSrc : src}
@@ -21,7 +22,8 @@ export default function UserImage ({ src, fallbackSrc, alt, width, height }: Use
       onError={() => setImgError(true)}
       style={{
         height: `${height / 4}rem`,
-        width: `${width / 4}rem`
+        width: `${width / 4}rem`,
+        border: color != null ? `2px solid ${color}` : 'none'
       }}
       className={`
         rounded-full

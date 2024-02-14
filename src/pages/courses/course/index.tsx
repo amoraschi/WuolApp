@@ -1,4 +1,4 @@
-import CoursePanel from '@/components/Course/CoursePanel'
+import Course from '@/components/Page/Course'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import { User } from '@/types/User'
 import { fetchSelfData } from '@/utils/data'
@@ -41,7 +41,7 @@ export default function CoursePage () {
   }, [])
 
   return (
-    <div
+    <main
       className={`
         absolute
         inset-0
@@ -52,7 +52,7 @@ export default function CoursePage () {
         id == null ? (
           <></>
         ) : (
-          <CoursePanel
+          <Course
             id={id}
           />
         )
@@ -60,6 +60,6 @@ export default function CoursePage () {
       <Sidebar
         user={selfData}
       />
-    </div>
+    </main>
   )
 }

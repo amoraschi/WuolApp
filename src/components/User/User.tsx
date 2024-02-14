@@ -1,16 +1,17 @@
-import { Profile } from '@/types/Teachers'
-import { WuolahUser } from '@/types/User'
+import { User } from '@/types/User'
 import { localeMoney, roundToThousandsString } from '@/utils/math'
 import { open } from '@tauri-apps/api/shell'
 import Image from 'next/image'
 import { GoCheckCircleFill } from 'react-icons/go'
+import UserImage from './UserImage'
 
 interface UserProps {
-  user: WuolahUser | Profile
+  user: User
   xp: number
+  rank?: number
 }
 
-export default function User ({ user, xp }: UserProps) {
+export default function User ({ user, xp, rank }: UserProps) {
   const onClick = () => {
     open(`https://wuolah.com/profile/${user.nickname}`)
   }
@@ -31,17 +32,13 @@ export default function User ({ user, xp }: UserProps) {
       `}
       onClick={onClick}
     >
-      <Image
+      <UserImage
         src={user.avatarUrl}
+        fallbackSrc={user.fallbackAvatarUrl}
         alt='Avatar'
-        width={100}
-        height={100}
-        className={`
-          w-8
-          h-8
-          rounded-full
-          object-cover
-        `}
+        width={8}
+        height={8}
+        color={rank != null ? (rank === 1 ? '#FCD34D' : rank === 2 ? '#9CA3AF' : rank === 3 ? '#B07E6C' : undefined) : undefined}
       />
       <div
         className={`
