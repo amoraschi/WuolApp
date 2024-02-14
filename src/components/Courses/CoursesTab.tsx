@@ -2,6 +2,7 @@ import { Course } from '@/types/Courses'
 import { deltaDays } from '@/utils/math'
 import { useRouter } from 'next/navigation'
 import { GoFileDirectory } from 'react-icons/go'
+import SmallTextBox from '../Text/SmallTextBox'
 
 interface CoursesTabProps {
   course: Course
@@ -62,40 +63,16 @@ export default function CoursesTab ({ course }: CoursesTabProps) {
             gap-2
           `}
         >
-          <span
-            className={`
-              text-sm
-              text-gray-500
-            `}
-          >
-            {course.course}º CURSO
-          </span>
-          <span
-            className={`
-              md:block
-              hidden
-              text-sm
-              text-gray-500
-              bg-gray-200
-              rounded-sm
-              px-1
-            `}
-          >
-            {course.numFiles} archivos
-          </span>
-          <span
-            className={`
-              md:block
-              hidden
-              text-sm
-              text-gray-500
-              bg-gray-200
-              rounded-sm
-              px-1
-            `}
-          >
-            Última publicación hace {deltaDays(new Date(course.updatedAt))} días
-          </span>
+          <SmallTextBox
+            content={`${course.course}º CURSO`}
+            noBackground
+          />
+          <SmallTextBox
+            content={`${course.numFiles} archivos`}
+          />
+          <SmallTextBox
+            content={`Última publicación hace ${deltaDays(new Date(course.updatedAt))} días`}
+          />
         </div>
       </div>
     </div>

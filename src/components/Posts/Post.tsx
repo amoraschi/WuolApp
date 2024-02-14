@@ -102,7 +102,7 @@ export default function Post ({ post }: PostProps) {
       </span>
       <div>
         <MediumText
-          value={post.description ?? 'Sin descripción'}
+          content={post.description ?? 'Sin descripción'}
           black
           clamp={1}
         />
@@ -114,21 +114,16 @@ export default function Post ({ post }: PostProps) {
           `}
         >
           <UserImage
-            src={post.profile.avatarUrl}
-            fallbackSrc={post.profile.fallbackAvatarUrl}
+            src={post.profile?.avatarUrl ?? '/wuolapp_square.png'}
+            fallbackSrc={post.profile?.fallbackAvatarUrl ?? '/wuolapp_square.png'}
             alt={'Avatar'}
             width={5}
             height={5}
           />
-          <span
-            className={`
-              text-sm
-              text-gray-500
-              line-clamp-1
-            `}
-          >
-            {post.profile.nickname ?? 'Anónimo'}
-          </span>
+          <SmallTextBox
+            content={post.profile?.nickname ?? 'Anónimo'}
+            noBackground
+          />
           <SmallTextBox
             content={dateString(new Date(post.createdAt))}
           />

@@ -1,10 +1,13 @@
-import { Item } from '@/types/Files'
+import { File } from '@/types/Files'
 import { dateString } from '@/utils/math'
 import Image from 'next/image'
 import { GoBookmark, GoCreditCard, GoDownload, GoEye, GoTag } from 'react-icons/go'
+import MediumText from '../Text/MediumText'
+import SmallTextBox from '../Text/SmallTextBox'
+import UserImage from '../User/UserImage'
 
 interface CourseFilesProps {
-  file: Item
+  file: File
 }
 
 export default function CourseFile ({ file }: CourseFilesProps) {
@@ -23,29 +26,20 @@ export default function CourseFile ({ file }: CourseFilesProps) {
         duration-200
       `}
     >
-      <div>
-        <span
-          className={`
-            text-md
-            font-semibold
-            text-gray-500
-            bg-gray-200
-            rounded-sm
-            px-1
-          `}
-        >
-          {file.entitySubtype.toUpperCase()}
-        </span>
-        <span
-          className={`
-            text-md
-            font-semibold
-            text-black
-            ml-2
-          `}
-        >
-          {file.title}
-        </span>
+      <div
+        className={`
+          flex
+          items-center
+          gap-2
+        `}
+      >
+        <SmallTextBox
+          content={file.entitySubtype.toUpperCase()}
+        />
+        <MediumText
+          content={file.title ?? 'Sin título'}
+          black
+        />
       </div>
       <div
         className={`
@@ -54,28 +48,19 @@ export default function CourseFile ({ file }: CourseFilesProps) {
           gap-2
         `}
       >
-        <Image
+        <UserImage
           src={file.profile?.avatarUrl ?? '/wuolapp_square.png'}
+          fallbackSrc={file.profile?.fallbackAvatarUrl ?? '/wuolapp_square.png'}
           alt={file.profile?.nickname ?? 'Anónimo'}
-          width={24}
-          height={24}
-          className={`
-            rounded-full
-            w-6
-            h-6
-            object-cover
-          `}
+          width={6}
+          height={6}
         />
-        <span
-          className={`
-            text-sm
-            text-gray-500
-          `}
-        >
-          {file.profile?.nickname ?? 'Anónimo'}
-        </span>
+        <SmallTextBox
+          content={file.profile?.nickname ?? 'Anónimo'}
+          noBackground
+        />
         {
-          file.teacher != '' && (
+          file.teacher != null && file.teacher !== '' && (
             <div
               className={`
                 flex

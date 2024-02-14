@@ -14,7 +14,7 @@ export default function UserProfile ({ user }: UserProfileProps) {
   return (
     <div>
       <MediumText
-        value='PERFIL'
+        content='PERFIL'
       />
       <div
         className={`

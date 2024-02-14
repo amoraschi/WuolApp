@@ -129,7 +129,7 @@ export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
       `}
     >
       <MediumText
-        value='ARCHIVOS'
+        content='ARCHIVOS'
       />
       <input
         type='text'

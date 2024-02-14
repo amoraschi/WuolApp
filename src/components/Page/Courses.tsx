@@ -81,16 +81,16 @@ export default function Courses () {
           <></>
         ) : (
           searchResults == null ? (
-            courses.data.map((course) => (
+            courses.data.map((course, index) => (
               <CoursesTab
-                key={course.id}
+                key={index}
                 course={course}
               />
             ))
           ) : (
-            searchResults.data.map((course) => (
+            searchResults.data.map((course, index) => (
               <CoursesTab
-                key={course.id}
+                key={index}
                 course={course}
               />
             ))

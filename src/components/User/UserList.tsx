@@ -62,7 +62,7 @@ export default function UserList ({ name, type, communityId, subjectId, id }: Us
             `}
           >
             <MediumText
-              value={name}
+              content={name}
             />
             <div
               className={`

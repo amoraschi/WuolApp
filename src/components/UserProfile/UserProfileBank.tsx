@@ -1,4 +1,4 @@
-import { WuolahUser } from '@/types/User'
+import { User } from '@/types/User'
 import MediumText from '../Text/MediumText'
 import { EyeIcon } from '../Icons/EyeIcon'
 import { useState } from 'react'
@@ -7,7 +7,7 @@ import { moneyString } from '@/utils/math'
 import { open } from '@tauri-apps/api/shell'
 
 interface UserProfileBankProps {
-  user: WuolahUser
+  user: User
 }
 
 export default function UserProfileBank ({ user }: UserProfileBankProps) {
@@ -26,7 +26,7 @@ export default function UserProfileBank ({ user }: UserProfileBankProps) {
         `}
       >
         <MediumText
-          value='SALDO'
+          content='SALDO'
         />
         <EyeIcon
           show={showMoney}

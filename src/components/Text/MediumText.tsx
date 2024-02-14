@@ -1,10 +1,10 @@
 interface MediumTextProps {
-  value: string
+  content: string
   black?: boolean
   clamp?: number
 }
 
-export default function MediumText ({ value, black, clamp }: MediumTextProps) {
+export default function MediumText ({ content, black, clamp }: MediumTextProps) {
   return (
     <span
       className={`
@@ -19,7 +19,7 @@ export default function MediumText ({ value, black, clamp }: MediumTextProps) {
         WebkitBoxOrient: clamp ? 'vertical' : undefined
       }}
     >
-      {value}
+      {content}
     </span>
   )
 }

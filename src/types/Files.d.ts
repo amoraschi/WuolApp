@@ -26,7 +26,7 @@ export interface File {
   extension?: string
   stats: Stats
   segmentation: Segmentation
-  profile: User
+  profile?: User
   metadata?: FileMetadata
   contentUrl?: string
   attachedFileUrl?: null

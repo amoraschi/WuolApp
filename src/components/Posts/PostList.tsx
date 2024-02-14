@@ -45,7 +45,7 @@ export default function NewPostList () {
             `}
           >
             <MediumText
-              value='PUBLICACIONES'
+              content='PUBLICACIONES'
             />
             <div
               className={`
