@@ -1,14 +1,13 @@
 import Image from 'next/image'
 import { GoLink } from 'react-icons/go'
 import { open } from '@tauri-apps/api/shell'
-import { WuolahUser } from '@/types/User'
-import Leaderboard from './Leaderboard'
+import { User } from '@/types/User'
 import NewPostList from './NewPostList'
 import UserList from '../User/UserList'
 import UserProfile from '../UserProfile/UserProfile'
 
 interface DashboardPanelProps {
-  user: WuolahUser | null
+  user: User | null
 }
 
 export default function DashboardPanel ({ user }: DashboardPanelProps) {

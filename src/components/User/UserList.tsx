@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import User from './User'
-import { fetchLeaderboard, fetchWithAuth } from '@/utils/data'
-import { Leaderboard, LeaderboardUser } from '@/types/Rankings'
-import { currencies, endpoints } from '@/utils/constants'
+import { fetchWithAuth } from '@/utils/data'
+import { endpoints } from '@/utils/constants'
 import { Teacher, Teachers } from '@/types/Teachers'
 import MediumText from '../Text/MediumText'
+import { Ranking, Rankings } from '@/types/Rankings'
 
 interface UserListProps {
   name: string
@@ -15,12 +15,11 @@ interface UserListProps {
 }
 
 export default function UserList ({ name, type, communityId, subjectId, id }: UserListProps) {
-  const [userList, setUserList] = useState<Leaderboard | Teachers | null>(null)
+  const [userList, setUserList] = useState<Rankings | Teachers | null>(null)
 
   useEffect(() => {
     const storedUserList = localStorage.getItem(type === 'RANKINGS' ? `rankings-${communityId}-${subjectId}` : `teachers-${id}`)
     if (storedUserList != null) {
-      console.log(JSON.parse(storedUserList))
       setUserList(JSON.parse(storedUserList))
       return
     }
@@ -76,12 +75,12 @@ export default function UserList ({ name, type, communityId, subjectId, id }: Us
                 userList.items.map((user, index) => (
                   <User
                     key={index}
-                    user={type === 'RANKINGS' ? (user as LeaderboardUser).user : (user as Teacher).profile}
-                    xp={type === 'RANKINGS' ? (user as LeaderboardUser).value : (user as Teacher).profile.popularity}
+                    user={type === 'RANKINGS' ? (user as Ranking).user : (user as Teacher).profile}
+                    xp={type === 'RANKINGS' ? (user as Ranking).value : (user as Teacher).profile.popularity}
                   />
                 ))
               }
-            M</div>
+            </div>
           </div>
         )
       }

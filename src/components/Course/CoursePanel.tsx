@@ -1,27 +1,25 @@
-import { CourseData } from '@/types/Courses'
 import { fetchCourses } from '@/utils/data'
 import { deltaDays } from '@/utils/math'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { GoLink } from 'react-icons/go'
-import CourseLeaderboard from './CourseLeaderboard'
-import CourseTeachers from './CourseTeachers'
 import CourseFiles from './CourseFiles'
-import { WuolahUser } from '@/types/User'
+import { User } from '@/types/User'
 import UserList from '../User/UserList'
+import { Course } from '@/types/Courses'
 
 interface CoursePanelProps {
   id: string
 }
 
 export default function CoursePanel ({ id }: CoursePanelProps) {
-  const [course, setCourse] = useState<CourseData | null>(null)
+  const [course, setCourse] = useState<Course | null>(null)
 
   useEffect(() => {
     const storedCourses = localStorage.getItem('courses')
     if (storedCourses != null) {
       const courses = JSON.parse(storedCourses)
-      const course = courses.data.find((course: CourseData) => course.id === parseInt(id))
+      const course = courses.data.find((course: Course) => course.id === parseInt(id))
       setCourse(course)
       return
     }
@@ -29,12 +27,13 @@ export default function CoursePanel ({ id }: CoursePanelProps) {
     const abortController = new AbortController()
     const getSelfData = async () => {
       const res = await fetchCourses('9999', abortController.signal)
+      console.log(res)
       if (res == null) {
         return
       }
 
       localStorage.setItem('courses', JSON.stringify(res))
-      const course = res.data.find((course: CourseData) => course.id === parseInt(id))
+      const course = res.data.find((course: Course) => course.id === parseInt(id))
       setCourse(course != null ? course : null)
     }
 

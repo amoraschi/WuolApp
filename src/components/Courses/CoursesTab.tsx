@@ -1,12 +1,10 @@
-import { CourseData } from '@/types/Courses'
+import { Course } from '@/types/Courses'
 import { deltaDays } from '@/utils/math'
-import { open } from '@tauri-apps/api/shell'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { GoFileDirectory } from 'react-icons/go'
 
 interface CoursesTabProps {
-  course: CourseData
+  course: Course
 }
 
 export default function CoursesTab ({ course }: CoursesTabProps) {
@@ -14,7 +12,6 @@ export default function CoursesTab ({ course }: CoursesTabProps) {
 
   const onClick = () => {
     localStorage.setItem('selected', `${course.id}`)
-    console.log('selected', localStorage.getItem('selected'))
     router.replace('/courses/course')
   }
 

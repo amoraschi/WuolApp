@@ -1,11 +1,11 @@
-import Course from '@/components/Page/Course'
+import CoursePanel from '@/components/Course/CoursePanel'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { WuolahUser } from '@/types/User'
+import { User } from '@/types/User'
 import { fetchSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 
 export default function CoursePage () {
-  const [selfData, setSelfData] = useState<WuolahUser | null>(null)
+  const [selfData, setSelfData] = useState<User | null>(null)
   const [id, setId] = useState<string | null>(null)
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function CoursePage () {
         id == null ? (
           <></>
         ) : (
-          <Course
+          <CoursePanel
             id={id}
           />
         )
