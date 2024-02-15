@@ -1,12 +1,10 @@
-import Course from '@/components/Page/Course'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import { User } from '@/types/User'
 import { handleSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 
-export default function CoursePage () {
+export default function FilesPage () {
   const [selfData, setSelfData] = useState<User | null>(null)
-  const [id, setId] = useState<string | null>(null)
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -15,13 +13,6 @@ export default function CoursePage () {
     }
 
     getSelfData()
-
-    const storedId = localStorage.getItem('selected')
-    console.log('Loading', storedId)
-    if (storedId != null) {
-      setId(storedId)
-      console.log(storedId)
-    }
 
     return () => {
       abortController.abort()
@@ -36,15 +27,6 @@ export default function CoursePage () {
         bg-white
       `}
     >
-      {
-        id == null ? (
-          <></>
-        ) : (
-          <Course
-            id={id}
-          />
-        )
-      }
       <Sidebar
         user={selfData}
       />

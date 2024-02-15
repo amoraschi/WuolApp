@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Courses } from '@/types/Courses'
 import { fetchCourses } from '@/utils/data'
-import CoursesTab from '../Courses/CoursesTab'
+import CourseTab from '../Course/CourseTab'
 
 const tildeRegex = /[\u0300-\u036f]/g
 
@@ -80,21 +80,12 @@ export default function Courses () {
         courses == null ? (
           <></>
         ) : (
-          searchResults == null ? (
-            courses.data.map((course, index) => (
-              <CoursesTab
-                key={index}
-                course={course}
-              />
-            ))
-          ) : (
-            searchResults.data.map((course, index) => (
-              <CoursesTab
-                key={index}
-                course={course}
-              />
-            ))
-          )
+          (searchResults ?? courses).data.map((course, index) => (
+            <CourseTab
+              key={index}
+              course={course}
+            />
+          ))
         )
       }
     </div>

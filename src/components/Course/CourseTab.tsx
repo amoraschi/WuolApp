@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation'
 import { GoFileDirectory } from 'react-icons/go'
 import SmallTextBox from '../Text/SmallTextBox'
 
-interface CoursesTabProps {
+interface CourseTabProps {
   course: Course
 }
 
-export default function CoursesTab ({ course }: CoursesTabProps) {
+export default function CourseTab ({ course }: CourseTabProps) {
   const router = useRouter()
 
   const onClick = () => {

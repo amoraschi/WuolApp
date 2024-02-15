@@ -1,5 +1,5 @@
 import { Files } from '@/types/Files'
-import { fetchNewPosts } from '@/utils/data'
+import { fetchPosts } from '@/utils/data'
 import { useEffect, useState } from 'react'
 import MediumText from '../Text/MediumText'
 import Post from './Post'
@@ -9,24 +9,24 @@ export default function NewPostList () {
 
   useEffect(() => {
     const abortController = new AbortController()
-    const getNewPosts = async () => {
-      const storedPosts = localStorage.getItem('newPosts')
+    const getPosts = async () => {
+      const storedPosts = localStorage.getItem('posts')
       if (storedPosts != null) {
         console.log(JSON.parse(storedPosts))
         setPosts(JSON.parse(storedPosts))
         return
       }
 
-      const res = await fetchNewPosts('5', abortController.signal)
+      const res = await fetchPosts('5', abortController.signal)
       if (res == null) {
         return
       }
 
-      localStorage.setItem('newPosts', JSON.stringify(res))
+      localStorage.setItem('posts', JSON.stringify(res))
       setPosts(res)
     }
 
-    getNewPosts()
+    getPosts()
 
     return () => {
       abortController.abort()

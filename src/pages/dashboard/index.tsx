@@ -1,4 +1,4 @@
-import { fetchSelfData } from '@/utils/data'
+import { handleSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 import Sidebar from '@/components/Sidebar/Sidebar'
 import { User } from '@/types/User'
@@ -10,19 +10,7 @@ export default function DashboardPage () {
   useEffect(() => {
     const abortController = new AbortController()
     const getSelfData = async () => {
-      const storedSelfData = localStorage.getItem('selfData')
-      if (storedSelfData != null) {
-        setSelfData(JSON.parse(storedSelfData))
-        return
-      }
-
-      const res = await fetchSelfData(abortController.signal)
-      if (res == null) {
-        return
-      }
-
-      localStorage.setItem('selfData', JSON.stringify(res))
-      setSelfData(res)
+      await handleSelfData(setSelfData, abortController.signal)
     }
 
     getSelfData()

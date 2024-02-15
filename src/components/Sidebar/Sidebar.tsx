@@ -1,5 +1,4 @@
-import { GoHome, GoMortarBoard } from 'react-icons/go'
-import { useEffect, useState } from 'react'
+import { GoFile, GoHome, GoMortarBoard } from 'react-icons/go'
 import SidebarProfileBox from './SidebarProfileBox'
 import SidebarTab from './SidebarTab'
 import { User } from '@/types/User'
@@ -18,6 +17,11 @@ const tabs = [
     name: 'Asignaturas',
     href: '/courses',
     icon: <GoMortarBoard />
+  },
+  {
+    name: 'Archivos',
+    href: '/files',
+    icon: <GoFile />
   }
 ]
 

@@ -64,12 +64,17 @@ export interface Stats {
   numDislikes?: number
 }
 
+export interface Folder {
+  data: FileData[]
+  meta: Pagination
+}
+
 export interface FileData {
   id: number
   createdAt: string
   updatedAt: string
   deleted: boolean
-  category: string
+  category: EntitySubtype
   name: string
   slug: string
   extension: string
