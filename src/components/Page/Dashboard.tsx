@@ -12,6 +12,13 @@ interface DashboardProps {
 }
 
 export default function Dashboard ({ user }: DashboardProps) {
+  const data = {
+    backgroundURL: user?.defaultCommunity?.community?.segmentations?.center?.item?.backgroundUrl ?? '/wuolapp_square.png',
+    study: user?.defaultCommunity?.community?.segmentations?.study?.item?.name ?? 'No hay grado seleccionado',
+    institution: user?.defaultCommunity?.community?.segmentations?.university?.item?.name ?? 'No hay universidad seleccionada',
+    center: user?.defaultCommunity?.community?.segmentations?.center?.item?.name ?? 'No hay centro seleccionado'
+  }
+
   const onClick = () => {
     open(`https://wuolah.com/${user?.defaultCommunity?.community?.slug ?? ''}`)
   }
@@ -40,7 +47,7 @@ export default function Dashboard ({ user }: DashboardProps) {
               `}
             >
               <Image
-                src={user.defaultCommunity?.community?.segmentations?.center?.item?.backgroundUrl ?? '/wuolapp_square.png'}
+                src={data.backgroundURL}
                 alt='Community background'
                 width={100}
                 height={100}
@@ -66,7 +73,7 @@ export default function Dashboard ({ user }: DashboardProps) {
                   font-bold
                 `}
               >
-                {user.defaultCommunity?.community?.segmentations?.study?.item?.name ?? 'No hay grado seleccionada'}
+                {data.study}
               </span>
               <LinkIcon
                 onClick={onClick}
@@ -79,7 +86,7 @@ export default function Dashboard ({ user }: DashboardProps) {
                 mx-8
               `}
             >
-              {user.defaultCommunity?.community?.segmentations?.university?.item?.name ?? 'No hay universidad seleccionada'} - {user.defaultCommunity?.community?.segmentations?.center?.item?.name ?? 'No hay centro seleccionado'}
+              {data.institution} - {data.center}
             </span>
             <div
               className={`
@@ -99,6 +106,7 @@ export default function Dashboard ({ user }: DashboardProps) {
                 name='RANKING'
                 type='RANKINGS'
                 communityId={user.defaultCommunityId}
+                size={5}
               />
             </div>
           </>

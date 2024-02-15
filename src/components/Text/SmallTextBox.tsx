@@ -12,6 +12,7 @@ export default function SmallTextBox ({ content, noBackground }: SmallTextBoxPro
         text-sm
         text-gray-500
         rounded-sm
+        w-fit
       `}
       style={{
         backgroundColor: noBackground ? undefined : '#E5E7EB',

@@ -4,21 +4,23 @@ import { writeBinaryFile } from '@tauri-apps/api/fs'
 import Image from 'next/image'
 import { useState } from 'react'
 import { GoComment, GoCommentDiscussion, GoDownload, GoFileSymlinkFile } from 'react-icons/go'
-import { File } from '@/types/Files'
+import { SingleFile } from '@/types/Files'
 import { downloadBinaryFile, fetchFile, fetchFileData } from '@/utils/data'
 import { dateString } from '@/utils/math'
 import SmallTextBox from '../Text/SmallTextBox'
 import UserImage from '../User/UserImage'
 import PostLinks from './PostLinks'
 import MediumText from '../Text/MediumText'
+import { useRouter } from 'next/router'
 
 const fileIdRegex = /-(\d+)\?/
 interface PostProps {
-  post: File
+  post: SingleFile
 }
 
 export default function Post ({ post }: PostProps) {
   const [downloadingNow, setDownloadingNow] = useState(false)
+  const router = useRouter()
 
   const fileIdMatch = post.contentUrl != null ? post.contentUrl.match(fileIdRegex) : null
   const fileId = fileIdMatch != null ? fileIdMatch[1] : null
@@ -40,9 +42,9 @@ export default function Post ({ post }: PostProps) {
       return
     }
 
-    const fileData = await fetchFileData(fileId)
+    // const fileData = await fetchFileData(fileId)
     const fileDownloadData = await fetchFile(parseInt(fileId))
-    if (fileDownloadData == null || fileData == null) {
+    if (fileDownloadData == null) {
       message(`Error al descargar el archivo.\n\nIntente entrar a ${post.contentUrl} y resolver el captcha.`, { title: 'WuolApp', type: 'error' })
       setDownloadingNow(false)
       return
@@ -60,14 +62,16 @@ export default function Post ({ post }: PostProps) {
     //   return
     // }
 
-    const binary = await downloadBinaryFile(fileDownloadData.url, fileData.name)
-    if (binary == null) {
-      message(`Error al descargar el archivo.\n\nIntente entrar a ${post.contentUrl} y resolver el captcha.`, { title: 'WuolApp', type: 'error' })
-      setDownloadingNow(false)
-      return
-    }
+    router.push(fileDownloadData.url)
 
-    message(`${fileData.name} ha sido descargado con éxito.`, { title: 'WuolApp', type: 'info' })
+    // const binary = await downloadBinaryFile(fileDownloadData.url, fileData.name)
+    // if (binary == null) {
+    //   message(`Error al descargar el archivo.\n\nIntente entrar a ${post.contentUrl} y resolver el captcha.`, { title: 'WuolApp', type: 'error' })
+    //   setDownloadingNow(false)
+    //   return
+    // }
+
+    // message(`${fileData.name} ha sido descargado con éxito.`, { title: 'WuolApp', type: 'info' })
     setDownloadingNow(false)
   }
 

@@ -12,7 +12,7 @@ export default function CourseTab ({ course }: CourseTabProps) {
   const router = useRouter()
 
   const onClick = () => {
-    localStorage.setItem('selected', `${course.id}`)
+    localStorage.setItem('selected-course', `${course.id}`)
     router.replace('/courses/course')
   }
 

@@ -1,4 +1,4 @@
-import { File } from '@/types/Files'
+import { SingleFile } from '@/types/Files'
 import { dateString } from '@/utils/math'
 import { GoTag } from 'react-icons/go'
 import MediumText from '../Text/MediumText'
@@ -7,26 +7,19 @@ import UserImage from '../User/UserImage'
 import CourseFileStats from './CourseFileStats'
 import FileIcon from '../Icons/FileIcon'
 import { fetchFolderData } from '@/utils/data'
+import { useRouter } from 'next/navigation'
 
 interface CourseFilesProps {
-  file: File
+  file: SingleFile
 }
 
 export default function CourseFile ({ file }: CourseFilesProps) {
+  const router = useRouter()
+
   const onClick = () => {
-    console.log(file)
-
     const getFileData = async () => {
-      if (file.extension != null) {
-        return
-      }
-
-      const res = await fetchFolderData(`${file.entityId}`)
-      if (res == null) {
-        return
-      }
-
-      console.log(res)
+      localStorage.setItem('selected-file', JSON.stringify(file))
+      router.push('/files/file')
     }
 
     getFileData()

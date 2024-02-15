@@ -12,13 +12,14 @@ interface UserListProps {
   communityId?: number
   subjectId?: number
   id?: number
+  size?: number
 }
 
-export default function UserList ({ name, type, communityId, subjectId, id }: UserListProps) {
+export default function UserList ({ name, type, communityId, subjectId, id, size }: UserListProps) {
   const [userList, setUserList] = useState<Rankings | Teachers | null>(null)
 
   useEffect(() => {
-    const storedUserList = localStorage.getItem(type === 'RANKINGS' ? `rankings-${communityId}-${subjectId}` : `teachers-${id}`)
+    const storedUserList = localStorage.getItem(type === 'RANKINGS' ? `rankings-${communityId}-${subjectId ?? 'dashboard'}` : `teachers-${id}`)
     if (storedUserList != null) {
       console.log('storedUserList', JSON.parse(storedUserList))
       setUserList(JSON.parse(storedUserList))
@@ -28,8 +29,8 @@ export default function UserList ({ name, type, communityId, subjectId, id }: Us
     const abortController = new AbortController()
     const getUserList = async () => {
       const params: Record<string, string> = {
-        RANKINGS: `?populate[0]=user&filter[communityId]=${communityId}${subjectId != null ? `&filter[subjectId]=${subjectId}&filter[criteria]=subject` : '&filter[criteria]=community'}&pagination[pageSize]=`,
-        TEACHERS: `?communitySubjectId=${id}&pagination[pageSize]=`
+        RANKINGS: `?populate[0]=user&filter[communityId]=${communityId}${subjectId != null ? `&filter[subjectId]=${subjectId}&filter[criteria]=subject` : '&filter[criteria]=community'}&pagination[pageSize]=${size ?? ''}`,
+        TEACHERS: `?communitySubjectId=${id}&pagination[pageSize]=${size ?? ''}`
       }
 
       const URL = `${endpoints[type]}${params[type]}`
@@ -39,7 +40,7 @@ export default function UserList ({ name, type, communityId, subjectId, id }: Us
         return
       }
 
-      localStorage.setItem(type === 'RANKINGS' ? `rankings-${communityId}-${subjectId}` : `teachers-${id}`, JSON.stringify(res))
+      localStorage.setItem(type === 'RANKINGS' ? `rankings-${communityId}-${subjectId ?? 'dashboard'}` : `teachers-${id}`, JSON.stringify(res))
       setUserList(res)
     }
 

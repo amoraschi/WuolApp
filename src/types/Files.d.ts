@@ -3,12 +3,12 @@ import { Community, Subject } from './Community'
 import { User } from './User'
 
 export interface Files {
-  items: File[]
+  items: SingleFile[]
   pagination: Pagination
   totalItems: number
 }
 
-export interface File {
+export interface SingleFile {
   id: string
   entityId: number
   entityType: EntityType

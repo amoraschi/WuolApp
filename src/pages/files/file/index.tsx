@@ -1,12 +1,13 @@
-import Course from '@/components/Page/Course'
+import File from '@/components/Page/File'
 import Sidebar from '@/components/Sidebar/Sidebar'
+import { SingleFile } from '@/types/Files'
 import { User } from '@/types/User'
 import { handleSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 
-export default function CoursePage () {
+export default function FilePage () {
   const [selfData, setSelfData] = useState<User | null>(null)
-  const [id, setId] = useState<string | null>(null)
+  const [file, setFile] = useState<SingleFile | null>(null)
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -16,9 +17,9 @@ export default function CoursePage () {
 
     getSelfData()
 
-    const storedId = localStorage.getItem('selected-course')
-    if (storedId != null) {
-      setId(storedId)
+    const storedFile = localStorage.getItem('selected-file')
+    if (storedFile != null) {
+      setFile(JSON.parse(storedFile))
     }
 
     return () => {
@@ -35,11 +36,11 @@ export default function CoursePage () {
       `}
     >
       {
-        id == null ? (
+        file == null ? (
           <></>
         ) : (
-          <Course
-            id={id}
+          <File
+            file={file}
           />
         )
       }

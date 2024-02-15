@@ -9,6 +9,7 @@ import UserList from '../User/UserList'
 import SmallTextBox from '../Text/SmallTextBox'
 import LargeText from '../Text/LargeText'
 import LinkIcon from '../Icons/LinkIcon'
+import LinkText from '../Text/LinkText'
 
 interface CourseProps {
   id: string
@@ -32,7 +33,7 @@ export default function Course ({ id }: CourseProps) {
     }
 
     const abortController = new AbortController()
-    const getSelfData = async () => {
+    const getCourse = async () => {
       const res = await fetchCourses('9999', abortController.signal)
       console.log(res)
       if (res == null) {
@@ -44,7 +45,7 @@ export default function Course ({ id }: CourseProps) {
       setCourse(course != null ? course : null)
     }
 
-    getSelfData()
+    getCourse()
 
     return () => {
       abortController.abort()
@@ -62,20 +63,15 @@ export default function Course ({ id }: CourseProps) {
         flex
         flex-col
         overflow-y-auto
+        px-8
+        py-4
+        gap-2
       `}
     >
-      <Link
+      <LinkText
         href='/courses'
-        className={`
-          text-blue-500
-          mx-8
-          my-4
-          w-fit
-          hover:underline
-        `}
-      >
-        Volver
-      </Link>
+        content='Volver'
+      />
       {
         course == null ? (
           <></>
@@ -85,6 +81,7 @@ export default function Course ({ id }: CourseProps) {
               className={`
                 flex
                 flex-col
+                gap-1
               `}
             >
               <div
@@ -92,7 +89,6 @@ export default function Course ({ id }: CourseProps) {
                   flex
                   justify-between
                   items-center
-                  px-8
                 `}
               >
                 <LargeText
@@ -102,17 +98,9 @@ export default function Course ({ id }: CourseProps) {
                   onClick={onClick}
                 />
               </div>
-              <div
-                className={`
-                  w-fit
-                  mx-8
-                  my-1
-                `}
-              >
-                <SmallTextBox
-                  content={`Creado hace ${deltaDays(new Date(course.createdAt))} días`}
-                />
-              </div>
+              <SmallTextBox
+                content={`Creado hace ${deltaDays(new Date(course.createdAt))} días`}
+              />
             </div>
             <div
               className={`
@@ -120,8 +108,7 @@ export default function Course ({ id }: CourseProps) {
                 flex-row
                 w-full
                 gap-4
-                px-8
-                py-2
+                py-4
               `}
             >
               <div

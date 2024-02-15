@@ -94,7 +94,7 @@ export async function fetchPosts (pageSize: string, signal: AbortSignal): Promis
   return res.json()
 }
 
-export async function fetchFile (fileId: number): Promise<FileDownloadData | null> {
+export async function fetchFile (fileId: number, signal?: AbortSignal): Promise<FileDownloadData | null> {
   const tokens = await getTokens()
   if (tokens == null) {
     return null
@@ -107,7 +107,8 @@ export async function fetchFile (fileId: number): Promise<FileDownloadData | nul
     },
     body: JSON.stringify({
       fileId
-    })
+    }),
+    signal
   })
 
   if (res.status !== 200) {
