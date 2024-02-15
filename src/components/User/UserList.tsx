@@ -21,7 +21,6 @@ export default function UserList ({ name, type, communityId, subjectId, id, size
   useEffect(() => {
     const storedUserList = localStorage.getItem(type === 'RANKINGS' ? `rankings-${communityId}-${subjectId ?? 'dashboard'}` : `teachers-${id}`)
     if (storedUserList != null) {
-      console.log('storedUserList', JSON.parse(storedUserList))
       setUserList(JSON.parse(storedUserList))
       return
     }
@@ -54,7 +53,7 @@ export default function UserList ({ name, type, communityId, subjectId, id, size
   return (
     <>
       {
-        userList == null ? (
+        userList == null || userList.items.length === 0 ? (
           <></>
         ) : (
           <div

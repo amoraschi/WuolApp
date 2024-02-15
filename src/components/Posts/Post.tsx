@@ -14,6 +14,7 @@ import MediumText from '../Text/MediumText'
 import { useRouter } from 'next/router'
 
 const fileIdRegex = /-(\d+)\?/
+
 interface PostProps {
   post: SingleFile
 }
@@ -27,7 +28,8 @@ export default function Post ({ post }: PostProps) {
 
   const onClick = () => {
     if (post.contentUrl != null) {
-      open(post.contentUrl)
+      localStorage.setItem('selected-file', JSON.stringify(post))
+      router.replace('/files/file')
     }
   }
 

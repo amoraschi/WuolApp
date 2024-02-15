@@ -76,7 +76,7 @@ export default function Course ({ id }: CourseProps) {
         course == null ? (
           <></>
         ) : (
-          <div>
+          <>
             <div
               className={`
                 flex
@@ -136,7 +136,7 @@ export default function Course ({ id }: CourseProps) {
                 subjectId={course.subjectId}
               />
             </div>
-          </div>
+          </>
         )
       }
     </div>

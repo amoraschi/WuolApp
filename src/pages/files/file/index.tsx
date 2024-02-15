@@ -19,6 +19,7 @@ export default function FilePage () {
 
     const storedFile = localStorage.getItem('selected-file')
     if (storedFile != null) {
+      console.log(JSON.parse(storedFile))
       setFile(JSON.parse(storedFile))
     }
 

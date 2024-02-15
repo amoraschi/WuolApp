@@ -1,9 +1,9 @@
-import { Pagination } from './Common'
+import { Pagination, PaginationObject } from './Common'
 import { Subject } from './Community'
 
 export interface Courses {
   data: Course[]
-  meta: CourseMetadata
+  meta: PaginationObject
 }
 
 export interface Course {
@@ -20,8 +20,4 @@ export interface Course {
   createdAt: string
   updatedAt: string
   subject: Subject
-}
-
-export interface CourseMetadata {
-  pagination: Pagination
 }

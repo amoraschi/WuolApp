@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { AiOutlineLoading } from 'react-icons/ai'
 import { useRouter } from 'next/navigation'

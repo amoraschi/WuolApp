@@ -6,7 +6,6 @@ import SmallTextBox from '../Text/SmallTextBox'
 import UserImage from '../User/UserImage'
 import CourseFileStats from './CourseFileStats'
 import FileIcon from '../Icons/FileIcon'
-import { fetchFolderData } from '@/utils/data'
 import { useRouter } from 'next/navigation'
 
 interface CourseFilesProps {

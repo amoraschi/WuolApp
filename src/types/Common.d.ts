@@ -48,3 +48,7 @@ export interface SegmentationItem {
   status?: number
   logoUrl?: string
 }
+
+export interface PaginationObject {
+  pagination: Pagination
+}

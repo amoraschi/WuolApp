@@ -1,4 +1,6 @@
+import { Pagination, PaginationObject } from './Common'
 import { DefaultCommunity } from './Community'
+import { FileData } from './Files'
 
 export interface User {
   id: number
@@ -56,4 +58,16 @@ export interface UserStats {
   numFolloweds: number
   numFollowers: number
   numPaidDownloads: number
+}
+
+interface UserBookmarks {
+  data: UserBookmark[]
+  meta: PaginationObject
+}
+
+interface UserBookmark {
+  createdAt: string
+  document: FileData
+  documentId: number
+  userId: number
 }

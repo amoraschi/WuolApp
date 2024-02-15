@@ -1,5 +1,5 @@
 import { UserLogin } from '@/utils/constants'
-import { User, UserStats } from '@/types/User'
+import { User, UserBookmarks, UserStats } from '@/types/User'
 import { Rankings } from '@/types/Rankings'
 import { Files, FileData, FileDownloadData } from '@/types/Files'
 import { Courses } from '@/types/Courses'
@@ -209,6 +209,47 @@ export async function fetchFolderData (entityId: string): Promise<FileData | nul
   }
 
   const res = await fetch(`https://api.wuolah.com/v2/documents?filter[uploadId]=${entityId}&populate[0]=user&pagination[pageSize]=20`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${tokens.accessToken}`
+    }
+  })
+
+  if (res.status !== 200) {
+    return null
+  }
+
+  return res.json()
+}
+
+export async function bookmarkFile (fileId: string, bookmark: boolean): Promise<any> {
+  const tokens = await getTokens()
+  if (tokens == null) {
+    return null
+  }
+
+  const res = await fetch(`https://api.wuolah.com/v2/me/documents/${fileId}/bookmark`, {
+    method: bookmark ? 'PUT' : 'DELETE',
+    headers: {
+      Authorization: `Bearer ${tokens.accessToken}`
+    }
+  })
+
+  if (res.status !== 200) {
+    return null
+  }
+
+  return res.json()
+}
+
+export async function fetchBookmarked (): Promise<UserBookmarks | null> {
+  const tokens = await getTokens()
+  const selfData = await getSelfData()
+  if (tokens == null || selfData == null) {
+    return null
+  }
+
+  const res = await fetch(`https://api.wuolah.com/v2/me/documents/bookmark?populate[0]=document&pagination[pageSize]=250&filter[communityId]=${selfData.defaultCommunityId}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
