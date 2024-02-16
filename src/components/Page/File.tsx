@@ -46,6 +46,7 @@ export default function File ({ file }: FileProps) {
       setSaveFile(!saveFile)
 
       const bookmarkedFiles = await fetchBookmarked()
+      console.log(bookmarkedFiles)
       if (bookmarkedFiles != null) {
         localStorage.setItem('bookmarkedFiles', JSON.stringify(bookmarkedFiles))
       }

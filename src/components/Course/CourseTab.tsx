@@ -52,7 +52,6 @@ export default function CourseTab ({ course }: CourseTabProps) {
             text-lg
             text-black
             font-semibold
-            lin
           `}
         >
           {course.subject.name}

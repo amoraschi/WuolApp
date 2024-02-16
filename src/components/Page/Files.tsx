@@ -1,12 +1,12 @@
 import { UserBookmarks } from '@/types/User'
 import MediumText from '../Text/MediumText'
+import Bookmark from '../Bookmarks/Bookmark'
 
 interface FilesProps {
   bookmarks: UserBookmarks
 }
 
 export default function Files ({ bookmarks }: FilesProps) {
-  console.log(bookmarks)
   return (
     <div
       className={`
@@ -19,7 +19,6 @@ export default function Files ({ bookmarks }: FilesProps) {
         flex-col
         overflow-y-auto
         p-8
-        gap-1
       `}
     >
       <MediumText
@@ -29,11 +28,9 @@ export default function Files ({ bookmarks }: FilesProps) {
         bookmarks.data.length === 0 ? (
           <div
             className={`
-              w-full
+              grid
+              place-items-center
               h-full
-              flex
-              items-center
-              justify-center
             `}
           >
             <MediumText
@@ -42,25 +39,10 @@ export default function Files ({ bookmarks }: FilesProps) {
           </div>
         ) : (
           bookmarks.data.map((file, index) => (
-            <div
+            <Bookmark
               key={index}
-              className={`
-                w-full
-                h-12
-                flex
-                items-center
-                justify-between
-                px-4
-                border
-                border-gray-200
-                rounded-md
-                hover:bg-gray-100
-              `}
-            >
-              <MediumText
-                content={file.document.name}
-              />
-            </div>
+              bookmark={file}
+            />
           ))
         )
       }

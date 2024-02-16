@@ -249,7 +249,7 @@ export async function fetchBookmarked (): Promise<UserBookmarks | null> {
     return null
   }
 
-  const res = await fetch(`https://api.wuolah.com/v2/me/documents/bookmark?populate[0]=document&pagination[pageSize]=250&filter[communityId]=${selfData.defaultCommunityId}`, {
+  const res = await fetch(`https://api.wuolah.com/v2/me/documents/bookmark?populate[0]=document&populate[1]=document.user&populate[2]=document.subject&pagination[pageSize]=250&filter[communityId]=${selfData.defaultCommunityId}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
