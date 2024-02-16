@@ -37,7 +37,7 @@ export default function Login () {
     }
 
     const config = await getConfig()
-    if (config?.user != null && await isTokenValid(config.user) && config.user === username.value) {
+    if (config?.user != null && await isTokenValid(config.user) && config.user.username === username.value) {
       localStorage.setItem('userLogin', JSON.stringify(config.user))
       router.replace('/dashboard')
       return
