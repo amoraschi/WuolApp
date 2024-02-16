@@ -7,6 +7,9 @@ import UserImage from '../User/UserImage'
 import CourseFileStats from './CourseFileStats'
 import FileIcon from '../Icons/FileIcon'
 import { useRouter } from 'next/navigation'
+import { fetchFileData, fetchFolderData } from '@/utils/data'
+
+const fileIdRegex = /-(\d+)/
 
 interface CourseFilesProps {
   file: SingleFile
@@ -15,10 +18,38 @@ interface CourseFilesProps {
 export default function CourseFile ({ file }: CourseFilesProps) {
   const router = useRouter()
 
+  const fileIdMatch = file.id != null ? file.id.match(fileIdRegex) : null
+  const fileId = fileIdMatch != null ? fileIdMatch[1] : null
+
+  // if (file.extension == null) {
+  //   console.log(file)
+  // }
+
   const onClick = () => {
     const getFileData = async () => {
-      localStorage.setItem('selected-file', JSON.stringify(file))
-      router.push('/files/file')
+      if (fileId == null) {
+        return
+      }
+
+      if (file.extension != null) {
+        // File
+        const res = await fetchFileData(fileId)
+        if (res == null) {
+          return
+        }
+
+        localStorage.setItem('selected-file', JSON.stringify(res))
+        router.replace('/files/file')
+      } else {
+        // Folder
+        const res = await fetchFolderData(`${file.entityId}`)
+        if (res == null) {
+          return
+        }
+
+        localStorage.setItem('selected-folder', JSON.stringify(res))
+        router.replace('/files/folder')
+      }
     }
 
     getFileData()
@@ -101,7 +132,10 @@ export default function CourseFile ({ file }: CourseFilesProps) {
             content={dateString(new Date(file.createdAt))}
           />
           <CourseFileStats
-            stats={file.stats}
+            downloads={file.stats.numDownloads ?? 0}
+            paid={file.stats.numPaidDownloads ?? 0}
+            views={file.stats.numViews ?? 0}
+            bookmarks={file.stats.numBookmarks ?? 0}
           />
         </div>
       </div>

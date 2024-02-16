@@ -77,7 +77,7 @@ export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
     searchTimeout = setTimeout(() => {
       const searchInput = async () => {
         abortController = new AbortController()
-        const res = await fetchCourseFiles(`${course}`, `${subjectId}`, input, '20', abortController.signal)
+        const res = await fetchCourseFiles(`${course}`, `${subjectId}`, input, '50', abortController.signal)
         abortController = null
         if (res == null) {
           setSearching(false)

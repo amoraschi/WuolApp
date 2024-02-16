@@ -64,7 +64,7 @@ export interface Stats {
   numDislikes?: number
 }
 
-export interface Folder {
+export interface FolderData {
   data: FileData[]
   meta: Pagination
 }

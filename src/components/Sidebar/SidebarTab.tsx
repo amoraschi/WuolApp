@@ -10,6 +10,10 @@ interface SidebarTabProps {
 export default function SidebarTab ({ name, href, icon }: SidebarTabProps) {
   const pathname = usePathname()
 
+  const onClick = () => {
+    localStorage.removeItem('selected-course')
+  }
+
   return (
     <Link
       className={`
@@ -28,6 +32,7 @@ export default function SidebarTab ({ name, href, icon }: SidebarTabProps) {
         borderRight: pathname.includes(href) ? '4px solid #1d4ed8' : 'none'
       }}
       href={href}
+      onClick={onClick}
     >
       <span
         className={`

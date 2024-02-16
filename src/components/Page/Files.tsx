@@ -4,9 +4,10 @@ import Bookmark from '../Bookmarks/Bookmark'
 
 interface FilesProps {
   bookmarks: UserBookmarks
+  setBookmarkedFiles: (bookmarks: UserBookmarks) => void
 }
 
-export default function Files ({ bookmarks }: FilesProps) {
+export default function Files ({ bookmarks, setBookmarkedFiles }: FilesProps) {
   return (
     <div
       className={`
@@ -42,6 +43,7 @@ export default function Files ({ bookmarks }: FilesProps) {
             <Bookmark
               key={index}
               bookmark={file}
+              setBookmarkedFiles={setBookmarkedFiles}
             />
           ))
         )

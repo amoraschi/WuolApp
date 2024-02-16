@@ -60,13 +60,10 @@ export default function Sidebar ({ user }: SidebarProps) {
       </div>
       <div
         className={`
-          h-16
+          h-fit
           w-fit
           mt-auto
           m-2
-          rounded-md
-          shadow-md
-          bg-white
         `}
       >
         {

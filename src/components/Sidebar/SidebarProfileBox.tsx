@@ -1,21 +1,42 @@
-import Image from 'next/image'
 import { GoSignOut } from 'react-icons/go'
+import { confirm } from '@tauri-apps/api/dialog'
 import { User } from '@/types/User'
 import UserImage from '../User/UserImage'
+import { useRouter } from 'next/navigation'
 
 interface SidebarProfileBoxProps {
   user: User
 }
 
 export default function SidebarProfileBox ({ user }: SidebarProfileBoxProps) {
+  const router = useRouter()
+
+  const onClick = () => {
+    // Confirm operation
+
+    const askConfirm = async () => {
+      const result = await confirm('¿Estás seguro/a de que quieres cerrar sesión?')
+      console.log(result)
+      if (result) {
+        localStorage.clear()
+        router.replace('/')
+      }
+    }
+
+    askConfirm()
+  }
+
   return (
     <div
       className={`
         flex
         items-center
-        h-full
+        h-16
         p-2
         gap-2
+        rounded-md
+        shadow-md
+        bg-white
       `}
     >
       <UserImage
@@ -60,6 +81,8 @@ export default function SidebarProfileBox ({ user }: SidebarProfileBoxProps) {
           transition-all
           duration-200
         `}
+        onClick={onClick}
+        title='Cerrar sesión'
       >
         <GoSignOut />
       </span>

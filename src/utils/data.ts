@@ -1,7 +1,7 @@
-import { UserLogin } from '@/utils/constants'
+import { UserLogin } from '@/types/Common'
 import { User, UserBookmarks, UserStats } from '@/types/User'
 import { Rankings } from '@/types/Rankings'
-import { Files, FileData, FileDownloadData } from '@/types/Files'
+import { Files, FileData, FileDownloadData, FolderData } from '@/types/Files'
 import { Courses } from '@/types/Courses'
 
 let cachedTokens: UserLogin | null
@@ -46,7 +46,8 @@ export async function fetchSelfData (signal: AbortSignal): Promise<User | null> 
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
     },
-    signal
+    signal,
+    cache: 'no-store'
   })
 
   if (res.status !== 200) {
@@ -84,7 +85,8 @@ export async function fetchPosts (pageSize: string, signal: AbortSignal): Promis
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
     },
-    signal
+    signal,
+    cache: 'no-store'
   })
 
   if (res.status !== 200) {
@@ -108,7 +110,8 @@ export async function fetchFile (fileId: number, signal?: AbortSignal): Promise<
     body: JSON.stringify({
       fileId
     }),
-    signal
+    signal,
+    cache: 'no-store'
   })
 
   if (res.status !== 200) {
@@ -148,7 +151,8 @@ export async function fetchCourses (pageSize: string, signal: AbortSignal): Prom
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
     },
-    signal
+    signal,
+    cache: 'no-store'
   })
 
   console.log(res)
@@ -172,7 +176,8 @@ export async function fetchCourseFiles (id: string, subjectId: string, searchTex
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
     },
-    signal
+    signal,
+    cache: 'no-store'
   })
 
   if (res.status !== 200) {
@@ -192,7 +197,8 @@ export async function fetchFileData (fileId: string): Promise<FileData | null> {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
-    }
+    },
+    cache: 'no-store'
   })
 
   if (res.status !== 200) {
@@ -202,7 +208,7 @@ export async function fetchFileData (fileId: string): Promise<FileData | null> {
   return res.json()
 }
 
-export async function fetchFolderData (entityId: string): Promise<FileData | null> {
+export async function fetchFolderData (entityId: string): Promise<FolderData | null> {
   const tokens = await getTokens()
   if (tokens == null) {
     return null
@@ -212,7 +218,8 @@ export async function fetchFolderData (entityId: string): Promise<FileData | nul
     method: 'GET',
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
-    }
+    },
+    cache: 'no-store'
   })
 
   if (res.status !== 200) {
@@ -232,7 +239,8 @@ export async function bookmarkFile (fileId: string, bookmark: boolean): Promise<
     method: bookmark ? 'PUT' : 'DELETE',
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
-    }
+    },
+    cache: 'no-store'
   })
 
   if (res.status !== 200) {
@@ -253,7 +261,8 @@ export async function fetchBookmarked (): Promise<UserBookmarks | null> {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
-    }
+    },
+    cache: 'no-store'
   })
 
   if (res.status !== 200) {
@@ -274,7 +283,8 @@ export async function fetchWithAuth (url: string, signal: AbortSignal) {
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
     },
-    signal
+    signal,
+    cache: 'no-store'
   })
 
   if (res.status !== 200) {

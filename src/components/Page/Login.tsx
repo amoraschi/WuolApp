@@ -21,25 +21,25 @@ export default function Login () {
     setShowError(false)
     const userLogin = localStorage.getItem('userLogin')
 
-    if (userLogin != null && await isTokenValid(JSON.parse(userLogin))) {
-      await setConfig({ user: JSON.parse(userLogin) })
-      router.replace('/dashboard')
-      return
-    }
-
-    const config = await getConfig()
-    if (config?.user != null && await isTokenValid(config.user)) {
-      localStorage.setItem('userLogin', JSON.stringify(config.user))
-      router.replace('/dashboard')
-      return
-    }
-
     const username = document.querySelector('input[placeholder="Correo"]') as HTMLInputElement
     const password = document.querySelector('input[placeholder="Contraseña"]') as HTMLInputElement
 
     if (username == null || password == null || username?.value === '' || password?.value === '') {
       setLoggingIn(false)
       setShowError(true)
+      return
+    }
+
+    if (userLogin != null && await isTokenValid(JSON.parse(userLogin)) && JSON.parse(userLogin).username === username.value) {
+      await setConfig({ user: JSON.parse(userLogin) })
+      router.replace('/dashboard')
+      return
+    }
+
+    const config = await getConfig()
+    if (config?.user != null && await isTokenValid(config.user) && config.user === username.value) {
+      localStorage.setItem('userLogin', JSON.stringify(config.user))
+      router.replace('/dashboard')
       return
     }
 

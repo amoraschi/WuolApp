@@ -19,7 +19,7 @@ const socialIdRegex = /-(\d+)\?/
 const expireRegex = /Expires=(\d+)/
 
 interface FileProps {
-  file: SingleFile
+  file: FileData
 }
 
 export default function File ({ file }: FileProps) {
@@ -27,8 +27,8 @@ export default function File ({ file }: FileProps) {
   const [fileError, setFileError] = useState(false)
   const [saveFile, setSaveFile] = useState(false)
 
-  const fileIdMatch = file.entityType === 'social' ? (file.contentUrl != null ? file.contentUrl.match(socialIdRegex) : null) : (file.id != null ? file.id.match(fileIdRegex) : null)
-  const fileId = fileIdMatch != null ? fileIdMatch[1] : null
+  // const fileIdMatch = file.entityType === 'social' ? (file.contentUrl != null ? file.contentUrl.match(socialIdRegex) : null) : (file.id != null ? file.id.match(fileIdRegex) : null)
+  const fileId = `${file.id}`
 
   const onClick = () => {
     if (fileId == null) {
@@ -96,7 +96,7 @@ export default function File ({ file }: FileProps) {
       const res = await fetchFile(parseInt(fileId), abortController.signal)
       if (res == null) {
         setFileError(true)
-        message(`Error al descargar el archivo.\n\nIntente entrar a cualquier archivo en Wuolah y resolver el captcha.`, { title: 'WuolApp', type: 'error' })
+        message(`Error al descargar el archivo.\n\nIntente entrar a cualquier archivo en Wuolah y resolver el captcha, o confirmar su correo.`, { title: 'WuolApp', type: 'error' })
         return
       }
 
@@ -129,7 +129,9 @@ export default function File ({ file }: FileProps) {
       `}
     >
       <LinkText
-        href='/courses/course'
+        href={
+          localStorage.getItem('selected-course') != null ? '/courses/course' : '/files'
+        }
         content='Volver'
       />
       <div
@@ -141,7 +143,7 @@ export default function File ({ file }: FileProps) {
         `}
       >
         <LargeText
-          content={file.title ?? 'Sin título'}
+          content={file.name ?? 'Sin título'}
         />
         <BookmarkIcon
           saveFile={saveFile}
@@ -159,11 +161,14 @@ export default function File ({ file }: FileProps) {
           content={`Subido el ${dateString(new Date(file.createdAt))}`}
         />
         {
-          file.stats == null ? (
+          file.numViews == null ? (
             <></>
           ) : (
             <CourseFileStats
-              stats={file.stats}
+              downloads={file.numDownloads}
+              paid={file.numPaidDownloads}
+              views={file.numViews}
+              bookmarks={file.numBookmarks}
             />
           )
         }

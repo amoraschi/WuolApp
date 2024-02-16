@@ -1,3 +1,19 @@
+import { UserBookmarks } from './User'
+
+export interface WuolahLogin {
+  accessToken: string
+  refreshToken: string
+  expires: string
+}
+
+export interface UserLogin {
+  username: string
+  password: string
+  accessToken: string
+  refreshToken: string
+  expires: string
+}
+
 export interface Pagination {
   type?: string
   size?: number
@@ -51,4 +67,16 @@ export interface SegmentationItem {
 
 export interface PaginationObject {
   pagination: Pagination
+}
+
+interface Config {
+  user: ConfigUser
+}
+
+interface ConfigUser {
+  username: string
+  password: string
+  accessToken: string
+  refreshToken: string
+  expires: string
 }

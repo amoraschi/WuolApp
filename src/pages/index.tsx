@@ -4,6 +4,8 @@ import Login from '@/components/Page/Login'
 
 export default function LoginPage () {
   useEffect(() => {
+    localStorage.clear()
+
     const fillForm = async () => {
       const config = await getConfig()
       if (config == null || config?.user == null) {

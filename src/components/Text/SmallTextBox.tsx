@@ -1,9 +1,10 @@
 interface SmallTextBoxProps {
   content: string | number | JSX.Element
   noBackground?: boolean
+  onClick?: () => void
 }
 
-export default function SmallTextBox ({ content, noBackground }: SmallTextBoxProps) {
+export default function SmallTextBox ({ content, noBackground, onClick }: SmallTextBoxProps) {
   return (
     <span
       className={`
@@ -19,6 +20,7 @@ export default function SmallTextBox ({ content, noBackground }: SmallTextBoxPro
         paddingLeft: noBackground ? undefined : '0.25rem',
         paddingRight: noBackground ? undefined : '0.25rem'
       }}
+      onClick={onClick}
     >
       {content}
     </span>

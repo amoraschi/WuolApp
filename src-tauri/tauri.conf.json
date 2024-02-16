@@ -13,13 +13,6 @@
   "tauri": {
     "allowlist": {
       "all": false,
-      "http": {
-        "all": false,
-        "request": true,
-        "scope": [
-          "https://api.wuolah.com/*"
-        ]
-      },
       "fs": {
         "all": false,
         "exists": true,
@@ -39,7 +32,8 @@
       "dialog": {
         "all": false,
         "save": true,
-        "message": true
+        "message": true,
+        "confirm": true
       }
     },
     "bundle": {

@@ -1,6 +1,7 @@
+import { Config } from '@/types/Common'
 import { BaseDirectory, exists, readTextFile, writeTextFile } from '@tauri-apps/api/fs'
 
-export async function getConfig (): Promise<any> {
+export async function getConfig (): Promise<Config> {
   const existsFile = await exists('config.json', {
     dir: BaseDirectory.AppData
   })
@@ -18,7 +19,7 @@ export async function getConfig (): Promise<any> {
   return JSON.parse(config)
 }
 
-export async function setConfig (config: any): Promise<void> {
+export async function setConfig (config: Config): Promise<void> {
   console.log('Config:', 'AppData')
   
   await writeTextFile('config.json', JSON.stringify(config), {

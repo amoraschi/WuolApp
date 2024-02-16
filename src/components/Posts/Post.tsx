@@ -27,10 +27,22 @@ export default function Post ({ post }: PostProps) {
   const fileId = fileIdMatch != null ? fileIdMatch[1] : null
 
   const onClick = () => {
-    if (post.contentUrl != null) {
-      localStorage.setItem('selected-file', JSON.stringify(post))
+    const getFileData = async () => {
+      if (fileId == null) {
+        return
+      }
+
+      const res = await fetchFileData(fileId)
+      if (res == null) {
+        return
+      }
+
+      localStorage.setItem('selected-file', JSON.stringify(res))
+      // localStorage.setItem('selected-file', JSON.stringify(file))
       router.replace('/files/file')
     }
+
+    getFileData()
   }
 
   const downloadFile = async () => {
@@ -105,7 +117,9 @@ export default function Post ({ post }: PostProps) {
           )
         }
       </span>
-      <div>
+      <div
+        title={post.description ?? ''}
+      >
         <MediumText
           content={post.description ?? 'Sin descripción'}
           black

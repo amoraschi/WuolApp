@@ -1,4 +1,4 @@
-import { WuolahLogin } from '@/utils/constants'
+import { WuolahLogin } from '@/types/Common'
 
 export async function getTokens (username: string, password: string): Promise<WuolahLogin | null> {
   const response = await fetch('https://api.wuolah.com/login', {
@@ -6,7 +6,8 @@ export async function getTokens (username: string, password: string): Promise<Wu
     body: JSON.stringify({
       account: username,
       password: password
-    })
+    }),
+    cache: 'no-store'
   })
 
   if (response.status !== 200) {

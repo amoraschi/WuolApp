@@ -48,6 +48,7 @@ export default function FilesPage () {
         ) : (
           <Files
             bookmarks={bookmarkedFiles}
+            setBookmarkedFiles={setBookmarkedFiles}
           />
         )
       }

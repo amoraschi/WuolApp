@@ -2,10 +2,13 @@ import { GoBookmark, GoCreditCard, GoDownload, GoEye, GoTag } from 'react-icons/
 import { Stats } from '@/types/Files'
 
 interface CourseFileStatsProps {
-  stats: Stats
+  downloads: number
+  paid: number
+  views: number
+  bookmarks: number
 }
 
-export default function CourseFileStats ({ stats }: CourseFileStatsProps) {
+export default function CourseFileStats ({ downloads, paid, views, bookmarks }: CourseFileStatsProps) {
   return (
     <div
       className={`
@@ -19,22 +22,22 @@ export default function CourseFileStats ({ stats }: CourseFileStatsProps) {
       <GoDownload
         title='Número de descargas'
       />
-      {stats.numDownloads ?? 0}
+      {downloads ?? 0}
       &nbsp;
       <GoCreditCard
         title='Número de descargas financiadas'
       />
-      {stats.numPaidDownloads ?? 0}
+      {paid ?? 0}
       &nbsp;
       <GoEye
         title='Número de visualizaciones'
       />
-      {stats.numViews ?? 0}
+      {views ?? 0}
       &nbsp;
       <GoBookmark
         title='Número de guardados'
       />
-      {stats.numBookmarks ?? 0}
+      {bookmarks ?? 0}
     </div>
   )
 }

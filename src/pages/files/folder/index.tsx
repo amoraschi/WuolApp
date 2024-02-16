@@ -1,13 +1,14 @@
-import File from '@/components/Page/File'
+import Files from '@/components/Page/Files'
+import Folder from '@/components/Page/Folder'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { FileData, SingleFile } from '@/types/Files'
+import { FolderData } from '@/types/Files'
 import { User } from '@/types/User'
 import { handleSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 
-export default function FilePage () {
+export default function FolderPage () {
   const [selfData, setSelfData] = useState<User | null>(null)
-  const [file, setFile] = useState<FileData | null>(null)
+  const [folder, setFolder] = useState<FolderData | null>(null)
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -17,10 +18,9 @@ export default function FilePage () {
 
     getSelfData()
 
-    const storedFile = localStorage.getItem('selected-file')
-    if (storedFile != null) {
-      console.log(JSON.parse(storedFile))
-      setFile(JSON.parse(storedFile))
+    const selectedFolder = localStorage.getItem('selected-folder')
+    if (selectedFolder != null) {
+      setFolder(JSON.parse(selectedFolder))
     }
 
     return () => {
@@ -37,11 +37,11 @@ export default function FilePage () {
       `}
     >
       {
-        file == null ? (
+        folder == null ? (
           <></>
         ) : (
-          <File
-            file={file}
+          <Folder
+            folder={folder}
           />
         )
       }
