@@ -5,7 +5,7 @@ import SmallTextBox from '../Text/SmallTextBox'
 import { dateString } from '@/utils/math'
 import User from '../User/User'
 import { useEffect, useState } from 'react'
-import { bookmarkFile, fetchBookmarked, fetchFile } from '@/utils/data'
+import { bookmarkFile, fetchBookmarked, fetchFile, fetchFileURL } from '@/utils/data'
 import { message } from '@tauri-apps/api/dialog'
 import LoadingIcon from '../Icons/LoadingIcon'
 import CourseFileStats from '../Course/CourseFileStats'
@@ -26,6 +26,7 @@ export default function File ({ file }: FileProps) {
   const [fileDownloadData, setFileDownloadData] = useState<FileDownloadData | null>(null)
   const [fileError, setFileError] = useState(false)
   const [saveFile, setSaveFile] = useState(false)
+  const [iframeURL, setIframeURL] = useState<string | null>(null)
 
   // const fileIdMatch = file.entityType === 'social' ? (file.contentUrl != null ? file.contentUrl.match(socialIdRegex) : null) : (file.id != null ? file.id.match(fileIdRegex) : null)
   const fileId = `${file.id}`
@@ -74,7 +75,6 @@ export default function File ({ file }: FileProps) {
     }
 
     const storedFileDownloadData = localStorage.getItem(`fileDownloadData-${fileId}`)
-    console.log(storedFileDownloadData)
     if (storedFileDownloadData != null) {
       const fileDownloadData = JSON.parse(storedFileDownloadData)
 
@@ -88,6 +88,7 @@ export default function File ({ file }: FileProps) {
       }
 
       setFileDownloadData(fileDownloadData)
+      setIframeURL(fileDownloadData.blobURL)
       return
     }
 
@@ -100,9 +101,21 @@ export default function File ({ file }: FileProps) {
         return
       }
 
+      const fileDataURL = await fetchFileURL(res, abortController.signal)
+      if (fileDataURL == null) {
+        setFileError(true)
+        message(`Error al descargar el archivo.\n\nIntente entrar a cualquier archivo en Wuolah y resolver el captcha, o confirmar su correo.`, { title: 'WuolApp', type: 'error' })
+        return
+      }
+
       setFileDownloadData(res)
+      setIframeURL(fileDataURL)
       setFileError(false)
-      localStorage.setItem(`fileDownloadData-${fileId}`, JSON.stringify(res))
+
+      localStorage.setItem(`fileDownloadData-${fileId}`, JSON.stringify({
+        url: res.url,
+        blobURL: fileDataURL
+      }))
     }
 
     getFileData()
@@ -186,13 +199,13 @@ export default function File ({ file }: FileProps) {
             Error al cargar el archivo
           </span>
         ) : (
-          fileDownloadData == null ? (
+          fileDownloadData == null || iframeURL == null ? (
             <LoadingIcon
               margin='1'
             />
           ) : (
             <iframe
-              src={fileDownloadData.url}
+              src={iframeURL}
               className={`
                 mt-2
                 h-full

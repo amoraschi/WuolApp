@@ -5,14 +5,11 @@ import { fetchBookmarked, handleSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 
 export default function FilesPage () {
-  const [selfData, setSelfData] = useState<User | null>(null)
   const [bookmarkedFiles, setBookmarkedFiles] = useState<UserBookmarks | null>(null)
 
   useEffect(() => {
     const abortController = new AbortController()
     const getSelfData = async () => {
-      await handleSelfData(setSelfData, abortController.signal)
-
       const storedBookmarkedFiles = localStorage.getItem('bookmarkedFiles')
       if (storedBookmarkedFiles != null) {
         const bookmarkedFiles = JSON.parse(storedBookmarkedFiles)
@@ -20,7 +17,7 @@ export default function FilesPage () {
         return
       }
 
-      const bookmarkedFiles = await fetchBookmarked()
+      const bookmarkedFiles = await fetchBookmarked(abortController.signal)
       if (bookmarkedFiles != null) {
         localStorage.setItem('bookmarkedFiles', JSON.stringify(bookmarkedFiles))
         setBookmarkedFiles(bookmarkedFiles)
@@ -52,9 +49,7 @@ export default function FilesPage () {
           />
         )
       }
-      <Sidebar
-        user={selfData}
-      />
+      <Sidebar />
     </main>
   )
 }

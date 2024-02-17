@@ -121,6 +121,19 @@ export async function fetchFile (fileId: number, signal?: AbortSignal): Promise<
   return res.json()
 }
 
+export async function fetchFileURL (response: FileDownloadData, signal: AbortSignal): Promise<string | null> {
+  const res = await fetch(response.url, {
+    signal
+  })
+
+  if (res.status !== 200) {
+    return null
+  }
+
+  const blob = await res.blob()
+  return URL.createObjectURL(blob)
+}
+
 export async function downloadBinaryFile (dataURL: string, filePath: string): Promise<boolean | null> {
   const res = await fetch(dataURL)
   if (res.status !== 200) {
@@ -250,7 +263,7 @@ export async function bookmarkFile (fileId: string, bookmark: boolean): Promise<
   return res.json()
 }
 
-export async function fetchBookmarked (): Promise<UserBookmarks | null> {
+export async function fetchBookmarked (signal?: AbortSignal): Promise<UserBookmarks | null> {
   const tokens = await getTokens()
   const selfData = await getSelfData()
   if (tokens == null || selfData == null) {
@@ -262,6 +275,7 @@ export async function fetchBookmarked (): Promise<UserBookmarks | null> {
     headers: {
       Authorization: `Bearer ${tokens.accessToken}`
     },
+    signal,
     cache: 'no-store'
   })
 

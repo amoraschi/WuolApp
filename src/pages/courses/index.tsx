@@ -5,21 +5,6 @@ import { User } from '@/types/User'
 import Courses from '@/components/Page/Courses'
 
 export default function CoursesPage () {
-  const [selfData, setSelfData] = useState<User | null>(null)
-
-  useEffect(() => {
-    const abortController = new AbortController()
-    const getSelfData = async () => {
-      await handleSelfData(setSelfData, abortController.signal)
-    }
-
-    getSelfData()
-
-    return () => {
-      abortController.abort()
-    }
-  }, [])
-
   return (
     <main
       className={`
@@ -29,9 +14,7 @@ export default function CoursesPage () {
       `}
     >
       <Courses />
-      <Sidebar
-        user={selfData}
-      />
+      <Sidebar />
     </main>
   )
 }

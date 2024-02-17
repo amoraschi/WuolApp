@@ -2,10 +2,8 @@ import { GoFile, GoHome, GoMortarBoard } from 'react-icons/go'
 import SidebarProfileBox from './SidebarProfileBox'
 import SidebarTab from './SidebarTab'
 import { User } from '@/types/User'
-
-export interface SidebarProps {
-  user: User | null
-}
+import { useEffect, useState } from 'react'
+import { handleSelfData } from '@/utils/data'
 
 const tabs = [
   {
@@ -25,7 +23,26 @@ const tabs = [
   }
 ]
 
-export default function Sidebar ({ user }: SidebarProps) {
+export default function Sidebar () {
+  const [selfData, setSelfData] = useState<User | null>(null)
+  
+  useEffect(() => {
+    if (selfData != null) {
+      return
+    }
+
+    const abortController = new AbortController()
+    const fetchSelfData = async () => {
+      await handleSelfData(setSelfData, abortController.signal)
+    }
+
+    fetchSelfData()
+
+    return () => {
+      abortController.abort()
+    }
+  }, [])
+
   return (
     <div
       className={`
@@ -67,11 +84,11 @@ export default function Sidebar ({ user }: SidebarProps) {
         `}
       >
         {
-          user == null ? (
+          selfData == null ? (
             <></>
           ) : (
             <SidebarProfileBox
-              user={user}
+              user={selfData}
             />
           )
         }

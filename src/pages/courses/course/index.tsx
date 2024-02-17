@@ -5,24 +5,12 @@ import { handleSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 
 export default function CoursePage () {
-  const [selfData, setSelfData] = useState<User | null>(null)
   const [id, setId] = useState<string | null>(null)
 
   useEffect(() => {
-    const abortController = new AbortController()
-    const getSelfData = async () => {
-      await handleSelfData(setSelfData, abortController.signal)
-    }
-
-    getSelfData()
-
     const storedId = localStorage.getItem('selected-course')
     if (storedId != null) {
       setId(storedId)
-    }
-
-    return () => {
-      abortController.abort()
     }
   }, [])
 
@@ -43,9 +31,7 @@ export default function CoursePage () {
           />
         )
       }
-      <Sidebar
-        user={selfData}
-      />
+      <Sidebar />
     </main>
   )
 }

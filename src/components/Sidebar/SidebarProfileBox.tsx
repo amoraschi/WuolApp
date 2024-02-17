@@ -12,8 +12,6 @@ export default function SidebarProfileBox ({ user }: SidebarProfileBoxProps) {
   const router = useRouter()
 
   const onClick = () => {
-    // Confirm operation
-
     const askConfirm = async () => {
       const result = await confirm('¿Estás seguro/a de que quieres cerrar sesión?')
       console.log(result)

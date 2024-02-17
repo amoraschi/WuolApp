@@ -6,25 +6,12 @@ import { handleSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 
 export default function FilePage () {
-  const [selfData, setSelfData] = useState<User | null>(null)
   const [file, setFile] = useState<FileData | null>(null)
 
   useEffect(() => {
-    const abortController = new AbortController()
-    const getSelfData = async () => {
-      await handleSelfData(setSelfData, abortController.signal)
-    }
-
-    getSelfData()
-
     const storedFile = localStorage.getItem('selected-file')
     if (storedFile != null) {
-      console.log(JSON.parse(storedFile))
       setFile(JSON.parse(storedFile))
-    }
-
-    return () => {
-      abortController.abort()
     }
   }, [])
 
@@ -45,9 +32,7 @@ export default function FilePage () {
           />
         )
       }
-      <Sidebar
-        user={selfData}
-      />
+      <Sidebar />
     </main>
   )
 }
