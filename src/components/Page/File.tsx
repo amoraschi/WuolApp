@@ -1,17 +1,17 @@
-import { FileData, FileDownloadData, SingleFile } from '@/types/Files'
+import { FileData, FileDownloadData } from '@/types/Files'
 import LinkText from '../Text/LinkText'
 import LargeText from '../Text/LargeText'
 import SmallTextBox from '../Text/SmallTextBox'
 import { dateString } from '@/utils/math'
-import User from '../User/User'
 import { useEffect, useState } from 'react'
 import { bookmarkFile, fetchBookmarked, fetchFile, fetchFileURL } from '@/utils/data'
-import { message } from '@tauri-apps/api/dialog'
+import { message, save } from '@tauri-apps/api/dialog'
 import LoadingIcon from '../Icons/LoadingIcon'
 import CourseFileStats from '../Course/CourseFileStats'
-import { GoBookmark, GoBookmarkFill } from 'react-icons/go'
 import BookmarkIcon from '../Icons/BookmarkIcon'
 import { UserBookmark } from '@/types/User'
+import { writeBinaryFile } from '@tauri-apps/api/fs'
+import Button from '../Text/Button'
 
 const fileIdRegex = /-(\d+)/
 const socialIdRegex = /-(\d+)\?/
@@ -36,7 +36,6 @@ export default function File ({ file }: FileProps) {
       return
     }
 
-    console.log('Saving file', fileId)
     const fetchBookmarkFile = async () => {
       const res = await bookmarkFile(fileId, !saveFile)
       if (res == null) {
@@ -51,11 +50,43 @@ export default function File ({ file }: FileProps) {
       if (bookmarkedFiles != null) {
         localStorage.setItem('bookmarkedFiles', JSON.stringify(bookmarkedFiles))
       }
-
-      console.log(res)
     }
 
     fetchBookmarkFile()
+  }
+
+  const downloadFile = async () => {
+    const filePath = await save({
+      filters: [{
+        name: file.extension.toUpperCase(),
+        extensions: [file.extension]
+      }]
+    })
+
+    if (filePath == null) {
+      return
+    }
+
+    const storedBlobURL = localStorage.getItem(`fileDownloadData-${fileId}`)
+    if (storedBlobURL == null) {
+      message('Error al descargar el archivo.', { title: 'WuolApp', type: 'error' })
+      return
+    }
+
+    const blobURL = JSON.parse(storedBlobURL).blobURL
+    if (blobURL == null) {
+      message('Error al descargar el archivo.', { title: 'WuolApp', type: 'error' })
+      return
+    }
+
+    const res = await fetch(blobURL)
+    if (res.body == null) {
+      message('Error al descargar el archivo.', { title: 'WuolApp', type: 'error' })
+      return
+    }
+
+    const buffer = await res.arrayBuffer()
+    await writeBinaryFile(filePath, new Uint8Array(buffer))
   }
 
   useEffect(() => {
@@ -204,15 +235,28 @@ export default function File ({ file }: FileProps) {
               margin='1'
             />
           ) : (
-            <iframe
-              src={iframeURL}
+            <div
               className={`
-                mt-2
+                flex
+                flex-col
                 h-full
-                w-full
-                rounded-md
+                mt-2
               `}
-            />
+            >
+              <Button
+                content='DESCARGAR'
+                onClick={downloadFile}
+              />
+              <iframe
+                src={iframeURL}
+                className={`
+                  mt-2
+                  h-full
+                  w-full
+                  rounded-md
+                `}
+              />
+            </div>
           )
         )
       }

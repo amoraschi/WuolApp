@@ -5,6 +5,7 @@ import { useState } from 'react'
 import UserProfileBankValue from './UserProfileBankValue'
 import { moneyString } from '@/utils/math'
 import { open } from '@tauri-apps/api/shell'
+import Button from '../Text/Button'
 
 interface UserProfileBankProps {
   user: User
@@ -36,6 +37,7 @@ export default function UserProfileBank ({ user }: UserProfileBankProps) {
       <div
         className={`
           grid
+          gap-2
         `}
       >
         <UserProfileBankValue
@@ -50,23 +52,10 @@ export default function UserProfileBank ({ user }: UserProfileBankProps) {
           main={false}
           text='Saldo acumulado en tu cuenta: '
         />
-        <button
-          className={`
-            mt-2
-            bg-blue-500
-            font-bold
-            w-fit
-            py-2
-            px-4
-            rounded-md
-            hover:bg-blue-600
-            transition-all
-            duration-200
-          `}
+        <Button
+          content='RECARGAR'
           onClick={onClick}
-        >
-          RECARGAR
-        </button>
+        />
       </div>
     </>
   )

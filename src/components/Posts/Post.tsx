@@ -1,17 +1,14 @@
-import { message, save } from '@tauri-apps/api/dialog'
-import { open } from '@tauri-apps/api/shell'
-import { writeBinaryFile } from '@tauri-apps/api/fs'
-import Image from 'next/image'
 import { useState } from 'react'
-import { GoComment, GoCommentDiscussion, GoDownload, GoFileSymlinkFile } from 'react-icons/go'
+import { GoComment, GoCommentDiscussion } from 'react-icons/go'
 import { SingleFile } from '@/types/Files'
-import { downloadBinaryFile, fetchFile, fetchFileData } from '@/utils/data'
+import { fetchFile, fetchFileData } from '@/utils/data'
 import { dateString } from '@/utils/math'
 import SmallTextBox from '../Text/SmallTextBox'
 import UserImage from '../User/UserImage'
 import PostLinks from './PostLinks'
 import MediumText from '../Text/MediumText'
 import { useRouter } from 'next/router'
+import { message } from '@tauri-apps/api/dialog'
 
 const fileIdRegex = /-(\d+)\?/
 

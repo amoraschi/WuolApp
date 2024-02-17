@@ -1,3 +1,5 @@
+import { message } from '@tauri-apps/api/dialog'
+
 export const currencies = [
   {
     country: 'ES',
@@ -39,4 +41,8 @@ export const currencies = [
 export const endpoints: Record<string, string> = {
   RANKINGS: 'https://api.wuolah.com/v2/rankings/users',
   TEACHERS: 'https://api.wuolah.com/v2/live-classrooms/teachers'
+}
+
+export async function messageDialog (content: string, title: string, type: 'info' | 'error' | 'warning') {
+  return message(content, { title, type })
 }
