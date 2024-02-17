@@ -1,13 +1,10 @@
-import { AiOutlineLoading } from 'react-icons/ai';
-import { GoDownload, GoFileSymlinkFile } from 'react-icons/go';
+import { GoFileSymlinkFile } from 'react-icons/go'
 
 interface PostLinksProps {
-  downloadingNow: boolean
   onClick: () => void
-  downloadFile: () => void
 }
 
-export default function PostLinks ({ downloadingNow, onClick, downloadFile }: PostLinksProps) {
+export default function PostLinks ({ onClick }: PostLinksProps) {
   const className = `
     text-xl
     text-gray-500
@@ -19,29 +16,11 @@ export default function PostLinks ({ downloadingNow, onClick, downloadFile }: Po
   `
 
   return (
-    <>
-      <span
-        className={className}
-        onClick={onClick}
-      >
-        <GoFileSymlinkFile />
-      </span>
-      <span
-        className={className}
-        onClick={downloadFile}
-      >
-        {
-          downloadingNow ? (
-            <AiOutlineLoading
-              className={`
-                animate-spin
-              `}
-            />
-          ) : (
-            <GoDownload />
-          )
-        }
-      </span>
-    </>
+    <span
+      className={className}
+      onClick={onClick}
+    >
+      <GoFileSymlinkFile />
+    </span>
   )
 }

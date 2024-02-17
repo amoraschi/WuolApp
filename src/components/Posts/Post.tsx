@@ -17,7 +17,6 @@ interface PostProps {
 }
 
 export default function Post ({ post }: PostProps) {
-  const [downloadingNow, setDownloadingNow] = useState(false)
   const router = useRouter()
 
   const fileIdMatch = post.contentUrl != null ? post.contentUrl.match(fileIdRegex) : null
@@ -35,55 +34,10 @@ export default function Post ({ post }: PostProps) {
       }
 
       localStorage.setItem('selected-file', JSON.stringify(res))
-      // localStorage.setItem('selected-file', JSON.stringify(file))
       router.replace('/files/file')
     }
 
     getFileData()
-  }
-
-  const downloadFile = async () => {
-    if (downloadingNow) {
-      return
-    }
-
-    setDownloadingNow(true)
-    if (fileId == null) {
-      setDownloadingNow(false)
-      return
-    }
-
-    // const fileData = await fetchFileData(fileId)
-    const fileDownloadData = await fetchFile(parseInt(fileId))
-    if (fileDownloadData == null) {
-      message(`Error al descargar el archivo.\n\nIntente entrar a ${post.contentUrl} y resolver el captcha.`, { title: 'WuolApp', type: 'error' })
-      setDownloadingNow(false)
-      return
-    }
-
-    // const filePath = await save({
-    //   filters: [{
-    //     name: fileDownloadData.extension.toUpperCase(),
-    //     extensions: [fileDownloadData.extension]
-    //   }]
-    // })
-
-    // if (filePath == null) {
-    //   setDownloadingNow(false)
-    //   return
-    // }
-
-    router.push(fileDownloadData.url)
-
-    // const binary = await downloadBinaryFile(fileDownloadData.url, fileData.name)
-    // if (binary == null) {
-    //   message(`Error al descargar el archivo.\n\nIntente entrar a ${post.contentUrl} y resolver el captcha.`, { title: 'WuolApp', type: 'error' })
-    //   setDownloadingNow(false)
-    //   return
-    // }
-
-    // message(`${fileData.name} ha sido descargado con éxito.`, { title: 'WuolApp', type: 'info' })
-    setDownloadingNow(false)
   }
 
   return (
@@ -148,9 +102,7 @@ export default function Post ({ post }: PostProps) {
               <></>
             ) : (
               <PostLinks
-                downloadingNow={downloadingNow}
                 onClick={onClick}
-                downloadFile={downloadFile}
               />
             )
           }

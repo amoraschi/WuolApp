@@ -43,6 +43,10 @@ export const endpoints: Record<string, string> = {
   TEACHERS: 'https://api.wuolah.com/v2/live-classrooms/teachers'
 }
 
-export async function messageDialog (content: string, title: string, type: 'info' | 'error' | 'warning') {
-  return message(content, { title, type })
+export async function messageDialog (content: string, type: 'info' | 'error' | 'warning') {
+  return message(content, { title: 'WuolApp', type })
+}
+
+export async function errorDialog (content: string) {
+  return message(content, { title: 'WuolApp', type: 'error' })
 }

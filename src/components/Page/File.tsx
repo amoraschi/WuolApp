@@ -12,6 +12,7 @@ import BookmarkIcon from '../Icons/BookmarkIcon'
 import { UserBookmark } from '@/types/User'
 import { writeBinaryFile } from '@tauri-apps/api/fs'
 import Button from '../Text/Button'
+import { errorDialog } from '@/utils/constants'
 
 const fileIdRegex = /-(\d+)/
 const socialIdRegex = /-(\d+)\?/
@@ -39,7 +40,7 @@ export default function File ({ file }: FileProps) {
     const fetchBookmarkFile = async () => {
       const res = await bookmarkFile(fileId, !saveFile)
       if (res == null) {
-        message(`Error al ${!saveFile ? 'guardar' : 'quitar'} el archivo ${!saveFile ? 'en' : 'de'} tus favoritos.`, { title: 'WuolApp', type: 'error' })
+        errorDialog(`Error al ${!saveFile ? 'guardar' : 'quitar'} el archivo ${!saveFile ? 'en' : 'de'} tus favoritos.`)
         return
       }
 
@@ -69,19 +70,19 @@ export default function File ({ file }: FileProps) {
 
     const storedBlobURL = localStorage.getItem(`fileDownloadData-${fileId}`)
     if (storedBlobURL == null) {
-      message('Error al descargar el archivo.', { title: 'WuolApp', type: 'error' })
+      errorDialog('Error al descargar el archivo.')
       return
     }
 
     const blobURL = JSON.parse(storedBlobURL).blobURL
     if (blobURL == null) {
-      message('Error al descargar el archivo.', { title: 'WuolApp', type: 'error' })
+      errorDialog('Error al descargar el archivo.')
       return
     }
 
     const res = await fetch(blobURL)
     if (res.body == null) {
-      message('Error al descargar el archivo.', { title: 'WuolApp', type: 'error' })
+      errorDialog('Error al descargar el archivo.')
       return
     }
 
@@ -128,14 +129,14 @@ export default function File ({ file }: FileProps) {
       const res = await fetchFile(parseInt(fileId), abortController.signal)
       if (res == null) {
         setFileError(true)
-        message(`Error al descargar el archivo.\n\nIntente entrar a cualquier archivo en Wuolah y resolver el captcha, o confirmar su correo.`, { title: 'WuolApp', type: 'error' })
+        errorDialog(`Error al descargar el archivo.\n\nIntente entrar a cualquier archivo en Wuolah y resolver el captcha, o confirmar su correo.`)
         return
       }
 
       const fileDataURL = await fetchFileURL(res, abortController.signal)
       if (fileDataURL == null) {
         setFileError(true)
-        message(`Error al descargar el archivo.\n\nIntente entrar a cualquier archivo en Wuolah y resolver el captcha, o confirmar su correo.`, { title: 'WuolApp', type: 'error' })
+        errorDialog(`Error al descargar el archivo.\n\nIntente entrar a cualquier archivo en Wuolah y resolver el captcha, o confirmar su correo.`)
         return
       }
 
