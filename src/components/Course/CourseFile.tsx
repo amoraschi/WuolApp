@@ -21,10 +21,6 @@ export default function CourseFile ({ file }: CourseFilesProps) {
   const fileIdMatch = file.id != null ? file.id.match(fileIdRegex) : null
   const fileId = fileIdMatch != null ? fileIdMatch[1] : null
 
-  // if (file.extension == null) {
-  //   console.log(file)
-  // }
-
   const onClick = () => {
     const getFileData = async () => {
       if (fileId == null) {
@@ -39,7 +35,7 @@ export default function CourseFile ({ file }: CourseFilesProps) {
         }
 
         localStorage.setItem('selected-file', JSON.stringify(res))
-        router.replace('/files/file')
+        router.replace('/bookmarks/file')
       } else {
         // Folder
         const res = await fetchFolderData(`${file.entityId}`)
@@ -48,7 +44,7 @@ export default function CourseFile ({ file }: CourseFilesProps) {
         }
 
         localStorage.setItem('selected-folder', JSON.stringify(res))
-        router.replace('/files/folder')
+        router.replace('/bookmarks/folder')
       }
     }
 

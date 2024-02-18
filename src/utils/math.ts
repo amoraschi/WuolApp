@@ -6,7 +6,6 @@ export function roundMoney (value: number) {
 }
 
 export function moneyString (selfData: User, value: number) {
-  // return `${roundMoney(value)} ${currencies.find(currency => currency.country === selfData?.defaultCommunity?.community?.segmentations?.countryCode?.id)?.symbol ?? '€'}`
   return `${roundMoney(value)} €`
 }
 
@@ -20,7 +19,7 @@ export function roundToThousands (value: number) {
 
 export function roundToThousandsString (value: number) {
   if (value < 1000) {
-    return value
+    return value.toString()
   }
 
   return `${roundToThousands(value)}K`

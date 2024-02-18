@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Files } from '@/types/Files'
-import { fetchCourseFiles } from '@/utils/data'
 import CourseFile from './CourseFile'
-import { AiOutlineLoading } from 'react-icons/ai'
 import MediumText from '../Text/MediumText'
 import LoadingIcon from '../Icons/LoadingIcon'
+import { fetchCourseFiles } from '@/utils/data'
 
 interface CourseFilesProps {
   course: number
@@ -14,47 +13,11 @@ interface CourseFilesProps {
 const tildeRegex = /[\u0300-\u036f]/g
 
 export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
-  const [courseFiles, setCourseFiles] = useState<Files | null>(null)
   const [searchResults, setSearchResults] = useState<Files | null>(null)
   const [searching, setSearching] = useState(false)
 
   let searchTimeout: NodeJS.Timeout | null = null
   let abortController: AbortController | null = null
-  // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setSearching(true)
-  //   const input = e.target.value.toLowerCase().normalize('NFD').replace(tildeRegex, '')
-
-  //   const abortController = new AbortController()
-  //   const searchInput = async () => {
-  //     console.log('Searching...')
-  //     const res = await fetchCourseFiles(`${course}`, `${subjectId}`, input, '20', abortController.signal)
-  //     console.log('Searched!')
-  //     if (res == null) {
-  //       setSearching(false)
-  //       return
-  //     }
-
-  //     console.log(res)
-  //     // const results = courseFiles.items.filter((file) => file.title.normalize('NFD').replace(tildeRegex, '').toLowerCase().includes(input))
-  //     setSearching(false)
-  //     setSearchResults(res)
-  //   }
-
-  //   if (searchTimeout != null) {
-  //     clearTimeout(searchTimeout)
-  //   }
-    
-  //   if (input === '') {
-  //     setSearching(false)
-  //     setSearchResults(null)
-  //     return
-  //   }
-
-  //   if (!searching) {
-  //     abortController.abort('Abort previous search')
-  //     searchTimeout = setTimeout(searchInput, 1000)
-  //   }
-  // }
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearching(true)
@@ -91,33 +54,6 @@ export default function CourseFiles ({ course, subjectId }: CourseFilesProps) {
       searchInput()
     }, 1000)
   }
-
-  // useEffect(() => {
-  //   const abortController = new AbortController()
-  //   const getCourseFiles = async () => {
-  //     const storedCourseFiles = localStorage.getItem(`files-${subjectId}`)
-  //     if (storedCourseFiles != null) {
-  //       console.log(JSON.parse(storedCourseFiles))
-  //       setCourseFiles(JSON.parse(storedCourseFiles))
-  //       return
-  //     }
-
-  //     const res = await fetchCourseFiles(`${course}`, `${subjectId}`, null, '20', abortController.signal)
-  //     if (res == null) {
-  //       return
-  //     }
-
-  //     console.log(res)
-  //     localStorage.setItem(`files-${subjectId}`, JSON.stringify(res))
-  //     setCourseFiles(res)
-  //   }
-
-  //   getCourseFiles()
-
-  //   return () => {
-  //     abortController.abort()
-  //   }
-  // }, [])
 
   return (
     <div

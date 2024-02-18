@@ -175,7 +175,7 @@ export default function File ({ file }: FileProps) {
     >
       <LinkText
         href={
-          localStorage.getItem('selected-course') != null ? '/courses/course' : '/files'
+          localStorage.getItem('selected-course') != null ? '/courses/course' : '/bookmarks'
         }
         content='Volver'
       />

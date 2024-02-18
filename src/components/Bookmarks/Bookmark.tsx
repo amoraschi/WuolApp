@@ -25,7 +25,7 @@ export default function Bookmark ({ bookmark, setBookmarkedFiles }: BookmarkProp
       }
 
       localStorage.setItem('selected-file', JSON.stringify(res))
-      router.replace('/files/file')
+      router.replace('/bookmarks/file')
     }
 
     getFileData()

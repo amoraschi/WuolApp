@@ -2,12 +2,12 @@ import { Pagination } from './Common'
 import { CommunitySubject } from './Community'
 import { User } from './User'
 
-export interface Teachers {
+export interface TeachersData {
   items: Teacher[]
   pagination: Pagination
 }
 
-export interface Teacher {
+export interface TeacherData {
   id: string
   email: string
   userId: number

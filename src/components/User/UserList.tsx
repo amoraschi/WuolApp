@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import User from './User'
 import { fetchWithAuth } from '@/utils/data'
 import { endpoints } from '@/utils/constants'
-import { Teacher, Teachers } from '@/types/Teachers'
+import { TeacherData, TeachersData } from '@/types/Teachers'
 import MediumText from '../Text/MediumText'
 import { Ranking, Rankings } from '@/types/Rankings'
 
@@ -16,7 +16,7 @@ interface UserListProps {
 }
 
 export default function UserList ({ name, type, communityId, subjectId, id, size }: UserListProps) {
-  const [userList, setUserList] = useState<Rankings | Teachers | null>(null)
+  const [userList, setUserList] = useState<Rankings | TeachersData | null>(null)
 
   useEffect(() => {
     const storedUserList = localStorage.getItem(type === 'RANKINGS' ? `rankings-${communityId}-${subjectId ?? 'dashboard'}` : `teachers-${id}`)
@@ -29,7 +29,7 @@ export default function UserList ({ name, type, communityId, subjectId, id, size
     const getUserList = async () => {
       const params: Record<string, string> = {
         RANKINGS: `?populate[0]=user&filter[communityId]=${communityId}${subjectId != null ? `&filter[subjectId]=${subjectId}&filter[criteria]=subject` : '&filter[criteria]=community'}&pagination[pageSize]=${size ?? ''}`,
-        TEACHERS: `?communitySubjectId=${id}&pagination[pageSize]=${size ?? ''}`
+        TEACHERS: `?communitySubjectId=${id}&status=active&pagination[pageSize]=${size ?? ''}`
       }
 
       const URL = `${endpoints[type]}${params[type]}`
@@ -76,8 +76,8 @@ export default function UserList ({ name, type, communityId, subjectId, id, size
                 userList.items.map((user, index) => (
                   <User
                     key={index}
-                    user={type === 'RANKINGS' ? (user as Ranking).user : (user as Teacher).profile}
-                    xp={type === 'RANKINGS' ? (user as Ranking).value : (user as Teacher).profile.popularity}
+                    user={type === 'RANKINGS' ? (user as Ranking).user : (user as TeacherData).profile}
+                    xp={type === 'RANKINGS' ? (user as Ranking).value : (user as TeacherData).profile.popularity}
                     rank={type === 'RANKINGS' ? (user as Ranking).rank : undefined}
                   />
                 ))

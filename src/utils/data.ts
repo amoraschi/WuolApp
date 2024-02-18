@@ -134,24 +134,6 @@ export async function fetchFileURL (response: FileDownloadData, signal: AbortSig
   return URL.createObjectURL(blob)
 }
 
-export async function downloadBinaryFile (dataURL: string, filePath: string): Promise<boolean | null> {
-  const res = await fetch(dataURL)
-  if (res.status !== 200) {
-    return null
-  }
-
-  const blob = await res.blob()
-
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-
-  a.href = url
-  a.download = filePath
-  a.click()
-
-  return true
-}
-
 export async function fetchCourses (pageSize: string, signal: AbortSignal): Promise<Courses | null> {
   const tokens = await getTokens()
   const selfData = await getSelfData()
@@ -183,7 +165,6 @@ export async function fetchCourseFiles (id: string, subjectId: string, searchTex
     return null
   }
 
-  console.log(id, subjectId, selfData.defaultCommunityId, pageSize)
   const res = await fetch(`https://api.wuolah.com/v2/search/subjects/${subjectId}/artifacts?communityId=${selfData.defaultCommunityId}&course=${id}&sort=recently&populate[0]=profile&pagination[size]=${pageSize}&pagination[offset]=0${searchText != null ? `&searchText=${searchText}` : ''}`, {
     method: 'GET',
     headers: {

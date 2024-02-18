@@ -12,7 +12,7 @@ export default function FolderFile ({ file }: FolderFilesProps) {
 
   const onClick = () => {
     localStorage.setItem('selected-file', JSON.stringify(file))
-    router.replace('/files/file')
+    router.replace('/bookmarks/file')
   }
 
   return (

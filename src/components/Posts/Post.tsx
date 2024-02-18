@@ -34,7 +34,7 @@ export default function Post ({ post }: PostProps) {
       }
 
       localStorage.setItem('selected-file', JSON.stringify(res))
-      router.replace('/files/file')
+      router.replace('/bookmarks/file')
     }
 
     getFileData()

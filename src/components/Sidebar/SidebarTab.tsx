@@ -26,7 +26,7 @@ export default function SidebarTab ({ name, href, icon }: SidebarTabProps) {
         rounded-md
         hover:shadow-md
         transition-all
-        duration-300
+        duration-200
       `}
       style={{
         borderRight: pathname.includes(href) ? '4px solid #1d4ed8' : 'none'
