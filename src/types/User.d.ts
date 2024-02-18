@@ -39,8 +39,8 @@ export interface User {
   gdprAdvice: boolean
   conditions: null
   socialAuth: null
-  phoneNumber: null
-  phoneArea: null
+  phoneNumber: string | null
+  phoneArea: string | null
   hasAgreedToTc: boolean
   subscriptionTier: null
   subscriptionId: null

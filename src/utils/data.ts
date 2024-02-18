@@ -267,6 +267,28 @@ export async function fetchBookmarked (signal?: AbortSignal): Promise<UserBookma
   return res.json()
 }
 
+export async function fetchGiveaways (communityId: string, signal: AbortSignal) {
+  const tokens = await getTokens()
+  if (tokens == null) {
+    return null
+  }
+
+  const res = await fetch(`https://api.wuolah.com/v2/giveaways?filter[communityId]=${communityId}&filter[status]=in_progress&pagination[page]=0&pagination[pageSize]=25`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${tokens.accessToken}`
+    },
+    signal,
+    cache: 'no-store'
+  })
+
+  if (res.status !== 200) {
+    return null
+  }
+
+  return res.json()
+}
+
 export async function fetchWithAuth (url: string, signal: AbortSignal) {
   const tokens = await getTokens()
   if (tokens == null) {

@@ -1,12 +1,10 @@
-import Teachers from '@/components/Page/Teachers'
+import Giveaways from '@/components/Page/Giveaways'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { TeachersData } from '@/types/Teachers'
 import { User } from '@/types/User'
-import { endpoints } from '@/utils/constants'
-import { fetchSelfData, fetchWithAuth, getSelfData, handleSelfData } from '@/utils/data'
+import { handleSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
 
-export default function TeachersPage () {
+export default function GiveawaysPage () {
   const [selfData, setSelfData] = useState<User | null>(null)
 
   useEffect(() => {
@@ -34,7 +32,7 @@ export default function TeachersPage () {
         selfData == null ? (
           <></>
         ) : (
-          <Teachers
+          <Giveaways
             selfData={selfData}
           />
         )

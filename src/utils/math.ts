@@ -36,3 +36,7 @@ export function dateString (date: Date) {
 export function localeMoney (value: number) {
   return value.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })
 }
+
+export function dateTimeString (date: Date) {
+  return new Date(date).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' })
+}
