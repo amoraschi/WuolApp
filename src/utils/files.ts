@@ -3,7 +3,7 @@ import { BaseDirectory, exists, readTextFile, writeTextFile } from '@tauri-apps/
 
 export async function getConfig (): Promise<Config> {
   const existsFile = await exists('wuolapp.json', {
-    dir: BaseDirectory.AppData
+    dir: BaseDirectory.LocalData
   })
 
   if (!existsFile) {
