@@ -11,6 +11,10 @@ export default function FolderFile ({ file }: FolderFilesProps) {
   const router = useRouter()
 
   const onClick = () => {
+    if (file.extension !== 'pdf') {
+      return
+    }
+
     localStorage.setItem('selected-file', JSON.stringify(file))
     router.replace('/bookmarks/file')
   }
@@ -34,18 +38,35 @@ export default function FolderFile ({ file }: FolderFilesProps) {
       `}
       onClick={onClick}
     >
-      <Image
-        src={`https://cdn.wuolahservices.com/api/thumbnail/document/${file.id}/thumbnail.png`}
-        alt='file-thumbnail'
-        width={50}
-        height={50}
-        className={`
-          rounded-md
-          w-32
-          border
-          border-black
-        `}
-      />
+      {
+        file.extension !== 'pdf' ? (
+          <Image
+            src='/wuolapp_square.png'
+            alt='file-thumbnail'
+            width={50}
+            height={50}
+            className={`
+              rounded-md
+              w-32
+              border
+              border-black
+            `}
+          />
+        ) : (
+          <Image
+            src={`https://cdn.wuolahservices.com/api/thumbnail/document/${file.id}/thumbnail.png`}
+            alt='file-thumbnail'
+            width={50}
+            height={50}
+            className={`
+              rounded-md
+              w-32
+              border
+              border-black
+            `}
+          />
+        )
+      }
       <SmallTextBox
         content={file.name}
       />
