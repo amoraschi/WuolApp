@@ -6,6 +6,11 @@
   Aplicación para acceder a Wuolah desde el ordenador, sin tener que aguantar los anuncios
 </h3>
 
+<p align="center">
+  <img src="https://i.imgur.com/PVjytYx.png" width=500 />
+  <img src="https://i.imgur.com/kVHUFuR.png" width=500 />
+</p>
+
 <h4>
   ¿Cómo usar la aplicación?
 </h4>
@@ -14,3 +19,6 @@
 2. Ejecuta el archivo ejecutable descargado.
 3. Introduce tu cuenta (las credenciales se guardan en tu ordenador, en ningún momento se comparten)
 4. Busca los archivos que necesites
+
+> [!WARNING]
+> Solo funciona si se inicia sesión con una cuenta de Wuolah, no funciona con cuentas vinculadas de Google
