@@ -1,15 +1,14 @@
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { open } from '@tauri-apps/api/shell'
-import { Course } from '@/types/Courses'
 import { fetchCourses } from '@/utils/data'
 import { deltaDays } from '@/utils/math'
-import CourseFiles from '../Course/CourseFiles'
-import UserList from '../User/UserList'
-import SmallTextBox from '../Text/SmallTextBox'
-import LargeText from '../Text/LargeText'
-import LinkIcon from '../Icons/LinkIcon'
-import LinkText from '../Text/LinkText'
+import { Course } from '@/types/Courses'
+import CourseFiles from '@/components/Course/CourseFiles'
+import UserList from '@/components/User/UserList'
+import SmallTextBox from '@/components/Text/SmallTextBox'
+import LargeText from '@/components/Text/LargeText'
+import LinkIcon from '@/components/Icons/LinkIcon'
+import LinkText from '@/components/Text/LinkText'
 
 interface CourseProps {
   id: string

@@ -1,8 +1,8 @@
-import { Files } from '@/types/Files'
-import { fetchPosts } from '@/utils/data'
 import { useEffect, useState } from 'react'
-import MediumText from '../Text/MediumText'
-import Post from './Post'
+import { fetchPosts } from '@/utils/data'
+import { Files } from '@/types/Files'
+import MediumText from '@/components/Text/MediumText'
+import Post from '@/components/Posts/Post'
 
 export default function NewPostList () {
   const [posts, setPosts] = useState<Files | null>(null)

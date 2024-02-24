@@ -1,7 +1,7 @@
-import { FileData } from '@/types/Files'
-import Image from 'next/image'
-import SmallTextBox from '../Text/SmallTextBox'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { FileData } from '@/types/Files'
+import SmallTextBox from '@/components/Text/SmallTextBox'
 
 interface FolderFilesProps {
   file: FileData

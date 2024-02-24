@@ -1,13 +1,13 @@
-import { SingleFile } from '@/types/Files'
-import { dateString } from '@/utils/math'
-import { GoTag } from 'react-icons/go'
-import MediumText from '../Text/MediumText'
-import SmallTextBox from '../Text/SmallTextBox'
-import UserImage from '../User/UserImage'
-import CourseFileStats from './CourseFileStats'
-import FileIcon from '../Icons/FileIcon'
 import { useRouter } from 'next/navigation'
+import { GoTag } from 'react-icons/go'
 import { fetchFileData, fetchFolderData } from '@/utils/data'
+import { dateString } from '@/utils/math'
+import { SingleFile } from '@/types/Files'
+import MediumText from '@/components/Text/MediumText'
+import SmallTextBox from '@/components/Text/SmallTextBox'
+import UserImage from '@/components/User/UserImage'
+import CourseFileStats from '@/components/Course/CourseFileStats'
+import FileIcon from '@/components/Icons/FileIcon'
 
 const fileIdRegex = /-(\d+)/
 

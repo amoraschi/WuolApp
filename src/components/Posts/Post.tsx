@@ -1,14 +1,12 @@
-import { useState } from 'react'
-import { GoComment, GoCommentDiscussion } from 'react-icons/go'
-import { SingleFile } from '@/types/Files'
-import { fetchFile, fetchFileData } from '@/utils/data'
-import { dateString } from '@/utils/math'
-import SmallTextBox from '../Text/SmallTextBox'
-import UserImage from '../User/UserImage'
-import PostLinks from './PostLinks'
-import MediumText from '../Text/MediumText'
 import { useRouter } from 'next/router'
-import { message } from '@tauri-apps/api/dialog'
+import { GoComment, GoCommentDiscussion } from 'react-icons/go'
+import { dateString } from '@/utils/math'
+import { fetchFileData } from '@/utils/data'
+import { SingleFile } from '@/types/Files'
+import SmallTextBox from '@/components/Text/SmallTextBox'
+import UserImage from '@/components/User/UserImage'
+import PostLinks from '@/components/Posts/PostLinks'
+import MediumText from '@/components/Text/MediumText'
 
 const fileIdRegex = /-(\d+)\?/
 

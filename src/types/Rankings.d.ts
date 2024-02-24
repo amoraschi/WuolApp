@@ -1,5 +1,5 @@
-import { Pagination, Segmentation } from './Common'
-import { User } from './User'
+import { Pagination, Segmentation } from '@/types/Common'
+import { User } from '@/types/User'
 
 export interface Rankings {
   items: Ranking[]

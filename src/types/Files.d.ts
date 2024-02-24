@@ -1,6 +1,6 @@
-import { Pagination, Segmentation } from './Common'
-import { Community, Subject } from './Community'
-import { User } from './User'
+import { Pagination, Segmentation } from '@/types/Common'
+import { Community, Subject } from '@/types/Community'
+import { User } from '@/types/User'
 
 export interface Files {
   items: SingleFile[]

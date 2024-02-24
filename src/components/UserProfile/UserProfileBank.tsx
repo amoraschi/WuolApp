@@ -1,11 +1,11 @@
-import { User } from '@/types/User'
-import MediumText from '../Text/MediumText'
-import { EyeIcon } from '../Icons/EyeIcon'
 import { useState } from 'react'
-import UserProfileBankValue from './UserProfileBankValue'
-import { moneyString } from '@/utils/math'
 import { open } from '@tauri-apps/api/shell'
-import Button from '../Text/Button'
+import { moneyString } from '@/utils/math'
+import { User } from '@/types/User'
+import MediumText from '@/components/Text/MediumText'
+import { EyeIcon } from '@/components/Icons/EyeIcon'
+import UserProfileBankValue from '@/components/UserProfile/UserProfileBankValue'
+import Button from '@/components/Text/Button'
 
 interface UserProfileBankProps {
   user: User

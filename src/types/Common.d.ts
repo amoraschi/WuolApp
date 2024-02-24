@@ -1,5 +1,3 @@
-import { UserBookmarks } from './User'
-
 export interface WuolahLogin {
   accessToken: string
   refreshToken: string

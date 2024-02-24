@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import LargeText from '../Text/LargeText'
-import MediumText from '../Text/MediumText'
+import LargeText from '@/components/Text/LargeText'
+import MediumText from '@/components/Text/MediumText'
 
 export default function Error () {
   return (

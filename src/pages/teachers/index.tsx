@@ -1,10 +1,8 @@
+import { useEffect, useState } from 'react'
+import { handleSelfData } from '@/utils/data'
+import { User } from '@/types/User'
 import Teachers from '@/components/Page/Teachers'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { TeachersData } from '@/types/Teachers'
-import { User } from '@/types/User'
-import { endpoints } from '@/utils/constants'
-import { fetchSelfData, fetchWithAuth, getSelfData, handleSelfData } from '@/utils/data'
-import { useEffect, useState } from 'react'
 
 export default function TeachersPage () {
   const [selfData, setSelfData] = useState<User | null>(null)

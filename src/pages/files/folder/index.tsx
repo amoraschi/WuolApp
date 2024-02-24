@@ -1,10 +1,7 @@
-import Files from '@/components/Page/Files'
+import { useEffect, useState } from 'react'
+import { FolderData } from '@/types/Files'
 import Folder from '@/components/Page/Folder'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { FolderData } from '@/types/Files'
-import { User } from '@/types/User'
-import { handleSelfData } from '@/utils/data'
-import { useEffect, useState } from 'react'
 
 export default function FolderPage () {
   const [folder, setFolder] = useState<FolderData | null>(null)

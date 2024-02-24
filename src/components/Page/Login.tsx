@@ -1,7 +1,7 @@
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { FaGithub } from 'react-icons/fa'
 import { AiOutlineLoading } from 'react-icons/ai'
-import { useRouter } from 'next/navigation'
 import { open } from '@tauri-apps/api/shell'
 import { getConfig, setConfig } from '@/utils/files'
 import { isTokenValid, getTokens } from '@/utils/auth'

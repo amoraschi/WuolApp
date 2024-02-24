@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import User from './User'
 import { fetchWithAuth } from '@/utils/data'
 import { endpoints } from '@/utils/constants'
 import { TeacherData, TeachersData } from '@/types/Teachers'
-import MediumText from '../Text/MediumText'
 import { Ranking, Rankings } from '@/types/Rankings'
+import MediumText from '@/components/Text/MediumText'
+import User from '@/components/User/User'
 
 interface UserListProps {
   name: string

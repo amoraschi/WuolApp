@@ -1,9 +1,9 @@
-import { UserBookmark, UserBookmarks } from '@/types/User'
-import SmallTextBox from '../Text/SmallTextBox'
-import { dateString } from '@/utils/math'
-import { bookmarkFile, fetchBookmarked, fetchFileData } from '@/utils/data'
 import { useRouter } from 'next/navigation'
-import BookmarkIcon from '../Icons/BookmarkIcon'
+import { bookmarkFile, fetchBookmarked, fetchFileData } from '@/utils/data'
+import { dateString } from '@/utils/math'
+import { UserBookmark, UserBookmarks } from '@/types/User'
+import SmallTextBox from '@/components/Text/SmallTextBox'
+import BookmarkIcon from '@/components/Icons/BookmarkIcon'
 
 interface BookmarkProps {
   bookmark: UserBookmark

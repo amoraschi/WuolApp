@@ -1,11 +1,10 @@
 import Image from 'next/image'
-import { GoLink } from 'react-icons/go'
 import { open } from '@tauri-apps/api/shell'
 import { User } from '@/types/User'
-import PostList from '../Posts/PostList'
-import UserList from '../User/UserList'
-import UserProfile from '../UserProfile/UserProfile'
-import LinkIcon from '../Icons/LinkIcon'
+import PostList from '@/components/Posts/PostList'
+import UserList from '@/components/User/UserList'
+import UserProfile from '@/components/UserProfile/UserProfile'
+import LinkIcon from '@/components/Icons/LinkIcon'
 
 interface DashboardProps {
   user: User

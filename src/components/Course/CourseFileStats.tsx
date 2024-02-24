@@ -1,5 +1,4 @@
 import { GoBookmark, GoCreditCard, GoDownload, GoEye, GoTag } from 'react-icons/go'
-import { Stats } from '@/types/Files'
 
 interface CourseFileStatsProps {
   downloads: number

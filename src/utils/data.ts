@@ -1,6 +1,5 @@
 import { UserLogin } from '@/types/Common'
-import { User, UserBookmarks, UserStats } from '@/types/User'
-import { Rankings } from '@/types/Rankings'
+import { User, UserBookmarks } from '@/types/User'
 import { Files, FileData, FileDownloadData, FolderData } from '@/types/Files'
 import { Courses } from '@/types/Courses'
 

@@ -1,9 +1,9 @@
-import { GoBookmark, GoGift, GoHome, GoMortarBoard, GoPeople } from 'react-icons/go'
-import SidebarProfileBox from './SidebarProfileBox'
-import SidebarTab from './SidebarTab'
-import { User } from '@/types/User'
 import { useEffect, useState } from 'react'
+import { GoBookmark, GoGift, GoHome, GoMortarBoard, GoPeople } from 'react-icons/go'
 import { handleSelfData } from '@/utils/data'
+import { User } from '@/types/User'
+import SidebarProfileBox from '@/components/Sidebar/SidebarProfileBox'
+import SidebarTab from '@/components/Sidebar/SidebarTab'
 
 const tabs = [
   {

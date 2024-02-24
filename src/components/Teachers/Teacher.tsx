@@ -1,8 +1,8 @@
+import { GoCalendar, GoCheckbox, GoMortarBoard } from 'react-icons/go'
 import { TeacherData } from '@/types/Teachers'
 import User from '@/components/User/User'
-import TextIcon from '../Icons/TextIcon'
-import { GoCalendar, GoCheckbox, GoMortarBoard } from 'react-icons/go'
-import SmallTextBox from '../Text/SmallTextBox'
+import TextIcon from '@/components/Icons/TextIcon'
+import SmallTextBox from '@/components/Text/SmallTextBox'
 
 interface TeacherProps {
   teacher: TeacherData

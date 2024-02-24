@@ -1,6 +1,6 @@
-import { Pagination, PaginationObject } from './Common'
-import { DefaultCommunity } from './Community'
-import { FileData } from './Files'
+import { Pagination, PaginationObject } from '@/types/Common'
+import { DefaultCommunity } from '@/types/Community'
+import { FileData } from '@/types/Files'
 
 export interface User {
   id: number

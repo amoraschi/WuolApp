@@ -1,9 +1,8 @@
-import { User } from '@/types/User'
-import { localeMoney, roundToThousandsString } from '@/utils/math'
-import { open } from '@tauri-apps/api/shell'
-import Image from 'next/image'
 import { GoCheckCircleFill } from 'react-icons/go'
-import UserImage from './UserImage'
+import { open } from '@tauri-apps/api/shell'
+import { localeMoney, roundToThousandsString } from '@/utils/math'
+import { User } from '@/types/User'
+import UserImage from '@/components/User/UserImage'
 
 interface UserProps {
   user: User

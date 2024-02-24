@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Courses } from '@/types/Courses'
 import { fetchCourses } from '@/utils/data'
-import CourseTab from '../Course/CourseTab'
+import { Courses } from '@/types/Courses'
+import CourseTab from '@/components/Course/CourseTab'
 
 const tildeRegex = /[\u0300-\u036f]/g
 

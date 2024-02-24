@@ -1,7 +1,7 @@
-import { handleSelfData } from '@/utils/data'
 import { useEffect, useState } from 'react'
-import Sidebar from '@/components/Sidebar/Sidebar'
+import { handleSelfData } from '@/utils/data'
 import { User } from '@/types/User'
+import Sidebar from '@/components/Sidebar/Sidebar'
 import Dashboard from '@/components/Page/Dashboard'
 
 export default function DashboardPage () {

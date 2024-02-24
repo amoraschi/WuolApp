@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react'
+import { fetchBookmarked } from '@/utils/data'
+import { UserBookmarks } from '@/types/User'
 import Files from '@/components/Page/Files'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { User, UserBookmarks } from '@/types/User'
-import { fetchBookmarked, handleSelfData } from '@/utils/data'
-import { useEffect, useState } from 'react'
 
 export default function FilesPage () {
   const [bookmarkedFiles, setBookmarkedFiles] = useState<UserBookmarks | null>(null)

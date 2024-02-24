@@ -1,5 +1,5 @@
-import { Config } from '@/types/Common'
 import { BaseDirectory, exists, readTextFile, writeTextFile } from '@tauri-apps/api/fs'
+import { Config } from '@/types/Common'
 
 export async function getConfig (): Promise<Config> {
   const existsFile = await exists('wuolapp.json', {

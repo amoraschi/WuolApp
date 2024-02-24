@@ -1,10 +1,9 @@
-import { FolderData } from '@/types/Files'
-import LargeText from '../Text/LargeText'
-import FolderFile from '../Folder/FolderFile'
-import MediumText from '../Text/MediumText'
-import LinkText from '../Text/LinkText'
-import SmallTextBox from '../Text/SmallTextBox'
 import { dateString } from '@/utils/math'
+import { FolderData } from '@/types/Files'
+import LargeText from '@/components/Text/LargeText'
+import FolderFile from '@/components/Folder/FolderFile'
+import LinkText from '@/components/Text/LinkText'
+import SmallTextBox from '@/components/Text/SmallTextBox'
 
 interface FolderProps {
   folder: FolderData

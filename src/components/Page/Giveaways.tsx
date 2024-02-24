@@ -1,9 +1,9 @@
+import { useEffect, useState } from 'react'
+import { fetchGiveaways } from '@/utils/data'
 import { GiveawaysData } from '@/types/Giveaways'
 import { User } from '@/types/User'
-import { fetchGiveaways } from '@/utils/data'
-import { useEffect, useState } from 'react'
-import Giveaway from '../Giveaways/Giveaway'
-import MediumText from '../Text/MediumText'
+import Giveaway from '@/components/Giveaways/Giveaway'
+import MediumText from '@/components/Text/MediumText'
 
 interface GiveawaysProps {
   selfData: User

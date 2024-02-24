@@ -1,10 +1,10 @@
-import { TeachersData } from '@/types/Teachers'
-import MediumText from '../Text/MediumText'
-import Teacher from '../Teachers/Teacher'
 import { useEffect, useState } from 'react'
 import { fetchWithAuth } from '@/utils/data'
 import { endpoints } from '@/utils/constants'
+import { TeachersData } from '@/types/Teachers'
 import { User } from '@/types/User'
+import MediumText from '@/components/Text/MediumText'
+import Teacher from '@/components/Teachers/Teacher'
 
 interface TeachersProps {
   selfData: User

@@ -1,23 +1,23 @@
-import { FileData, FileDownloadData } from '@/types/Files'
-import LinkText from '../Text/LinkText'
-import LargeText from '../Text/LargeText'
-import SmallTextBox from '../Text/SmallTextBox'
-import { dateString } from '@/utils/math'
 import { useEffect, useState } from 'react'
-import { bookmarkFile, fetchBookmarked, fetchFile, fetchFileURL } from '@/utils/data'
-import { message, save } from '@tauri-apps/api/dialog'
-import LoadingIcon from '../Icons/LoadingIcon'
-import CourseFileStats from '../Course/CourseFileStats'
-import BookmarkIcon from '../Icons/BookmarkIcon'
-import { UserBookmark } from '@/types/User'
-import { writeBinaryFile } from '@tauri-apps/api/fs'
-import Button from '../Text/Button'
-import { errorDialog, messageDialog } from '@/utils/constants'
-import SmallTextError from '../Text/SmallTextError'
 import Image from 'next/image'
+import { save } from '@tauri-apps/api/dialog'
+import { writeBinaryFile } from '@tauri-apps/api/fs'
+import { bookmarkFile, fetchBookmarked, fetchFile, fetchFileURL } from '@/utils/data'
+import { dateString } from '@/utils/math'
+import { errorDialog, messageDialog } from '@/utils/constants'
+import { FileData, FileDownloadData } from '@/types/Files'
+import { UserBookmark } from '@/types/User'
+import LinkText from '@/components/Text/LinkText'
+import LargeText from '@/components/Text/LargeText'
+import SmallTextBox from '@/components/Text/SmallTextBox'
+import LoadingIcon from '@/components/Icons/LoadingIcon'
+import CourseFileStats from '@/components/Course/CourseFileStats'
+import BookmarkIcon from '@/components/Icons/BookmarkIcon'
+import Button from '@/components/Text/Button'
+import SmallTextError from '@/components/Text/SmallTextError'
 
-const fileIdRegex = /-(\d+)/
-const socialIdRegex = /-(\d+)\?/
+// const fileIdRegex = /-(\d+)/
+// const socialIdRegex = /-(\d+)\?/
 
 const expireRegex = /Expires=(\d+)/
 

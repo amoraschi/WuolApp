@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react'
+import { handleSelfData } from '@/utils/data'
+import { User } from '@/types/User'
 import Giveaways from '@/components/Page/Giveaways'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { User } from '@/types/User'
-import { handleSelfData } from '@/utils/data'
-import { useEffect, useState } from 'react'
 
 export default function GiveawaysPage () {
   const [selfData, setSelfData] = useState<User | null>(null)

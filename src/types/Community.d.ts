@@ -1,4 +1,4 @@
-import { Segmentations } from './Common'
+import { Segmentations } from '@/types/Common'
 
 export interface DefaultCommunity {
   userId: number

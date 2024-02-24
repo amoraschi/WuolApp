@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Files } from '@/types/Files'
-import CourseFile from './CourseFile'
-import MediumText from '../Text/MediumText'
-import LoadingIcon from '../Icons/LoadingIcon'
 import { fetchCourseFiles } from '@/utils/data'
+import { Files } from '@/types/Files'
+import CourseFile from '@/components/Course/CourseFile'
+import MediumText from '@/components/Text/MediumText'
+import LoadingIcon from '@/components/Icons/LoadingIcon'
 
 interface CourseFilesProps {
   course: number

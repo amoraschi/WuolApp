@@ -1,8 +1,6 @@
+import { useEffect, useState } from 'react'
 import Course from '@/components/Page/Course'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { User } from '@/types/User'
-import { handleSelfData } from '@/utils/data'
-import { useEffect, useState } from 'react'
 
 export default function CoursePage () {
   const [id, setId] = useState<string | null>(null)

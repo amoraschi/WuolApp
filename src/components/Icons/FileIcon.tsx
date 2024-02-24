@@ -1,5 +1,5 @@
 import { GoFile, GoFileDirectory } from 'react-icons/go'
-import LargeText from '../Text/LargeText'
+import LargeText from '@/components/Text/LargeText'
 
 interface FileIconProps {
   extension: string | undefined

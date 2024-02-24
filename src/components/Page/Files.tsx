@@ -1,6 +1,6 @@
 import { UserBookmarks } from '@/types/User'
-import MediumText from '../Text/MediumText'
-import Bookmark from '../Bookmarks/Bookmark'
+import MediumText from '@/components/Text/MediumText'
+import Bookmark from '@/components/Bookmarks/Bookmark'
 
 interface FilesProps {
   bookmarks: UserBookmarks

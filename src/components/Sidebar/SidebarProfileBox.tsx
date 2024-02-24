@@ -1,8 +1,8 @@
+import { useRouter } from 'next/navigation'
 import { GoSignOut } from 'react-icons/go'
 import { confirm } from '@tauri-apps/api/dialog'
 import { User } from '@/types/User'
-import UserImage from '../User/UserImage'
-import { useRouter } from 'next/navigation'
+import UserImage from '@/components/User/UserImage'
 
 interface SidebarProfileBoxProps {
   user: User

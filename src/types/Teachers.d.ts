@@ -1,6 +1,6 @@
-import { Pagination } from './Common'
-import { CommunitySubject } from './Community'
-import { User } from './User'
+import { Pagination } from '@/types/Common'
+import { CommunitySubject } from '@/types/Community'
+import { User } from '@/types/User'
 
 export interface TeachersData {
   items: Teacher[]

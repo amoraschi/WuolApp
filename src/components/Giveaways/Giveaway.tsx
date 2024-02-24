@@ -1,9 +1,9 @@
-import { GiveawayData } from '@/types/Giveaways'
 import Image from 'next/image'
-import SmallTextBox from '../Text/SmallTextBox'
-import { dateTimeString } from '@/utils/math'
-import MediumText from '../Text/MediumText'
 import { open } from '@tauri-apps/api/shell'
+import { dateTimeString } from '@/utils/math'
+import { GiveawayData } from '@/types/Giveaways'
+import SmallTextBox from '@/components/Text/SmallTextBox'
+import MediumText from '@/components/Text/MediumText'
 
 interface GiveawayProps {
   giveaway: GiveawayData

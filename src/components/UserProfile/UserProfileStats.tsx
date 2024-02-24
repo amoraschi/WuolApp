@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
+import { fetchWithAuth } from '@/utils/data'
 import { User } from '@/types/User'
 import { UserStats } from '@/types/User'
-import { fetchWithAuth } from '@/utils/data'
-import UserProfileStat from './UserProfileStat'
+import UserProfileStat from '@/components/UserProfile/UserProfileStat'
 
 interface UserProfileStatsProps {
   user: User

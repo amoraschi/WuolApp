@@ -1,10 +1,10 @@
-import { User } from '@/types/User'
-import UserImage from '../User/UserImage'
-import SmallTextBox from '../Text/SmallTextBox'
 import { deltaDays } from '@/utils/math'
-import UserProfileStats from './UserProfileStats'
-import MediumText from '../Text/MediumText'
-import UserProfileBank from './UserProfileBank'
+import { User } from '@/types/User'
+import UserImage from '@/components/User/UserImage'
+import SmallTextBox from '@/components/Text/SmallTextBox'
+import UserProfileStats from '@/components/UserProfile/UserProfileStats'
+import MediumText from '@/components/Text/MediumText'
+import UserProfileBank from '@/components/UserProfile/UserProfileBank'
 
 interface UserProfileProps {
   user: User

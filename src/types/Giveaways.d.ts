@@ -1,4 +1,4 @@
-import { Pagination } from './Common'
+import { Pagination } from '@/types/Common'
 
 export interface GiveawaysData {
   items: GiveawayData[]

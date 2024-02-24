@@ -1,5 +1,5 @@
-import { Pagination, PaginationObject } from './Common'
-import { Subject } from './Community'
+import { Pagination, PaginationObject } from '@/types/Pagination'
+import { Subject } from '@/types/Community'
 
 export interface Courses {
   data: Course[]

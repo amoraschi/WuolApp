@@ -1,8 +1,8 @@
-import { Course } from '@/types/Courses'
-import { deltaDays } from '@/utils/math'
 import { useRouter } from 'next/navigation'
 import { GoFileDirectory } from 'react-icons/go'
-import SmallTextBox from '../Text/SmallTextBox'
+import { deltaDays } from '@/utils/math'
+import { Course } from '@/types/Courses'
+import SmallTextBox from '@/components/Text/SmallTextBox'
 
 interface CourseTabProps {
   course: Course

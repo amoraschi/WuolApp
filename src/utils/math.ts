@@ -1,5 +1,4 @@
 import { User } from '@/types/User'
-import { currencies } from './constants'
 
 export function roundMoney (value: number) {
   return value.toFixed(2)
