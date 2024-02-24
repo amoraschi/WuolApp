@@ -12,7 +12,9 @@ import BookmarkIcon from '../Icons/BookmarkIcon'
 import { UserBookmark } from '@/types/User'
 import { writeBinaryFile } from '@tauri-apps/api/fs'
 import Button from '../Text/Button'
-import { errorDialog } from '@/utils/constants'
+import { errorDialog, messageDialog } from '@/utils/constants'
+import SmallTextError from '../Text/SmallTextError'
+import Image from 'next/image'
 
 const fileIdRegex = /-(\d+)/
 const socialIdRegex = /-(\d+)\?/
@@ -24,6 +26,7 @@ interface FileProps {
 }
 
 export default function File ({ file }: FileProps) {
+  console.log(file)
   const [fileDownloadData, setFileDownloadData] = useState<FileDownloadData | null>(null)
   const [fileError, setFileError] = useState(false)
   const [saveFile, setSaveFile] = useState(false)
@@ -74,7 +77,7 @@ export default function File ({ file }: FileProps) {
       return
     }
 
-    const blobURL = JSON.parse(storedBlobURL).blobURL
+    const blobURL = file.fileType.includes('image') ? JSON.parse(storedBlobURL).url : JSON.parse(storedBlobURL).blobURL
     if (blobURL == null) {
       errorDialog('Error al descargar el archivo.')
       return
@@ -88,6 +91,7 @@ export default function File ({ file }: FileProps) {
 
     const buffer = await res.arrayBuffer()
     await writeBinaryFile(filePath, new Uint8Array(buffer))
+    messageDialog('Archivo descargado con éxito.', 'info')
   }
 
   useEffect(() => {
@@ -120,7 +124,12 @@ export default function File ({ file }: FileProps) {
       }
 
       setFileDownloadData(fileDownloadData)
-      setIframeURL(fileDownloadData.blobURL)
+      if (file.fileType.includes('image')) {
+        setIframeURL(fileDownloadData.url)
+      } else {
+        setIframeURL(fileDownloadData.blobURL)
+      }
+
       return
     }
 
@@ -141,7 +150,13 @@ export default function File ({ file }: FileProps) {
       }
 
       setFileDownloadData(res)
-      setIframeURL(fileDataURL)
+
+      if (file.fileType.includes('image')) {
+        setIframeURL(res.url)
+      } else {
+        setIframeURL(fileDataURL)
+      }
+
       setFileError(false)
 
       localStorage.setItem(`fileDownloadData-${fileId}`, JSON.stringify({
@@ -175,7 +190,7 @@ export default function File ({ file }: FileProps) {
     >
       <LinkText
         href={
-          localStorage.getItem('selected-course') != null ? '/courses/course' : '/bookmarks'
+          localStorage.getItem('selected-course') != null ? '/courses/course' : '/files'
         }
         content='Volver'
       />
@@ -220,16 +235,9 @@ export default function File ({ file }: FileProps) {
       </div>
       {
         fileError ? (
-          <span
-            className={`
-              text-red-500
-              text-lg
-              font-semibold
-              mt-2
-            `}
-          >
-            Error al cargar el archivo
-          </span>
+          <SmallTextError
+            content='Error al cargar el archivo'
+          />
         ) : (
           fileDownloadData == null || iframeURL == null ? (
             <LoadingIcon
@@ -242,21 +250,43 @@ export default function File ({ file }: FileProps) {
                 flex-col
                 h-full
                 mt-2
+                gap-2
               `}
             >
               <Button
                 content='DESCARGAR'
                 onClick={downloadFile}
               />
-              <iframe
-                src={iframeURL}
-                className={`
-                  mt-2
-                  h-full
-                  w-full
-                  rounded-md
-                `}
-              />
+              {
+                file.extension !== 'pdf' ? (
+                  file.fileType.includes('image') ? (
+                    <Image
+                      src={iframeURL}
+                      alt={file.name}
+                      width={500}
+                      height={500}
+                      className={`
+                        w-full
+                        h-full
+                        object-contain
+                      `}
+                    />
+                  ) : (
+                    <SmallTextError
+                      content='La previsualización de este archivo no está disponible'
+                    />
+                  )
+                ) : (
+                  <iframe
+                    src={iframeURL}
+                    className={`
+                      h-full
+                      w-full
+                      rounded-md
+                    `}
+                  />
+                )
+              }
             </div>
           )
         )

@@ -17,8 +17,8 @@ const tabs = [
     icon: <GoMortarBoard />
   },
   {
-    name: 'Guardados',
-    href: '/bookmarks',
+    name: 'Archivos',
+    href: '/files',
     icon: <GoBookmark />
   },
   {

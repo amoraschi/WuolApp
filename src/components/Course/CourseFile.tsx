@@ -35,7 +35,7 @@ export default function CourseFile ({ file }: CourseFilesProps) {
         }
 
         localStorage.setItem('selected-file', JSON.stringify(res))
-        router.replace('/bookmarks/file')
+        router.replace('/files/file')
       } else {
         // Folder
         const res = await fetchFolderData(`${file.entityId}`)
@@ -44,7 +44,7 @@ export default function CourseFile ({ file }: CourseFilesProps) {
         }
 
         localStorage.setItem('selected-folder', JSON.stringify(res))
-        router.replace('/bookmarks/folder')
+        router.replace('/files/folder')
       }
     }
 

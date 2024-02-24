@@ -11,12 +11,8 @@ export default function FolderFile ({ file }: FolderFilesProps) {
   const router = useRouter()
 
   const onClick = () => {
-    if (file.extension !== 'pdf') {
-      return
-    }
-
     localStorage.setItem('selected-file', JSON.stringify(file))
-    router.replace('/bookmarks/file')
+    router.replace('/files/file')
   }
 
   return (
