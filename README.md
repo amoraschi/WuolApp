@@ -2,13 +2,9 @@
   WuolApp
 </h2>
 
-<h4 align="center">
-  <b>
-    Aplicación para acceder a Wuolah desde el ordenador, sin tener que aguantar los anuncios
-  </b>
-</h4>
-
----
+<h3 align="center">
+  Aplicación para acceder a Wuolah desde el ordenador, sin tener que aguantar los anuncios
+</h3>
 
 <h4>
   ¿Cómo usar la aplicación?
