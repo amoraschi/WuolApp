@@ -7,8 +7,8 @@
 </h3>
 
 <p align="center">
-  <img src="https://i.imgur.com/PVjytYx.png" width=500 />
-  <img src="https://i.imgur.com/kVHUFuR.png" width=500 />
+  <img src="https://i.imgur.com/PVjytYx.png" width=450 />
+  <img src="https://i.imgur.com/kVHUFuR.png" width=450 />
 </p>
 
 <h4>
