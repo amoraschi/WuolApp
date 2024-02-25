@@ -3,7 +3,7 @@
 </h2>
 
 <h3 align="center">
-  Aplicación para acceder a Wuolah desde el ordenador, sin tener que aguantar los anuncios
+  Aplicación para acceder a Wuolah desde el ordenador
 </h3>
 
 <p align="center">
