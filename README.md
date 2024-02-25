@@ -11,6 +11,8 @@
   <img src="https://i.imgur.com/kVHUFuR.png" width=400 />
 </p>
 
+---
+
 <h4>
   ¿Cómo usar la aplicación?
 </h4>
@@ -22,3 +24,7 @@
 
 > [!WARNING]
 > Solo funciona si se inicia sesión con una cuenta de Wuolah, no funciona con cuentas vinculadas de Google
+
+---
+
+_This software is provided for educational use only, the author shall not take any responsibility for it._
